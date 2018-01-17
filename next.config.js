@@ -5,7 +5,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const { ANALYZE } = process.env
 
 module.exports = {
-  exportPathMap: function() {
+  exportPathMap: function () {
     return {
       '/': { page: '/' },
       '/about': { page: '/about' },
