@@ -2,11 +2,13 @@
   "name": "starter",
   "scripts": {
     "cm": "git-cz",
-    "commitmsg": "validate-commit-msg",
     "dev": "next",
     "start": "next build && next start",
     "export": "next build && next export",
-    "analyze": "cross-env ANALYZE=1 next build"
+    "lint": "eslint ./pages ./components",
+    "analyze": "cross-env ANALYZE=1 next build",
+    "commitmsg": "validate-commit-msg",
+    "prepush": "npm run lint"
   },
   "config": {
     "commitizen": {
@@ -34,9 +36,18 @@
     "style-loader": "^0.19.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.1",
     "commitizen": "^2.9.6",
     "cross-env": "^5.1.3",
     "cz-conventional-changelog": "^2.1.0",
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-config-standard-react": "^5.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-react": "^7.5.1",
+    "eslint-plugin-standard": "^3.0.1",
     "husky": "^0.14.3",
     "validate-commit-msg": "^2.14.0",
     "webpack-bundle-analyzer": "^2.9.2"
