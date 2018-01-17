@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-unfetch'
 
-import withLayout from '~/hoc/withLayout'
-
 const aboutPage = ({repos}) =>
   <div>
     <p>@daftcode's repos:</p>
@@ -14,9 +12,7 @@ const aboutPage = ({repos}) =>
     </ul>
   </div>
 
-const aboutPageWithLayout = withLayout(aboutPage)
-
-aboutPageWithLayout.getInitialProps = async function () {
+aboutPage.getInitialProps = async function () {
   const res = await fetch('https://api.github.com/users/daftcode/repos')
   const data = await res.json()
 
@@ -25,4 +21,4 @@ aboutPageWithLayout.getInitialProps = async function () {
   }
 }
 
-export default aboutPageWithLayout
+export default aboutPage
