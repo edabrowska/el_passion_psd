@@ -1,11 +1,29 @@
 {
-  "presets": ["next/babel"],
-  "plugins": [
-    ["babel-plugin-root-import", [{
-      "rootPathSuffix": "components"
-    }, {
-      "rootPathPrefix": "@",
-      "rootPathSuffix": "styles"
-    }]]
-  ]
+  "env" : {
+    "all" : {
+      "presets": ["next/babel"],
+      "plugins": [
+        ["babel-plugin-root-import", [{
+          "rootPathSuffix": "components"
+        }, {
+          "rootPathPrefix": "@",
+          "rootPathSuffix": "styles"
+        }]]
+      ]
+    },
+    "test": {
+      "presets": [
+        ["env", { "modules": "commonjs" }],
+        "next/babel"
+      ],
+      "plugins": [
+        ["babel-plugin-root-import", [{
+          "rootPathSuffix": "components"
+        }, {
+          "rootPathPrefix": "@",
+          "rootPathSuffix": "styles"
+        }]]
+      ]
+    }
+  }
 }
