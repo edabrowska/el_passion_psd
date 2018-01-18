@@ -20,6 +20,7 @@ And then it adds:
 - testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [eslint](https://eslint.org/) configured with [standard](https://standardjs.com/)
 - [commitizen](https://commitizen.github.io) & [automatic changelog](https://github.com/leonardoanalista/corp-semantic-release)
+- [storybook](https://storybook.js.org/)
 
 ## What is next.js
 
@@ -63,6 +64,14 @@ Run `$ npm run lint` for a linting report. Linter will also be run before pushin
 ## Fetching data
 
 When server-rendering, the server can fetch data and send already pre-filled HTML to the client. For an example of how to do that, see `pages/about.js`. Of course you're still free to fetch on client side.
+
+## Storybook
+
+[Storybook](https://storybook.js.org/) is a UI development environment, which also can serve as styleguide.
+
+Run `$ npm run storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:9001/)
+
+To build a static HTML version (to deploy as a styleguide perhaps), run `$ npm run storybook:build`. Note that [because reasons](https://github.com/zeit/next.js/issues/1788#issuecomment-322843264) the assets from the `static` directory will not be available in static HTML build.
 
 ## Commiting & changelog
 

@@ -9,6 +9,8 @@
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
     "test-ci": "jest --coverage",
+    "storybook": "BABEL_ENV=all start-storybook -s ./ -p 9001",
+    "storybook:build": "BABEL_ENV=all build-storybook -o styleguide",
     "release": "corp-semantic-release",
     "analyze": "cross-env BABEL_ENV=all ANALYZE=1 next build",
     "commitmsg": "validate-commit-msg",
@@ -45,6 +47,7 @@
     "style-loader": "^0.19.1"
   },
   "devDependencies": {
+    "@storybook/react": "^3.3.9",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.1.0",
