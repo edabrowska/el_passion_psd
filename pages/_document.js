@@ -2,7 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 
 import Header from '~/Header'
-import stylesheet from '@/global.sass'
+import stylesheet from '+/global.sass'
 
 export default class MyDocument extends Document {
   static getInitialProps ({ renderPage }) {

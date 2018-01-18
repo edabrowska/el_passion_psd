@@ -6,7 +6,7 @@
         ["babel-plugin-root-import", [{
           "rootPathSuffix": "components"
         }, {
-          "rootPathPrefix": "@",
+          "rootPathPrefix": "+",
           "rootPathSuffix": "styles"
         }]]
       ]
@@ -20,7 +20,7 @@
         ["babel-plugin-root-import", [{
           "rootPathSuffix": "components"
         }, {
-          "rootPathPrefix": "@",
+          "rootPathPrefix": "+",
           "rootPathSuffix": "styles"
         }]]
       ]
