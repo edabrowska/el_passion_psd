@@ -1,8 +1,11 @@
 const path = require('path')
 const glob = require('glob')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
+let BundleAnalyzerPlugin
 const { ANALYZE } = process.env
+if (ANALYZE) {
+  BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+}
 
 module.exports = {
   exportPathMap: function () {

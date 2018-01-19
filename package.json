@@ -4,8 +4,9 @@
   "scripts": {
     "cm": "git-cz",
     "dev": "BABEL_ENV=all next",
-    "start": "BABEL_ENV=all next build && next start",
-    "export": "BABEL_ENV=all next build && next export",
+    "start": "npm run build && next start",
+    "export": "npm run build && next export",
+    "build": "BABEL_ENV=all next build",
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
     "test-ci": "jest --coverage",

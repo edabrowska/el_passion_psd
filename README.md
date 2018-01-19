@@ -21,6 +21,7 @@ And then it adds:
 - [eslint](https://eslint.org/) configured with [standard](https://standardjs.com/)
 - [commitizen](https://commitizen.github.io) & [automatic changelog](https://github.com/leonardoanalista/corp-semantic-release)
 - [storybook](https://storybook.js.org/)
+- [docker](https://www.docker.com/)
 
 ## What is next.js
 
@@ -78,6 +79,10 @@ To build a static HTML version (to deploy as a styleguide perhaps), run `$ npm r
 This repo uses [commitizen](https://commitizen.github.io), so instead of `$ git commit ...` use `$ npm run cm` or install commitizen globally and then use `$ git cz`.
 
 To generate changelog, tag a new version, and push to code to remote, run `$ npm run release`.
+
+## Docker
+
+To run the application in a docker container, first build the image with `$ docker build .`, then `$ docker run -P -d <image-id>` to expose all ports (`-P`) and run in detached mode (`-d`). Using [Kitematic](https://kitematic.com/) will make your life easier.
 
 ## Bundle analysis
 
