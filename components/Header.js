@@ -1,8 +1,17 @@
-import Link from 'next/link'
+import { withRouter } from 'next/router'
 
-export default () =>
+import Link from '~/Link'
+
+const getLinkProps = (href, path) => ({
+  href,
+  style: {fontWeight: path === href ? 'bold' : 'regular'}
+})
+
+const Header = ({router}) =>
   <div>
-    <Link href='/'><a>home</a></Link>
+    <Link {...getLinkProps('/', router.asPath)}>home</Link>
     <br />
-    <Link href='/about'><a>about</a></Link>
+    <Link {...getLinkProps('/about', router.asPath)}>about</Link>
   </div>
+
+export default withRouter(Header)
