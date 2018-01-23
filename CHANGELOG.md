@@ -1,3 +1,19 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://gitlab.int.daftup.com/daftup/frontend/spark/compare/v1.0.0...v1.1.0) (2018-01-23)
+
+
+### Bug Fixes
+
+* **babel:** change import prefix for styles to '+' ([06a6ce6](https://gitlab.int.daftup.com/daftup/frontend/spark/commit/06a6ce6))
+
+
+### Features
+
+* **docker:** configure and document Docker usage ([5523fe4](https://gitlab.int.daftup.com/daftup/frontend/spark/commit/5523fe4))
+* **storybook:** configure storybook ([b408cbd](https://gitlab.int.daftup.com/daftup/frontend/spark/commit/b408cbd))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2018-01-17)
 
