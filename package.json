@@ -13,6 +13,7 @@
     "storybook": "BABEL_ENV=all start-storybook -s ./ -p 9001",
     "storybook:build": "BABEL_ENV=all build-storybook -o styleguide",
     "release": "corp-semantic-release",
+    "postversion": "git add package-lock.json",
     "analyze": "cross-env BABEL_ENV=all ANALYZE=1 next build",
     "commitmsg": "validate-commit-msg",
     "prepush": "npm run lint"
