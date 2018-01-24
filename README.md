@@ -2,6 +2,9 @@
 
 a template for web apps and static websites
 
+[![build status](https://gitlab.int.daftup.com/daftup/frontend/spark/badges/master/build.svg)](https://gitlab.int.daftup.com/daftup/frontend/spark/commits/master)
+[![coverage report](https://gitlab.int.daftup.com/daftup/frontend/spark/badges/master/coverage.svg)](https://gitlab.int.daftup.com/daftup/frontend/spark/commits/master)
+
 ## Key features
 
 It's built on top of [next.js](https://github.com/zeit/next.js/), so:
