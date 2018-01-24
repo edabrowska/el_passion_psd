@@ -3,6 +3,7 @@
     "all" : {
       "presets": ["next/babel"],
       "plugins": [
+        "transform-decorators-legacy",
         ["babel-plugin-root-import", [{
           "rootPathSuffix": "components"
         }, {
@@ -17,6 +18,7 @@
         "next/babel"
       ],
       "plugins": [
+        "transform-decorators-legacy",
         ["babel-plugin-root-import", [{
           "rootPathSuffix": "components"
         }, {
