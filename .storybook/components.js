@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import ImageTag from '~/ImageTag'
+import ImageTag from '~/components/ImageTag'
 
 storiesOf('ImageTag')
   .add('with logo.svg', () => (

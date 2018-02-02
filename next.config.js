@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
 
@@ -6,6 +7,9 @@ const { ANALYZE } = process.env
 if (ANALYZE) {
   BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 }
+
+const { createHashFile } = require('./scripts/helpers.js')
+createHashFile()
 
 module.exports = {
   exportPathMap: function () {
@@ -22,6 +26,12 @@ module.exports = {
         openAnalyzer: true
       }))
     }
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.STATIC_EXPORT': !!process.env.STATIC_EXPORT,
+      })
+    )
 
     config.module.rules.push(
       {

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 
-import withLayout from '~/hoc/withLayout'
+import withLayout from '~/components/hoc/withLayout'
 
 const aboutPage = ({repos}) =>
   <div>

@@ -1,6 +1,6 @@
 import { withRouter } from 'next/router'
 
-import Link from '~/Link'
+import Link from '~/components/Link'
 
 const getLinkProps = (href, path) => ({
   href,

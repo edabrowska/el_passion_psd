@@ -1,7 +1,7 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 
-import ImageTag from '~/ImageTag'
+import ImageTag from '~/components/ImageTag'
 
 describe('ImageTag', () => {
   const imgPath = 'test.png'

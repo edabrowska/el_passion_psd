@@ -1,5 +1,5 @@
-import withLayout from '~/hoc/withLayout'
-import ImageTag from '~/ImageTag'
+import withLayout from '~/components/hoc/withLayout'
+import ImageTag from '~/components/ImageTag'
 
 export default withLayout(() =>
   <div>

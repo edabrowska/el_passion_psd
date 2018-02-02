@@ -3,20 +3,22 @@
   "name": "starter",
   "scripts": {
     "cm": "git-cz",
-    "dev": "BABEL_ENV=all next",
+    "dev": "cross-env BABEL_ENV=all next",
     "start": "npm run build && next start",
-    "export": "npm run build && next export",
-    "build": "BABEL_ENV=all next build",
+    "export": "npm run build-export && cross-env STATIC_EXPORT=1 next export && node scripts/after-export.js",
+    "build-export": "node scripts/static-hash.js && cross-env BABEL_ENV=all STATIC_EXPORT=1 next build",
+    "build": "cross-env BABEL_ENV=all next build",
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
     "test-ci": "jest --coverage",
-    "storybook": "BABEL_ENV=all start-storybook -s ./ -p 9001",
-    "storybook:build": "BABEL_ENV=all build-storybook -o styleguide",
+    "storybook": "cross-env BABEL_ENV=all start-storybook -s ./ -p 9001",
+    "storybook:build": "cross-env BABEL_ENV=all build-storybook -o styleguide",
     "release": "corp-semantic-release",
     "postversion": "git add package-lock.json",
     "analyze": "cross-env BABEL_ENV=all ANALYZE=1 next build",
     "commitmsg": "validate-commit-msg",
-    "prepush": "npm run lint"
+    "prepush": "npm run lint",
+    "clean": "rm -rf .next out"
   },
   "config": {
     "commitizen": {
@@ -46,6 +48,7 @@
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "rev-hash": "^2.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1"
   },

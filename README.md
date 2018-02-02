@@ -44,7 +44,7 @@ Get acquianted with next.js by doing [this lovely tutorial](learnnextjs.com), re
 This project is using `babel-plugin-root-import` to enable absolute linking for modules, using prefixes - `~` for `/components` and `+` for `/styles`:
 
 ```javascript
-import MyComponent from '~/MyComponent'
+import MyComponent from '~/components/MyComponent'
 import styles from '+/style.sass'
 ```
 
@@ -55,6 +55,10 @@ what | node app | static assets
 why | server-side rendering, prefetching, etc. | use cheap hosting such as AWS S3
 how | `$ npm start` and you're done | `$ npm run export` and then serve the contents of `out` directory
 remarks | nope | you need to declare all exported pages in `exportPathMap` in `next.config.js` file
+
+## Static export
+
+When exporting to static files (`$ npm run export`), all files in the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
 
 ## Testing ([jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/))
 
