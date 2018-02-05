@@ -56,14 +56,6 @@ why | server-side rendering, prefetching, etc. | use cheap hosting such as AWS S
 how | `$ npm start` and you're done | `$ npm run export` and then serve the contents of `out` directory
 remarks | nope | you need to declare all exported pages in `exportPathMap` in `next.config.js` file
 
-## Static export
-
-When exporting to static files (`$ npm run export`), all files in the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
-
-Unfortunately, there are two code smells necessary ([related issue](https://github.com/zeit/next.js/issues/2534)):
-1. the build has to run twice - first time just so the styles are extracted and so available for `static-hash.js` script
-2. see comment in `OnDonePlugin` function in `next.config.js`
-
 ## Testing ([jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/))
 
 - `$ npm t` to run tests in watch mode.
@@ -72,6 +64,14 @@ Unfortunately, there are two code smells necessary ([related issue](https://gith
 ## Linting ([eslint](https://eslint.org/) configured with [standard](https://standardjs.com/))
 
 Run `$ npm run lint` for a linting report. Linter will also be run before pushing to remote.
+
+## Static export
+
+When exporting to static files (`$ npm run export`), all files in the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
+
+Unfortunately, there are two code smells necessary ([related issue](https://github.com/zeit/next.js/issues/2534)):
+1. the build has to run twice - first time so the styles are extracted, to be available for `static-hash.js` script
+2. see comment in `OnDonePlugin` function in `next.config.js`
 
 ## Fetching data
 
@@ -98,7 +98,3 @@ To run the application in a docker container, first build the image with `$ dock
 ## Bundle analysis
 
 Run `$ npm run analyze` to see what makes your bundles so fat.
-
-## todo
-- extracting CSS bundle for production
-- static asset hashes for static website export
