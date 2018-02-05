@@ -7,3 +7,4 @@ styleguide
 
 static-hashed
 src/static-hash.json
+static/global.css

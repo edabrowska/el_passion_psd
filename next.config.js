@@ -1,6 +1,10 @@
+/* eslint-disable no-console */
+
 const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
+const mv = require('mv')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 let BundleAnalyzerPlugin
 const { ANALYZE } = process.env
@@ -10,6 +14,31 @@ if (ANALYZE) {
 
 const { createHashFile } = require('./scripts/helpers.js')
 createHashFile()
+const { GLOBAL_CSS_FILENAME } = require('./scripts/consts.js')
+
+function OnDonePlugin () {}
+OnDonePlugin.prototype.apply = (compiler) => {
+  compiler.plugin('done', () => {
+    // next.js does not provide an after-build callback, and makes the path passed to ExtractTextPlugin
+    // relative to .next dir, so here we wait 1s for the build to be output to .next dir and mv it
+    setTimeout(() => {
+      mv(`.next/${GLOBAL_CSS_FILENAME}`, `static/${GLOBAL_CSS_FILENAME}`, (err) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(`\nmoved ${GLOBAL_CSS_FILENAME} to static\n`)
+        }
+      })
+    }, 1000)
+  })
+}
+
+const emitLoaderConfig = {
+  loader: 'emit-file-loader',
+  options: {
+    name: 'dist/[path][name].[ext]'
+  }
+}
 
 module.exports = {
   exportPathMap: function () {
@@ -18,7 +47,7 @@ module.exports = {
       '/about': { page: '/about' },
     }
   },
-  webpack: function (config) {
+  webpack: function (config, {dev}) {
     if (ANALYZE) {
       config.plugins.push(new BundleAnalyzerPlugin({
         analyzerMode: 'server',
@@ -30,16 +59,23 @@ module.exports = {
     config.plugins.push(
       new webpack.DefinePlugin({
         'process.env.STATIC_EXPORT': !!process.env.STATIC_EXPORT,
-      })
+      }),
     )
+
+    if (!dev) {
+      config.plugins.push(
+        new OnDonePlugin(),
+        new ExtractTextPlugin(GLOBAL_CSS_FILENAME),
+      )
+    }
 
     config.module.rules.push(
       {
         test: /\.(css|sass)/,
-        loader: 'emit-file-loader',
-        options: {
-          name: 'dist/[path][name].[ext]'
-        }
+        ...dev ?
+          emitLoaderConfig
+          :
+          {use: ExtractTextPlugin.extract({use: emitLoaderConfig})}
       },
       {
         test: /\.css$/,

@@ -14,3 +14,5 @@ export const getStaticFilePath = (path) => {
 
   return `${STATIC_DIR}${filePath}`
 }
+
+export const IS_PRODUCTION = process.env.NODE_ENV === 'production'

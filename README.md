@@ -60,6 +60,10 @@ remarks | nope | you need to declare all exported pages in `exportPathMap` in `n
 
 When exporting to static files (`$ npm run export`), all files in the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
 
+Unfortunately, there are two code smells necessary ([related issue](https://github.com/zeit/next.js/issues/2534)):
+1. the build has to run twice - first time just so the styles are extracted and so available for `static-hash.js` script
+2. see comment in `OnDonePlugin` function in `next.config.js`
+
 ## Testing ([jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/))
 
 - `$ npm t` to run tests in watch mode.
