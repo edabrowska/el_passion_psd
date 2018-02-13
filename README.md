@@ -20,6 +20,7 @@ It's built on top of [next.js](https://github.com/zeit/next.js/), so:
 And then it adds:
 
 - styling: sass support & [normalize.css](https://necolas.github.io/normalize.css/) & [autoprefixing](http://cssnext.io/) & [minification](http://cssnano.co/) all via [PostCSS](http://postcss.org/)
+- [redux](https://redux.js.org/)
 - testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [eslint](https://eslint.org/) configured with [standard](https://standardjs.com/)
 - [commitizen](https://commitizen.github.io) & [automatic changelog](https://github.com/leonardoanalista/corp-semantic-release)
@@ -55,6 +56,10 @@ what | node app | static assets
 why | server-side rendering, prefetching, etc. | use cheap hosting such as AWS S3
 how | `$ npm start` and you're done | `$ npm run export` and then serve the contents of `out` directory
 remarks | nope | you need to declare all exported pages in `exportPathMap` in `next.config.js` file
+
+## Redux
+
+Is pre-configured. If you'd rather not have it, revert commit 2aad8e304c2a97aba0ac47de224888bf4347f7cf or just remove `src/store`, and update `withLayout.js` and `package.json`
 
 ## Testing ([jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/))
 
