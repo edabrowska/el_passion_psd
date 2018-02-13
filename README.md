@@ -37,6 +37,7 @@ Get acquianted with next.js by doing [this lovely tutorial](learnnextjs.com), re
 
 1. make sure you have [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm) installed
 1. `$ npm install`
+1. (`$ npm run new` - optional, updates readme and stuff)
 1. `$ npm run dev`
 1. bang! visit [localhost:3000](http://localhost:3000/) there it is
 
