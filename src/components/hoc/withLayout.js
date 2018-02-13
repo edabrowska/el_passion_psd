@@ -1,13 +1,26 @@
 import React from 'react'
 import Head from 'next/head'
+import withRedux from 'next-redux-wrapper'
 
 import Header from '~/components/Header'
 import stylesheet from '+/global.sass'
 import { getStaticFilePath, IS_PRODUCTION } from '~/utils/helpers'
 import { GLOBAL_CSS_FILENAME } from '~/../scripts/consts'
+import initStore from '~/store'
+import actions from '~/store/actions'
 
 export default (WrappedComponent) => {
-  return class withLayout extends React.Component {
+  @withRedux(
+    initStore,
+    ({main}) => (main),
+    {
+      setThing: actions.setThing,
+    }
+  )
+  class withLayout extends React.Component {
+    componentDidMount () {
+      this.props.setThing({number: 42})
+    }
     render () {
       return (
         <div>
@@ -27,4 +40,5 @@ export default (WrappedComponent) => {
       )
     }
   }
+  return withLayout
 }
