@@ -1,20 +1,11 @@
-import { withRouter } from 'next/router'
-
 import Link from '~/components/Link'
 import Logo from '~/svg/logo.svg'
 
-const getLinkProps = (href, path) => ({
-  href,
-  style: {fontWeight: path === href ? 'bold' : 'regular'}
-})
-
-const Header = ({router}) =>
+export default () =>
   <div>
-    <Link {...getLinkProps('/', router.asPath)}>
+    <Link href='/'>
       <Logo width='180px' />
     </Link>
     <br />
-    <Link {...getLinkProps('/about', router.asPath)}>about</Link>
+    <Link href='/about'>about</Link>
   </div>
-
-export default withRouter(Header)
