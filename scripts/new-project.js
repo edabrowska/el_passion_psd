@@ -9,7 +9,7 @@ const packageLock = require('../package-lock.json')
 
 const FILES = {
   readme: 'README.md',
-  readmeTemplate: 'README-template.md',
+  readmeTemplate: 'template-readme.md',
   packageData: 'package.json',
   packageLock: 'package-lock.json',
 }
