@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+const { exec } = require('child_process')
 const fs = require('fs')
 const inquirer = require('inquirer')
 const gitConfig = require('git-config')
@@ -95,10 +96,25 @@ const QUESTIONS = [
   },
 ]
 
-removePages(['about'])
+const runTheThing = () => {
+  removePages(['about'])
 
-inquirer.prompt(QUESTIONS).then(answers => {
-  updateProjectFiles(answers)
-  updateSrcFiles(answers)
-  console.log(`\nProject ${answers.name} set up`)
+  inquirer.prompt(QUESTIONS).then(answers => {
+    updateProjectFiles(answers)
+    updateSrcFiles(answers)
+    exec(`git add . && git commit -m "feat: setup project ${answers.name}"`)
+    console.log(`\nProject ${answers.name} set up.\n`)
+  })
+}
+
+exec('git status --porcelain', (err, stdout) => {
+  if (err) {
+    console.log(err)
+    process.exit(1)
+  } else if (stdout.length) {
+    console.log('Please commit or stash changes before proceeding.')
+    process.exit()
+  } else {
+    runTheThing()
+  }
 })
