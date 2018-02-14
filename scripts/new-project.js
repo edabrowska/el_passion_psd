@@ -6,12 +6,26 @@ const gitConfig = require('git-config')
 
 const packageData = require('../package.json')
 const packageLock = require('../package-lock.json')
+const exportsMap = require('../exports-map.js')
 
 const FILES = {
   readme: 'README.md',
   readmeTemplate: 'template-readme.md',
   packageData: 'package.json',
   packageLock: 'package-lock.json',
+  exportsMap: 'exports-map.js',
+}
+const saveJSFile = (file, contents) => fs.writeFileSync(file, JSON.stringify(contents, null, '  '))
+
+const removePages = (pages) => {
+  pages.map(page => {
+    fs.unlinkSync(`pages/${page}.js`)
+    delete exportsMap[`/${page}`]
+  })
+  fs.writeFileSync(
+    FILES.exportsMap,
+    `module.exports = ${JSON.stringify(exportsMap, null, '  ').replace(/"/g, '\'')}\n`
+  )
 }
 
 const replacements = [
@@ -50,8 +64,8 @@ const updateProjectFiles = async (config) => {
   }
 
   fs.writeFileSync(FILES.readme, readmeFile)
-  fs.writeFileSync(FILES.packageData, JSON.stringify(newPackage, null, '  '))
-  fs.writeFileSync(FILES.packageLock, JSON.stringify(newPackageLock, null, '  '))
+  saveJSFile(FILES.packageData, newPackage)
+  saveJSFile(FILES.packageLock, newPackageLock)
   fs.unlinkSync(FILES.readmeTemplate)
 }
 
@@ -69,6 +83,8 @@ const QUESTIONS = [
     }
   },
 ]
+
+removePages(['about'])
 
 inquirer.prompt(QUESTIONS).then(answers => {
   updateProjectFiles(answers)

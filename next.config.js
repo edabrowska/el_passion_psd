@@ -6,6 +6,8 @@ const glob = require('glob')
 const mv = require('mv')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
+const exportsMap = require('./exports-map.js')
+
 let BundleAnalyzerPlugin
 const { ANALYZE } = process.env
 if (ANALYZE) {
@@ -42,10 +44,7 @@ const emitLoaderConfig = {
 
 module.exports = {
   exportPathMap: function () {
-    return {
-      '/': { page: '/' },
-      '/about': { page: '/about' },
-    }
+    return exportsMap
   },
   webpack: function (config, {dev}) {
     if (ANALYZE) {
