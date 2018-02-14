@@ -1,7 +1,5 @@
 import fetch from 'isomorphic-unfetch'
 
-import withLayout from '~/components/hoc/withLayout'
-
 const aboutPage = ({repos}) =>
   <div>
     <p>@daftcode's repos:</p>
@@ -14,9 +12,13 @@ const aboutPage = ({repos}) =>
     </ul>
   </div>
 
-const aboutPageWithLayout = withLayout(aboutPage)
+/**
+ * `getInitialProps` would interfere with `withRedux` if `withLayout` was used for this page.
+ * If fetching data in `getInitialProps` *and* redux are needed, they need to be combined
+ * in and async action - use redux-thunk or redux-saga for that.
+ */
 
-aboutPageWithLayout.getInitialProps = async function () {
+aboutPage.getInitialProps = async function () {
   const res = await fetch('https://api.github.com/users/daftcode/repos')
   const data = await res.json()
 
@@ -25,4 +27,4 @@ aboutPageWithLayout.getInitialProps = async function () {
   }
 }
 
-export default aboutPageWithLayout
+export default aboutPage
