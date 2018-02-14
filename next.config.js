@@ -18,12 +18,15 @@ const { createHashFile } = require('./scripts/helpers.js')
 createHashFile()
 const { GLOBAL_CSS_FILENAME } = require('./scripts/consts.js')
 
-function OnDonePlugin () {}
-OnDonePlugin.prototype.apply = (compiler) => {
+function OnDonePlugin (isServer) {
+  this.isServer = isServer
+}
+OnDonePlugin.prototype.apply = function (compiler) {
+  const isServer = this.isServer
   compiler.plugin('done', () => {
     // next.js does not provide an after-build callback, and makes the path passed to ExtractTextPlugin
     // relative to .next dir, so here we wait 1s for the build to be output to .next dir and mv it
-    setTimeout(() => {
+    !isServer && setTimeout(() => {
       mv(`.next/${GLOBAL_CSS_FILENAME}`, `static/${GLOBAL_CSS_FILENAME}`, (err) => {
         if (err) {
           console.log(err)
@@ -43,10 +46,8 @@ const emitLoaderConfig = {
 }
 
 module.exports = {
-  exportPathMap: function () {
-    return exportsMap
-  },
-  webpack: function (config, {dev}) {
+  exportPathMap: () => exportsMap,
+  webpack: function (config, {dev, isServer}) {
     if (ANALYZE) {
       config.plugins.push(new BundleAnalyzerPlugin({
         analyzerMode: 'server',
@@ -63,7 +64,7 @@ module.exports = {
 
     if (!dev) {
       config.plugins.push(
-        new OnDonePlugin(),
+        new OnDonePlugin(isServer),
         new ExtractTextPlugin(GLOBAL_CSS_FILENAME),
       )
     }
