@@ -14,8 +14,17 @@ const FILES = {
   packageData: 'package.json',
   packageLock: 'package-lock.json',
   exportsMap: 'exports-map.js',
+  withLayout: 'src/components/hoc/withLayout.js',
 }
 const saveJSFile = (file, contents) => fs.writeFileSync(file, JSON.stringify(contents, null, '  '))
+
+const updateSrcFiles = ({pageTitle}) => {
+  const withLayout = fs.readFileSync(FILES.withLayout, 'utf8')
+  fs.writeFileSync(
+    FILES.withLayout,
+    withLayout.replace('Spark', pageTitle)
+  )
+}
 
 const removePages = (pages) => {
   pages.map(page => {
@@ -55,12 +64,12 @@ const updateProjectFiles = async (config) => {
 
   const newPackage = {
     ...packageData,
-    ...config,
+    name: config.name,
     author: `${name} <${email}>`,
   }
   const newPackageLock = {
     ...packageLock,
-    ...config,
+    name: config.name,
   }
 
   fs.writeFileSync(FILES.readme, readmeFile)
@@ -75,12 +84,14 @@ const QUESTIONS = [
     name: 'name',
     message: 'Project Name',
     validate: (value) => {
-      if (value.length > 0) {
-        return true
-      }
-
-      return 'Please enter a project name'
+      return value.length > 0 || 'Please enter a project name'
     }
+  },
+  {
+    type: 'input',
+    name: 'pageTitle',
+    message: 'Page Title',
+    default: ({name}) => name,
   },
 ]
 
@@ -88,5 +99,6 @@ removePages(['about'])
 
 inquirer.prompt(QUESTIONS).then(answers => {
   updateProjectFiles(answers)
+  updateSrcFiles(answers)
   console.log(`\nProject ${answers.name} set up`)
 })
