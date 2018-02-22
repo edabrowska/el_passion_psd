@@ -19,7 +19,13 @@
     "commitmsg": "validate-commit-msg",
     "prepush": "npm run lint",
     "clean": "rm -rf .next out static/global.css src/static-hash.json",
-    "new": "node scripts/new-project.js"
+    "new": "node scripts/new-project.js",
+    "deploy:staging:setup": "pm2 deploy deploy.config.js staging setup",
+    "deploy:staging:perform": "pm2 deploy deploy.config.js staging",
+    "deploy:staging": "test -d \"./source\" && npm run deploy:staging:perform || (npm run deploy:staging:setup && npm run deploy:staging:perform)",
+    "deploy:production:setup": "pm2 deploy deploy.config.js production setup",
+    "deploy:production:perform": "pm2 deploy deploy.config.js production",
+    "deploy:production": "test -d \"./source\" && npm run deploy:production:perform || (npm run deploy:production:setup && npm run deploy:staging:perform)"
   },
   "config": {
     "commitizen": {
@@ -84,6 +90,7 @@
     "husky": "^0.14.3",
     "inquirer": "^5.1.0",
     "jest-cli": "^22.1.2",
+    "pm2": "^2.10.1",
     "validate-commit-msg": "^2.14.0",
     "webpack-bundle-analyzer": "^2.9.2"
   }

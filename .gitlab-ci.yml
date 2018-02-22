@@ -1,15 +1,46 @@
-# Official framework image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/node/tags/
 image: node:alpine
 
-# This folder is cached between builds
-# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+stages:
+  - test
+  - deploy
+
 cache:
   paths:
-  - node_modules/
+    - node_modules/
 
-test_async:
+test:
+  stage: test
   script:
-   - npm i
-   - npm run test-ci
-   - npm run lint
+    - npm i
+    - npm run test-ci
+    - npm run lint
+
+.before_deploy: &before_deploy
+  - npm i
+  - apk update && apk upgrade
+  - apk add git openssh bash
+  - eval $(ssh-agent -s)
+  - ssh-add
+
+deploy_staging:
+  stage: deploy
+  before_script: *before_deploy
+  script:
+    - echo change to "npm run deploy:staging"
+  environment:
+    name: staging
+    url: http://spark.int.daftup.com
+  only:
+    - master
+
+deploy_production:
+  stage: deploy
+  before_script: *before_deploy
+  script:
+    - echo change to "npm run deploy:production"
+  environment:
+    name: production
+    url: http://spark.daftup.com
+  when: manual
+  only:
+    - master
