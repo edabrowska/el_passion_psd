@@ -58,6 +58,10 @@ why | server-side rendering, prefetching, etc. | use cheap hosting such as AWS S
 how | `$ npm start` and you're done | `$ npm run export` and then serve the contents of `out` directory
 remarks | nope | you need to declare all exported pages in `exportPathMap` in `next.config.js` file
 
+### deployment with gitlab
+
+Handled by [pm2 deploy](http://pm2.keymetrics.io/docs/usage/deployment/), preconfigured via `gitlab-ci.yml` & `deploy.config.js`. To activate, change those files accordingly.
+
 ## Redux
 
 Is pre-configured. If you'd rather not have it, revert commit 2aad8e304c2a97aba0ac47de224888bf4347f7cf or just remove `src/store`, and update `withLayout.js` and `package.json`
