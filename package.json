@@ -3,11 +3,11 @@
   "name": "spark",
   "scripts": {
     "cm": "git-cz",
-    "dev": "cross-env BABEL_ENV=all next",
-    "start": "npm run build && next start",
+    "dev": "cross-env BABEL_ENV=all node server.js",
+    "start": "npm run build && NODE_ENV=production node server.js",
     "export": "npm run build-export && cross-env STATIC_EXPORT=1 next export && node scripts/after-export.js",
     "build-export": "npm run build && node scripts/static-hash.js && cross-env BABEL_ENV=all STATIC_EXPORT=1 next build",
-    "build": "cross-env BABEL_ENV=all next build",
+    "build": "cross-env BABEL_ENV=all next build && cp manifest.json .next/manifest.json",
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
     "test-ci": "jest --coverage",
@@ -65,7 +65,8 @@
     "redux-devtools-extension": "^2.13.2",
     "rev-hash": "^2.0.0",
     "sass-loader": "^6.0.6",
-    "style-loader": "^0.19.1"
+    "style-loader": "^0.19.1",
+    "sw-precache-webpack-plugin": "^0.11.4"
   },
   "devDependencies": {
     "@storybook/react": "^3.3.9",

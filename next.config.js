@@ -5,6 +5,7 @@ const path = require('path')
 const glob = require('glob')
 const mv = require('mv')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 const exportsMap = require('./exports-map.js')
 
@@ -60,6 +61,16 @@ module.exports = {
       new webpack.DefinePlugin({
         'process.env.STATIC_EXPORT': !!process.env.STATIC_EXPORT,
       }),
+      new SWPrecacheWebpackPlugin({
+        verbose: true,
+        staticFileGlobsIgnorePatterns: [/\.next\//],
+        runtimeCaching: [
+          {
+            handler: 'networkFirst',
+            urlPattern: /^https?.*/
+          }
+        ]
+      })
     )
 
     if (!dev) {

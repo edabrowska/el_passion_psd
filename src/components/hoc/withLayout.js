@@ -20,6 +20,10 @@ export default (WrappedComponent) => {
   class withLayout extends React.Component {
     componentDidMount () {
       this.props.setThing({number: 42})
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .register('/service-worker.js')
+      }
     }
     render () {
       return (
