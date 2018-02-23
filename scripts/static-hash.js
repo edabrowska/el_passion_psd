@@ -6,6 +6,7 @@ const execSync = require('child_process').execSync
 const revHash = require('rev-hash')
 
 const SRC_DIR = 'static'
+const NOT_HASHED_DIR = 'no-hash'
 const HASH_DATA = {}
 
 const {
@@ -14,6 +15,8 @@ const {
 } = require('./helpers.js')
 
 execSync(`rm -r -f ${HASHED_STATIC_DIR}`)
+execSync(`mkdir -p ${HASHED_STATIC_DIR}/${NOT_HASHED_DIR}`)
+execSync(`cp -r ${SRC_DIR}/${NOT_HASHED_DIR}/ ${HASHED_STATIC_DIR}/${NOT_HASHED_DIR}/`)
 
 const buildStatic = (src, dist) => {
   fs.access(dist, (err) => {
@@ -47,7 +50,9 @@ const makeHashes = (src, dist) => {
         fs.writeFileSync(filePath, fileData)
       }
     } else if (stat.isDirectory()) {
-      buildStatic(subSrc, subDist)
+      if (subSrc.indexOf(NOT_HASHED_DIR) < 0) {
+        buildStatic(subSrc, subDist)
+      }
     }
   })
 

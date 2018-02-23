@@ -31,8 +31,10 @@ export default (WrappedComponent) => {
               <style dangerouslySetInnerHTML={{__html: stylesheet}} />
             }
             <link rel='shortcut icon' href={getStaticFilePath('favicon.ico')} />
-            <meta name='viewport' content='width=device-width, initial-scale=1.0' />
             <title>Spark</title>
+            <link rel='manifest' href='/manifest.json' />
+            <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+            <meta name='theme-color' content='#182036' />
           </Head>
           <Header />
           <WrappedComponent {...this.props} />

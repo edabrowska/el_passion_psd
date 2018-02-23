@@ -18,7 +18,7 @@
     "analyze": "cross-env BABEL_ENV=all ANALYZE=1 next build",
     "commitmsg": "validate-commit-msg",
     "prepush": "npm run lint",
-    "clean": "rm -rf .next out static/global.css src/static-hash.json",
+    "clean": "rm -rf .next out static/global.css src/static-hash.json static-hashed",
     "new": "node scripts/new-project.js",
     "deploy:staging:setup": "pm2 deploy deploy.config.js staging setup",
     "deploy:staging:perform": "pm2 deploy deploy.config.js staging",

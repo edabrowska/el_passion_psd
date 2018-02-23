@@ -8,24 +8,31 @@ const gitConfig = require('git-config')
 const packageData = require('../package.json')
 const packageLock = require('../package-lock.json')
 const exportsMap = require('../exports-map.js')
+const manifestFile = require('../manifest.json')
 
 const FILES = {
   readme: 'README.md',
   readmeTemplate: 'template-readme.md',
   packageData: 'package.json',
   packageLock: 'package-lock.json',
+  manifestFile: 'manifest.json',
   exportsMap: 'exports-map.js',
   withLayout: 'src/components/hoc/withLayout.js',
 }
-const saveJSFile = (file, contents) => fs.writeFileSync(file, JSON.stringify(contents, null, '  '))
+const saveJSFile = (file, contents) => fs.writeFileSync(file, `${JSON.stringify(contents, null, '  ')}\n`)
 
-const updateSrcFiles = ({pageTitle}) => {
+const DEFAULT_THEME_COLOR = '#182036'
+
+const updateSrcFiles = ({pageTitle, themeColor}) => new Promise((resolve, reject) => {
   const withLayout = fs.readFileSync(FILES.withLayout, 'utf8')
   fs.writeFileSync(
     FILES.withLayout,
-    withLayout.replace('Spark', pageTitle)
+    withLayout
+      .replace('Spark', pageTitle)
+      .replace(DEFAULT_THEME_COLOR, themeColor)
   )
-}
+  resolve()
+})
 
 const removePages = (pages) => {
   pages.map(page => {
@@ -54,7 +61,7 @@ const getGitUser = () => new Promise((resolve, reject) => {
   })
 })
 
-const updateProjectFiles = async (config) => {
+const updateProjectFiles = (config) => new Promise(async (resolve, reject) => {
   let readmeFile = fs.readFileSync(FILES.readmeTemplate, 'utf8')
   replacements.map(v => {
     const regex = new RegExp(v.find, 'g')
@@ -72,12 +79,21 @@ const updateProjectFiles = async (config) => {
     ...packageLock,
     name: config.name,
   }
+  const newManifest = {
+    ...manifestFile,
+    name: config.name,
+    short_name: config.name,
+    background_color: config.themeColor,
+    theme_color: config.themeColor,
+  }
 
   fs.writeFileSync(FILES.readme, readmeFile)
   saveJSFile(FILES.packageData, newPackage)
   saveJSFile(FILES.packageLock, newPackageLock)
+  saveJSFile(FILES.manifestFile, newManifest)
   fs.unlinkSync(FILES.readmeTemplate)
-}
+  resolve()
+})
 
 const QUESTIONS = [
   {
@@ -94,16 +110,29 @@ const QUESTIONS = [
     message: 'Page Title',
     default: ({name}) => name,
   },
+  {
+    type: 'input',
+    name: 'themeColor',
+    message: 'Theme Color (for PWA)',
+    default: DEFAULT_THEME_COLOR,
+  },
 ]
 
 const runTheThing = () => {
   removePages(['about'])
 
-  inquirer.prompt(QUESTIONS).then(answers => {
-    updateProjectFiles(answers)
-    updateSrcFiles(answers)
-    exec(`git add . && git commit -m "feat: setup project ${answers.name}"`)
-    console.log(`\nProject ${answers.name} set up.\n`)
+  inquirer.prompt(QUESTIONS).then(async answers => {
+    await updateProjectFiles(answers)
+    await updateSrcFiles(answers)
+    exec(`git add . && git commit -m "feat: setup project ${answers.name}"`, (err, stdout) => {
+      if (err) {
+        console.log(err)
+        process.exit(1)
+      } else {
+        console.log(`\n${stdout}`)
+        console.log(`Project ${answers.name} set up, changes were commited to repo 👆\n`)
+      }
+    })
   })
 }
 
