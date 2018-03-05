@@ -21,11 +21,9 @@
     "clean": "rm -rf .next out static/global.css src/static-hash.json static-hashed",
     "new": "node scripts/new-project.js",
     "deploy:staging:setup": "pm2 deploy deploy.config.js staging setup",
-    "deploy:staging:perform": "pm2 deploy deploy.config.js staging",
-    "deploy:staging": "test -d \"./source\" && npm run deploy:staging:perform || (npm run deploy:staging:setup && npm run deploy:staging:perform)",
+    "deploy:staging": "pm2 deploy deploy.config.js staging",
     "deploy:production:setup": "pm2 deploy deploy.config.js production setup",
-    "deploy:production:perform": "pm2 deploy deploy.config.js production",
-    "deploy:production": "test -d \"./source\" && npm run deploy:production:perform || (npm run deploy:production:setup && npm run deploy:staging:perform)"
+    "deploy:production": "pm2 deploy deploy.config.js production"
   },
   "config": {
     "commitizen": {
