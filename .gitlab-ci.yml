@@ -17,13 +17,13 @@ test:
 .deploy:staging:
   <<: *deploy
   script:
-    - npm run deploy:staging
+    - echo change to "npm run deploy:staging"
   only:
     - staging
 
 .deploy:production:
   <<: *deploy
   script:
-    - npm run deploy:production
+    - echo change to "npm run deploy:production"
   only:
     - master
