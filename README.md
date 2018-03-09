@@ -62,6 +62,10 @@ remarks | nope | you need to declare all exported pages in `exportPathMap` in `n
 
 Handled by [pm2 deploy](http://pm2.keymetrics.io/docs/usage/deployment/), preconfigured via `gitlab-ci.yml` & `deploy.config.js`. To activate, change those files accordingly.
 
+## Images
+
+The `ImageTag` and `BackgroundImage` components expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png`.
+
 ## Redux
 
 Is pre-configured. If you'd rather not have it, revert commit 2aad8e304c2a97aba0ac47de224888bf4347f7cf or just remove `src/store`, and update `withLayout.js` and `package.json`
