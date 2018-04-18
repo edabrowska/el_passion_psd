@@ -111,6 +111,8 @@ module.exports = {
       },
     )
 
+    config.resolve.extensions = [...config.resolve.extensions, '.yml', '.yaml']
+
     return config
   }
 }
