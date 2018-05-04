@@ -19,9 +19,6 @@ app.prepare()
       if (pathname === '/service-worker.js') {
         const filePath = join(__dirname, '.next', pathname)
         app.serveStatic(req, res, filePath)
-      } else if (pathname === '/manifest.json') {
-        const filePath = join(__dirname, '.next', pathname)
-        app.serveStatic(req, res, filePath)
       } else {
         handle(req, res, parsedUrl)
       }

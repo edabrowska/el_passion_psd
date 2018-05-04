@@ -64,7 +64,21 @@ Handled by [pm2 deploy](http://pm2.keymetrics.io/docs/usage/deployment/), precon
 
 ## Images
 
-The `ImageTag` and `BackgroundImage` components expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png`.
+The `ImageTag` component expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png`.
+
+In styles for background image you can use `getAssetUrl` or for custom path from static folder `getStaticFilePath`
+- `getAssetUrl` takes images from asset folder - `background-image: getAssetUrl('image.png')`
+- `src: url(getStaticFilePath('fonts/font.woff'))`
+
+## Styles
+
+Project use [bootstrap-grid](https://getbootstrap.com/docs/4.0/layout/grid/)
+You can customize grid options in `styles/grid.scss`
+Don't forget, bootstrap-grid has included some [utilities](https://getbootstrap.com/docs/4.0/layout/utilities-for-layout/):
+- Changing display
+- Flexbox options
+- Margin and padding
+- Toggle visibility
 
 ## Redux
 
@@ -81,11 +95,7 @@ Run `$ npm run lint` for a linting report. Linter will also be run before pushin
 
 ## Static export
 
-When exporting to static files (`$ npm run export`), all files in the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
-
-Unfortunately, there are two code smells necessary ([related issue](https://github.com/zeit/next.js/issues/2534)):
-1. the build has to run twice - first time so the styles are extracted, to be available for `static-hash.js` script
-2. see comment in `OnDonePlugin` function in `next.config.js`
+When exporting to static files (`$ npm run export`), all imports from the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
 
 ## Fetching data
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 
-import '+/global.sass'
+import '../.next/static/style.css'
 
 import ImageTag from '~/components/ImageTag'
 
 storiesOf('ImageTag')
   .add('with logo.svg', () => (
-    <ImageTag src='logo.svg' />
+    <ImageTag src='image.jpg' />
   ))

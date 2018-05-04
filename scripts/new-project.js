@@ -8,14 +8,12 @@ const gitConfig = require('git-config')
 const packageData = require('../package.json')
 const packageLock = require('../package-lock.json')
 const exportsMap = require('../exports-map.js')
-const manifestFile = require('../manifest.json')
 
 const FILES = {
   readme: 'README.md',
   readmeTemplate: 'template-readme.md',
   packageData: 'package.json',
   packageLock: 'package-lock.json',
-  manifestFile: 'manifest.json',
   exportsMap: 'exports-map.js',
   withLayout: 'src/components/hoc/withLayout.js',
 }
@@ -79,18 +77,10 @@ const updateProjectFiles = (config) => new Promise(async (resolve, reject) => {
     ...packageLock,
     name: config.name,
   }
-  const newManifest = {
-    ...manifestFile,
-    name: config.name,
-    short_name: config.name,
-    background_color: config.themeColor,
-    theme_color: config.themeColor,
-  }
 
   fs.writeFileSync(FILES.readme, readmeFile)
   saveJSFile(FILES.packageData, newPackage)
   saveJSFile(FILES.packageLock, newPackageLock)
-  saveJSFile(FILES.manifestFile, newManifest)
   fs.unlinkSync(FILES.readmeTemplate)
   resolve()
 })
