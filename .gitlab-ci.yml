@@ -1,9 +1,12 @@
 .deploy: &deploy
   stage: deploy
+  environment:
+    NODE_ENV: production
   script:
-    - npm install --production
-    - npm run build
-    - pm2 restart project-name
+    - npm install
+    - npm run export
+    # - npm run build
+    # - pm2 restart project-name
 
 .deploy:staging:
   <<: *deploy
