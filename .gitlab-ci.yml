@@ -1,29 +1,22 @@
-image: node:alpine
-
-test:
-  stage: test
-  script:
-    - npm i
-    - npm run test-ci
-    - npm run lint
-
 .deploy: &deploy
   stage: deploy
-  before_script:
-    - eval $(ssh-agent -s)
-    - ssh-add
-    - npm i pm2
+  script:
+    - npm install --production
+    - npm run build
+    - pm2 restart project-name
 
 .deploy:staging:
   <<: *deploy
-  script:
-    - npm run deploy:staging
+  environment:
+    name: staging
+    url: project-name.int.daftup.com
   only:
-    - staging
+    - master
 
 .deploy:production:
   <<: *deploy
-  script:
-    - npm run deploy:production
+  environment:
+    name: production
+    url: project-name.com
   only:
-    - master
+    - production

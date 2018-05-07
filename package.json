@@ -15,11 +15,7 @@
     "postversion": "git add package-lock.json",
     "analyze": "BABEL_ENV=all ANALYZE=1 next build",
     "commitmsg": "validate-commit-msg",
-    "new": "node scripts/new-project.js",
-    "deploy:staging:setup": "pm2 deploy deploy.config.js staging setup",
-    "deploy:staging": "pm2 deploy deploy.config.js staging",
-    "deploy:production:setup": "pm2 deploy deploy.config.js production setup",
-    "deploy:production": "pm2 deploy deploy.config.js production"
+    "new": "node scripts/new-project.js"
   },
   "config": {
     "commitizen": {
@@ -78,7 +74,6 @@
     "git-config": "0.0.7",
     "inquirer": "^5.1.0",
     "jest-cli": "^22.1.2",
-    "pm2": "^2.10.1",
     "validate-commit-msg": "^2.14.0",
     "webpack-bundle-analyzer": "^2.9.2"
   }
