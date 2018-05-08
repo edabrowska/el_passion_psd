@@ -1,5 +1,5 @@
 {
-  "presets": ["next/babel"],
+  "presets": ["env", "next/babel"],
   "plugins": [
     "inline-react-svg",
     "transform-decorators-legacy",
@@ -9,26 +9,5 @@
       "rootPathPrefix": "+",
       "rootPathSuffix": "styles"
     }]]
-  ],
-  "env" : {
-    "test": {
-      "presets": [
-        ["env", { "modules": "commonjs" }],
-        "next/babel"
-      ],
-      "plugins": [
-        "inline-react-svg",
-        "transform-decorators-legacy",
-        ["babel-plugin-root-import", [{
-          "rootPathSuffix": "src"
-        }, {
-          "rootPathPrefix": "+",
-          "rootPathSuffix": "styles"
-        }, {
-          "rootPathPrefix": "-",
-          "rootPathSuffix": "static"
-        }]]
-      ]
-    }
-  }
+  ]
 }
