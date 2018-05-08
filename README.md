@@ -122,3 +122,9 @@ To run the application in a docker container, first build the image with `$ dock
 ## Bundle analysis
 
 Run `$ npm run analyze` to see what makes your bundles so fat.
+
+## Error tracking
+
+Raven.js is the official browser JavaScript client for [Sentry](https://sentry.io). It automatically reports uncaught JavaScript exceptions triggered from a browser environment, and provides a rich API for reporting your own errors.
+
+Add your config like - `https://<key>@sentry.io/<project>` to `ravenUrl` in `~/utils/settings`

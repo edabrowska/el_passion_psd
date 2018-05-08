@@ -4,6 +4,8 @@ import '+/style.sass'
 import Header from '~/components/Header'
 import initStore from '~/store'
 import actions from '~/store/actions'
+import { ravenUrl } from '~/utils/settings'
+const Raven = ravenUrl ? require('raven-js') : null
 
 export default (WrappedComponent) => {
   @withRedux(
@@ -20,6 +22,10 @@ export default (WrappedComponent) => {
         navigator.serviceWorker
           .register('/service-worker.js')
       }
+
+      ravenUrl && Raven
+        .config(ravenUrl)
+        .install()
     }
     render () {
       return (
