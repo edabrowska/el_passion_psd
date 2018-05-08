@@ -3,14 +3,14 @@
   "name": "spark",
   "scripts": {
     "cm": "git-cz",
-    "build": "BABEL_ENV=all next build",
-    "start": "BABEL_ENV=all node server.js",
+    "build": "next build",
+    "start": "node server.js",
     "export": "npm run build && next export && node scripts/after-export.js",
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
     "test-ci": "jest --coverage",
-    "storybook": "npm run build && BABEL_ENV=all start-storybook -p 9001 -s ./ -c .storybook",
-    "storybook:build": "npm run build && BABEL_ENV=all build-storybook -o styleguide",
+    "storybook": "npm run build && start-storybook -p 9001 -s ./ -c .storybook",
+    "storybook:build": "npm run build && build-storybook -o styleguide",
     "release": "corp-semantic-release --pre-commit lint",
     "analyze": "ANALYZE=1 npm run build",
     "commitmsg": "validate-commit-msg",
@@ -30,7 +30,7 @@
       "\\.(sass|scss|css|less)$": "<rootDir>/jest-config/assetsTransformer.js"
     }
   },
-  "author": "Adam Borowski <adam@adamboro.com>",
+  "author": "Daftup",
   "dependencies": {
     "@zeit/next-sass": "^0.1.2",
     "babel-plugin-inline-react-svg": "^0.5.2",
