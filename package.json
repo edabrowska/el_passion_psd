@@ -42,7 +42,6 @@
     "caniuse-lite": "^1.0.30000697",
     "cssnano": "^3.10.0",
     "file-loader": "^1.1.11",
-    "isomorphic-unfetch": "^2.0.0",
     "js-yaml-loader": "^0.1.0",
     "next": "^5.1.0",
     "next-redux-wrapper": "^1.3.5",

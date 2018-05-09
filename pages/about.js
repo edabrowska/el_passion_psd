@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch'
+import fetch from 'unfetch'
 
 const aboutPage = ({repos}) =>
   <div>
