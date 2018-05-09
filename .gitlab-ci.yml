@@ -3,9 +3,9 @@
   environment:
     NODE_ENV: production
   script:
-    - npm install
-    - npm run export
-    # - npm run build
+    - yarn install
+    - yarn export
+    # - yarn build
     # - pm2 restart project-name
 
 .deploy:staging:
