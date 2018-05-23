@@ -3,31 +3,26 @@
 const { exec } = require('child_process')
 const fs = require('fs')
 const inquirer = require('inquirer')
-const gitConfig = require('git-config')
 
 const packageData = require('../package.json')
-const packageLock = require('../package-lock.json')
 const exportsMap = require('../exports-map.js')
 
 const FILES = {
   readme: 'README.md',
   readmeTemplate: 'template-readme.md',
   packageData: 'package.json',
-  packageLock: 'package-lock.json',
   exportsMap: 'exports-map.js',
-  withLayout: 'src/components/hoc/withLayout.js',
+  document: 'pages/_document.js',
+  gitLabCI: '.gitlab-ci.yml',
 }
 const saveJSFile = (file, contents) => fs.writeFileSync(file, `${JSON.stringify(contents, null, '  ')}\n`)
 
-const DEFAULT_THEME_COLOR = '#182036'
-
-const updateSrcFiles = ({pageTitle, themeColor}) => new Promise((resolve, reject) => {
-  const withLayout = fs.readFileSync(FILES.withLayout, 'utf8')
+const updateSrcFiles = ({pageTitle}) => new Promise((resolve, reject) => {
+  const document = fs.readFileSync(FILES.document, 'utf8')
   fs.writeFileSync(
-    FILES.withLayout,
-    withLayout
+    FILES.document,
+    document
       .replace('Spark', pageTitle)
-      .replace(DEFAULT_THEME_COLOR, themeColor)
   )
   resolve()
 })
@@ -49,16 +44,6 @@ const replacements = [
   },
 ]
 
-const getGitUser = () => new Promise((resolve, reject) => {
-  gitConfig((err, config) => {
-    if (err) {
-      reject(err)
-    } else {
-      resolve(config.user)
-    }
-  })
-})
-
 const updateProjectFiles = (config) => new Promise(async (resolve, reject) => {
   let readmeFile = fs.readFileSync(FILES.readmeTemplate, 'utf8')
   replacements.map(v => {
@@ -66,21 +51,16 @@ const updateProjectFiles = (config) => new Promise(async (resolve, reject) => {
     readmeFile = readmeFile.replace(regex, config[v.replace])
   })
 
-  const { name, email } = await getGitUser()
-
   const newPackage = {
     ...packageData,
-    name: config.name,
-    author: `${name} <${email}>`,
-  }
-  const newPackageLock = {
-    ...packageLock,
-    name: config.name,
+    name: config.name
   }
 
+  const newGitLabCI = fs.readFileSync(FILES.gitLabCI, 'utf8').replace(/project-name/g, config.name)
+
+  fs.writeFileSync(FILES.gitLabCI, newGitLabCI)
   fs.writeFileSync(FILES.readme, readmeFile)
   saveJSFile(FILES.packageData, newPackage)
-  saveJSFile(FILES.packageLock, newPackageLock)
   fs.unlinkSync(FILES.readmeTemplate)
   resolve()
 })
@@ -99,12 +79,6 @@ const QUESTIONS = [
     name: 'pageTitle',
     message: 'Page Title',
     default: ({name}) => name,
-  },
-  {
-    type: 'input',
-    name: 'themeColor',
-    message: 'Theme Color (for PWA)',
-    default: DEFAULT_THEME_COLOR,
   },
 ]
 
