@@ -8,7 +8,7 @@
     # - yarn build
     # - pm2 restart project-name
 
-.deploy:staging:
+deploy:staging:
   <<: *deploy
   environment:
     name: staging
@@ -16,7 +16,7 @@
   only:
     - master
 
-.deploy:production:
+deploy:production:
   <<: *deploy
   environment:
     name: production

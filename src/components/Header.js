@@ -6,6 +6,5 @@ export default () =>
     <Link href='/'>
       <Logo width='180px' />
     </Link>
-    <br />
     <Link href='/about'>about</Link>
   </div>
