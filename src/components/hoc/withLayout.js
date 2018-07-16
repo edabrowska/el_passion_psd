@@ -16,6 +16,11 @@ export default (WrappedComponent) => {
     }
   )
   class withLayout extends React.Component {
+    static async getInitialProps (context) {
+      const wrappedPageProps = WrappedComponent.getInitialProps && WrappedComponent.getInitialProps(context)
+      return { ...wrappedPageProps }
+    }
+
     componentDidMount () {
       this.props.setThing({number: 42})
       if ('serviceWorker' in navigator) {
