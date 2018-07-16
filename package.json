@@ -4,7 +4,7 @@
   "scripts": {
     "cm": "git-cz",
     "build": "next build",
-    "start": "node server.js",
+    "start": "node server/index.js",
     "export": "npm run build && next export && node scripts/after-export.js",
     "lint": "eslint ./pages ./components",
     "test": "jest --no-cache --watch",
@@ -41,6 +41,7 @@
     "bootstrap-4-grid": "^2.4.0",
     "caniuse-lite": "^1.0.30000697",
     "cssnano": "^3.10.0",
+    "dotenv": "^6.0.0",
     "file-loader": "^1.1.11",
     "isomorphic-fetch": "^2.2.1",
     "js-yaml-loader": "^0.1.0",

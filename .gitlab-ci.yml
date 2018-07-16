@@ -1,7 +1,5 @@
 .deploy: &deploy
   stage: deploy
-  environment:
-    NODE_ENV: production
   script:
     - yarn install
     - yarn export
@@ -10,6 +8,9 @@
 
 deploy:staging:
   <<: *deploy
+  variables:
+    APPLICATION_ENV: staging
+    NODE_ENV: production
   environment:
     name: staging
     url: project-name.int.daftup.com
@@ -18,6 +19,9 @@ deploy:staging:
 
 deploy:production:
   <<: *deploy
+  variables:
+    APPLICATION_ENV: production
+    NODE_ENV: production
   environment:
     name: production
     url: project-name.com

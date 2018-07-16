@@ -1,7 +1,14 @@
 /* eslint-disable no-console */
 
+const fs = require('fs')
 const withSass = require('@zeit/next-sass')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+const webpack = require('webpack')
+const dotenv = require('dotenv')
+
+const applicationEnv = process.env.APPLICATION_ENV || 'development'
+const envConfig = dotenv.parse(fs.readFileSync(`config/${applicationEnv}.env`))
+
 const exportsMap = require('./exports-map.js')
 
 let BundleAnalyzerPlugin
@@ -20,6 +27,7 @@ const nextConfig = {
         openAnalyzer: true
       }))
     }
+
     config.plugins.push(
       new SWPrecacheWebpackPlugin({
         verbose: true,
@@ -30,8 +38,12 @@ const nextConfig = {
             urlPattern: /^https?.*/
           }
         ]
+      }),
+      new webpack.DefinePlugin({
+        'process.env': JSON.stringify(envConfig)
       })
     )
+
     config.module.rules.push(
       {
         test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4)$/,

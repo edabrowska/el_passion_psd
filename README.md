@@ -128,3 +128,12 @@ Run `$ npm run analyze` to see what makes your bundles so fat.
 Raven.js is the official browser JavaScript client for [Sentry](https://sentry.io). It automatically reports uncaught JavaScript exceptions triggered from a browser environment, and provides a rich API for reporting your own errors.
 
 Add your config like - `https://<key>@sentry.io/<project>` to `ravenUrl` in `~/utils/settings`
+
+# Per environment config
+
+Based on dotenv package.
+
+Any secret config like password, api keys should be placed in .env file in projects root directory.
+Any public config like external api url, server config should be placed in /config/{environment}.
+
+Specified variables can be accessed like ... `process.env.SOME_VARIABLE`

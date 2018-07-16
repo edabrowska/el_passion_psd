@@ -1,5 +1,7 @@
 /* eslint-disable no-console */
 
+require('./load-env')
+
 const { createServer } = require('http')
 const { join } = require('path')
 const { parse } = require('url')
