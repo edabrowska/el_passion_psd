@@ -1,34 +1,52 @@
 {
-  "extends": ["standard", "standard-react"],
+  "extends": [
+    "standard",
+    "standard-react",
+  ],
   "rules": {
     "camelcase": 0,
     "comma-dangle": 0,
     "operator-linebreak": 0,
     "prefer-promise-reject-errors": 0,
-    "no-console": 1,
-    "no-multiple-empty-lines": 1,
-    "padded-blocks": 1,
-    "jsx-quotes": 1,
-    "indent": 1,
-    "semi": 1,
-    "curly": 1,
-    "eqeqeq": 1,
-    "space-before-function-paren": 1,
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreTrailingComments": true,
+        "ignoreUrls": true,
+      }
+    ],
+    "no-console": 2,
+    "no-multiple-empty-lines": 2,
+    "padded-blocks": 0,
+    "jsx-quotes": 2,
+    "indent": 2,
+    "semi": 2,
+    "curly": 2,
+    "eqeqeq": 2,
+    "space-before-function-paren": 2,
     "react/prop-types": 0,
-    "react/jsx-indent-props": 1,
-    "react/jsx-no-bind": 1,
-    "react/jsx-tag-spacing": ["error", { "beforeSelfClosing": "always" }],
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-indent-props": 2,
+    "react/jsx-no-bind": 2,
+    "react/jsx-tag-spacing": [
+      "error",
+      {
+        "beforeSelfClosing": "always",
+      }
+    ],
     "react/jsx-key": 2,
     "react/sort-comp": 2,
-    "react/react-in-jsx-scope": 0
   },
-  "globals" : {
-    "NODE_ENV": true
+  "globals": {
+    "NODE_ENV": true,
+    "VERSION": true,
+    "__": true,
   },
   "env": {
     "browser": true,
     "node": true,
-    "jest": true
+    "jest": true,
   },
-  "parser": "babel-eslint"
+  "parser": "babel-eslint",
 }

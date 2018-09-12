@@ -1,7 +1,7 @@
-@function getStaticFilePath($src) {
-  @return '../static/' + $src
+@function get-static-file-path($src) {
+  @return '../static/' + $src;
 }
 
-@function getAssetUrl($src) {
-  @return url(getStaticFilePath('assets/' + $src))
+@function get-asset-url($src) {
+  @return url(get-static-file-path('assets/' + $src));
 }

@@ -35,10 +35,11 @@ Get acquianted with next.js by doing [this lovely tutorial](learnnextjs.com), re
 
 ## Quick start
 
-1. make sure you have [nodejs](https://nodejs.org/en/) and [npm](https://www.npmjs.com/get-npm) installed
-1. `$ npm install`
-1. (`$ npm run new` - optional, updates readme and stuff)
-1. `$ npm run dev`
+1. make sure you have [nodejs](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/en/docs/install#mac-stable) installed
+1. `$ yarn`
+1. (`$ yarn new` - optional, updates readme and stuff)
+1. `$ yarn start`
+1. `$ PORT=8000 yarn start` - if you want to start dev server on different port
 1. bang! visit [localhost:3000](http://localhost:3000/) there it is
 
 ## Linking modules
@@ -55,7 +56,7 @@ import styles from '+/style.sass'
 what | node app | static assets
 --- | --- | ---
 why | server-side rendering, prefetching, etc. | use cheap hosting such as AWS S3
-how | `$ npm start` and you're done | `$ npm run export` and then serve the contents of `out` directory
+how | `$ yarn start` and you're done | `$ yarn export` and then serve the contents of `out` directory
 remarks | nope | you need to declare all exported pages in `exportPathMap` in `next.config.js` file
 
 ### deployment with gitlab
@@ -66,13 +67,17 @@ Handled by [pm2 deploy](http://pm2.keymetrics.io/docs/usage/deployment/), precon
 
 The `ImageTag` component expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png`.
 
-In styles for background image you can use `getAssetUrl` or for custom path from static folder `getStaticFilePath`
-- `getAssetUrl` takes images from asset folder - `background-image: getAssetUrl('image.png')`
-- `src: url(getStaticFilePath('fonts/font.woff'))`
+In styles for background image you can use `get-asset-url` or for custom path from static folder `get-static-file-path`
+- `get-asset-url` takes images from asset folder - `background-image: get-asset-url('image.png')`
+- `src: url(get-static-file-path('fonts/font.woff'))`
 
-## Styles
+## Styles & structure
 
-Project use [bootstrap-grid](https://getbootstrap.com/docs/4.0/layout/grid/)
+We recommend you to create your app using BEM structure.
+- (What is BEM?)[http://getbem.com/introduction/]
+- [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by classnames that glues class with --modifiers.
+
+Project has included [bootstrap-grid](https://getbootstrap.com/docs/4.0/layout/grid/)
 You can customize grid options in `styles/grid.scss`
 Don't forget, bootstrap-grid has included some [utilities](https://getbootstrap.com/docs/4.0/layout/utilities-for-layout/):
 - Changing display
@@ -80,22 +85,31 @@ Don't forget, bootstrap-grid has included some [utilities](https://getbootstrap.
 - Margin and padding
 - Toggle visibility
 
+Since [bootstrap-grid](https://getbootstrap.com/docs/4.0/layout/grid/) is Sass lib, all media queries are available via mixins ([read more](https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints)).
+- `@include media-breakpoint-up(xs) { ... }`
+- `@include media-breakpoint-down(xs) { ... }`
+- `@include media-breakpoint-between(md, xl) { ... }`
+- `@media (max-width: $size-const) { ... }`
+- `@include media-breakpoint-only(xs) { ... }`
+
+Don't forget to remove `styles/grid.scss` & `yarn remove bootstrap-4-grid` if no necessary to use it!
+
 ## Redux
 
-Is pre-configured. If you'd rather not have it, revert commit 2aad8e304c2a97aba0ac47de224888bf4347f7cf or just remove `src/store`, and update `withLayout.js` and `package.json`
+Is pre-configured. If you'd rather not have it - just remove `src/store`, update `withLayout.js` and `package.json`
 
 ## Testing ([jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/))
 
-- `$ npm t` to run tests in watch mode.
-- `$ npm run test-ci` for a single run with coverage reporting. Useful for CI.
+- `$ yarn t` to run tests in watch mode.
+- `$ yarn test-ci` for a single run with coverage reporting. Useful for CI.
 
 ## Linting ([eslint](https://eslint.org/) configured with [standard](https://standardjs.com/))
 
-Run `$ npm run lint` for a linting report. Linter will also be run before pushing to remote.
+Run `$ yarn lint` for a linting report. Linter will also be run before pushing to remote.
 
 ## Static export
 
-When exporting to static files (`$ npm run export`), all imports from the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
+When exporting to static files (`$ yarn export`), all imports from the `/static` directory will have an asset hash appended to filename. To require them properly, use `getStaticFilePath` function, as shown in `components/ImageTag`.
 
 ## Fetching data
 
@@ -105,15 +119,15 @@ When server-rendering, the server can fetch data and send already pre-filled HTM
 
 [Storybook](https://storybook.js.org/) is a UI development environment, which also can serve as styleguide.
 
-Run `$ npm run storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:9001/)
+Run `$ yarn storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:9001/)
 
-To build a static HTML version (to deploy as a styleguide perhaps), run `$ npm run storybook:build`. Note that [because reasons](https://github.com/zeit/next.js/issues/1788#issuecomment-322843264) the assets from the `static` directory will not be available in static HTML build.
+To build a static HTML version (to deploy as a styleguide perhaps), run `$ yarn storybook:build`. Note that [because reasons](https://github.com/zeit/next.js/issues/1788#issuecomment-322843264) the assets from the `static` directory will not be available in static HTML build.
 
 ## Commiting & changelog
 
-This repo uses [commitizen](https://commitizen.github.io), so instead of `$ git commit ...` use `$ npm run cm` or install commitizen globally and then use `$ git cz`.
+This repo uses [commitizen](https://commitizen.github.io), so instead of `$ git commit ...` use `$ yarn cm` or install commitizen globally and then use `$ git cz`.
 
-To generate changelog, tag a new version, and push to code to remote, run `$ npm run release`.
+To generate changelog, tag a new version, and push to code to remote, run `$ yarn release`.
 
 ## Docker
 
@@ -121,7 +135,7 @@ To run the application in a docker container, first build the image with `$ dock
 
 ## Bundle analysis
 
-Run `$ npm run analyze` to see what makes your bundles so fat.
+Run `$ yarn analyze` to see what makes your bundles so fat.
 
 ## Error tracking
 
