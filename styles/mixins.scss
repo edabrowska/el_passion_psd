@@ -1,7 +1,0 @@
-@function get-static-file-path($src) {
-  @return '../static/' + $src;
-}
-
-@function get-asset-url($src) {
-  @return url(get-static-file-path('assets/' + $src));
-}

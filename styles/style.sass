@@ -1,14 +1,28 @@
-@import '../node_modules/node-normalize-scss/_normalize.scss'
+// 1. Configuration and helpers
+@import 'abstracts/grid-setup'
+@import 'abstracts/colors'
+@import 'abstracts/variables'
+@import 'abstracts/functions'
+@import 'abstracts/mixins'
 
-@import mixins
-@import vars
-@import base
-@import grid
+// 2. Vendors
+@import 'vendor/lib'
 
+// 3. Base stuff
+@import 'base/base'
+@import 'base/fonts'
+@import 'base/typography'
+@import 'base/helpers'
 
-.background-image
-  background: get-asset-url('image.jpg') no-repeat 0 0/cover
-  height: 300px
+// 4. Layout-related sections
+@import 'layout/header'
+@import 'layout/footer'
 
-  &__scaled
-    background-size: 120%
+// 5. Components
+// nada
+
+// 6. Page-specific styles
+@import 'pages/home'
+
+// 7. Themes
+// nada
