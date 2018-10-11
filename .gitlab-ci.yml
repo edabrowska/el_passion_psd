@@ -3,27 +3,16 @@
   script:
     - yarn install
     - yarn export
-    # - yarn build
-    # - pm2 restart project-name
 
-deploy:staging:
+.deploy:staging:
   <<: *deploy
   variables:
     APPLICATION_ENV: staging
     NODE_ENV: production
   environment:
     name: staging
-    url: project-name.int.daftup.com
+    url: https://project-name.int.daftup.com
+  tags:
+    - deployment-stg
   only:
     - master
-
-deploy:production:
-  <<: *deploy
-  variables:
-    APPLICATION_ENV: production
-    NODE_ENV: production
-  environment:
-    name: production
-    url: project-name.com
-  only:
-    - production
