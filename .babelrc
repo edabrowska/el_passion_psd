@@ -1,43 +1,17 @@
 {
-  "env": {
-    "development": {
-      "presets": ["next/babel"],
-      "plugins": [
-        "inline-react-svg",
-        "transform-decorators-legacy",
-        ["babel-plugin-root-import", [{
-          "rootPathSuffix": "src"
-        }, {
-          "rootPathPrefix": "+",
-          "rootPathSuffix": "styles"
-        }]]
-      ]
-    },
-    "production": {
-      "presets": ["next/babel"],
-      "plugins": [
-        "inline-react-svg",
-        "transform-decorators-legacy",
-        ["babel-plugin-root-import", [{
-          "rootPathSuffix": "src"
-        }, {
-          "rootPathPrefix": "+",
-          "rootPathSuffix": "styles"
-        }]]
-      ]
-    },
-    "test": {
-      "presets": [["next/babel", { "preset-env": { "modules": "commonjs" } }]],
-      "plugins": [
-        "inline-react-svg",
-        "transform-decorators-legacy",
-        ["babel-plugin-root-import", [{
-          "rootPathSuffix": "src"
-        }, {
-          "rootPathPrefix": "+",
-          "rootPathSuffix": "styles"
-        }]]
-      ]
-    }
-  }
+  "presets": ["next/babel"],
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["babel-plugin-root-import", {
+      "paths": [{
+        "rootPathSuffix": "src"
+      }, {
+        "rootPathPrefix": "+",
+        "rootPathSuffix": "styles"
+      }, {
+        "rootPathPrefix": "-",
+        "rootPathSuffix": "static"
+      }]
+    }]
+  ]
 }

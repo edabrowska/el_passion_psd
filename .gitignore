@@ -3,10 +3,5 @@ out
 node_modules
 .DS_Store
 coverage
-styleguide
-
-static-hashed
-src/static-hash.json
-static/global.css
 
 .env

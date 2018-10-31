@@ -18,5 +18,5 @@ export const getRasterImagePath = (path) => {
   if (!isSVG(path) && isHiDPI) {
     path = getScaledPath(path)
   }
-  return getStaticFilePath(`assets/${path}`)
+  return getStaticFilePath(path)
 }

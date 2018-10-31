@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header With Snapshot Testing Has logo 1`] = `
+<header>
+  <a
+    href="/"
+    onClick={[Function]}
+  >
+    <img
+      src={
+        Object {
+          "process": [Function],
+        }
+      }
+      srcSet=""
+      width="300"
+    />
+  </a>
+</header>
+`;

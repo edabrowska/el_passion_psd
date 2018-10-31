@@ -6,5 +6,4 @@
   @return '../static/' + $src
 
 @function get-asset-url($src)
-  @return url(get-static-file-path('assets/' + $src))
-
+  @return url(get-static-file-path($src))

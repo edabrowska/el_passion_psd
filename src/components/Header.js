@@ -1,10 +1,9 @@
 import Link from '~/components/Link'
-import Logo from '~/svg/logo.svg'
+import ImageTag from '~/components/ImageTag'
 
 export default () =>
-  <div className='container'>
+  <header>
     <Link href='/'>
-      <Logo width='180px' />
+      <ImageTag src='logo.svg' width='300' />
     </Link>
-    <Link href='/about'>about</Link>
-  </div>
+  </header>

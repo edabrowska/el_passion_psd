@@ -1,11 +1,34 @@
-import withLayout from '~/components/hoc/withLayout'
-import ImageTag from '~/components/ImageTag'
+import React from 'react'
+import { connect } from 'react-redux'
 import bemCx from 'bem-modifiers'
 
-export default withLayout(() =>
-  <div className='container'>
-    <ImageTag src='image.jpg' style={{maxWidth: '100%'}} />
-    <div className={bemCx('background-image', 'scaled')} />
-    <p>This is the home page</p>
-  </div>
+import withLayout from '~/hoc/withLayout'
+
+import { handleFakeData } from '~/services'
+import { fakeDataSelector } from '~/store/selectors'
+
+export default
+@withLayout({
+  services: [handleFakeData.get],
+})
+@connect(
+  state => ({
+    fakeData: fakeDataSelector(state)
+  })
 )
+class Index extends React.Component {
+  render () {
+    return <div>
+      <h1>Main page</h1>
+      <div className={bemCx('background-image', 'cover')} />
+      <div>
+        {this.props.fakeData.map(item => (
+          <div key={item.id}>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  }
+}
