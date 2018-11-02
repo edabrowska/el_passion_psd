@@ -13,7 +13,9 @@
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "generate:reducer": "plop --plopfile=scripts/plopfile.js reducer",
+    "generate:action": "plop --plopfile=scripts/plopfile.js action"
   },
   "config": {
     "commitizen": {
@@ -86,8 +88,10 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
     "eslint-plugin-standard": "^4.0.0",
+    "handlebars-helpers": "^0.10.0",
     "husky": "^1.1.1",
     "jest": "^23.6.0",
+    "plop": "^2.1.0",
     "react-test-renderer": "^16.5.2",
     "validate-commit-msg": "^2.14.0"
   }

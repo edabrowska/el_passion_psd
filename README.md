@@ -13,6 +13,7 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Minification](http://cssnano.co/) via [PostCSS](http://postcss.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 - [Redux](https://redux.js.org/)
+- Plop code generators for: a) reducers; b) services (coming soon) 
 - Testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [Eslint](https://eslint.org/)
 - [Sass lint](https://github.com/sasstools/sass-lint)
@@ -53,10 +54,11 @@ To prefetch data with SSR use `services` parameter in HOC `src/hoc/withLayout`. 
 
 ### Why you should use services ?
 
-Service it's a function what fetch (with `ajaxer` or `apiAjaxer` function) and dispatch action with received data. Finally you will have:
+Service is a function that fetches (with `ajaxer` or `apiAjaxer` function) and dispatches action when received data. 
+Finally you will have:
 - nice project structure without any chaos
-- one fetch do one action
-- one action do one reducer
+- one fetch does one action
+- one action does one reducer
 - one import in component
 
 ### How to create a service?
@@ -68,6 +70,10 @@ Service it's a function what fetch (with `ajaxer` or `apiAjaxer` function) and d
   }
   ```
 For better project structure give a name with prefix `manage` for api objects with functions.
+
+###Add action for service
+
+(*Note:* you should generate these autamatically! See: [Redux](#redux))
 
 1. Create in `src/store/actions` a file with name what describe group for actions. This actions will call reducer to modify data in redux-store object.  
 For better project structure give one name for actions, reducer and redux-store state key (`src/store/actions/posts.js` - `state.posts`).
@@ -83,7 +89,11 @@ For better project structure give one name for actions, reducer and redux-store 
     set: actionCreator('SET_POSTS'),
   }
   ```
-1. Create in `src/store/reducers` a file with same as actions file name (`src/store/reducers/posts.js`)
+###Create reducer to listen for the action
+
+(*Note:* you should generate these autamatically! See: [Redux](#redux))
+  
+1. Create in a file `src/store/reducers` with same file name as the actions (`src/store/reducers/posts.js`)
 
 1. Add your reducer function with case when type is like `actionCreator` function parameter:
   ```javascript
@@ -136,9 +146,38 @@ componentDidMount () {
 
 ## Redux
 
-Is pre-configured. All actions, reducers & selectors are in `src/store`. There are examples for you.
+Is pre-configured. All actions, reducers & selectors are in `src/store`.
 
 If you'd rather not have it - just remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`
+
+### Generate reducers & actions from CLI
+
+There's a plop generator that can create standard actions and reducers for you. Use yarn script to run it:
+
+```bash
+yarn generate:reducer
+```
+A short wizzard will start. Prompting you - among others - for the reducer name.
+ 
+The generator will:
+* Create a reducer file
+* Append it to redux store at `src/store/reducers/index.js`
+* Create actions file
+* Add any of the CRUD actions you specified both to the reducer function and to the actions file.
+
+It's highly recommended to create reducers and actions using this generator, as it uses standard naming conventions
+that we've agreed upon. (If you don't comply with the naming conventions that the generator uses,
+be prepared to have your merge request rejected.)
+
+#### Generate single action
+
+You can also generate an action using:
+
+```bash
+yarn generate:action
+```
+
+This generator will add a single action and a single action handler to existing actions/reducer files.
 
 ## Styles
 
@@ -157,7 +196,7 @@ Just use `background-image: '/static/image.png'`
 
 ### BEM
 
-We recommend you to create your styles using BEM structure.
+We recommend to create your styles using BEM structure.
 - (What is BEM?)[http://getbem.com/introduction/]
 - [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by classnames that glues class with --modifiers.
 

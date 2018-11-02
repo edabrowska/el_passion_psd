@@ -1,0 +1,35 @@
+const initialState = {}
+
+export default (state = initialState, action) => {
+  const { type, payload } = action
+
+  switch (type) {
+    {{#inArray actions 'set'}}
+    case 'SET_{{constantCase name}}_MAP':
+      return payload
+    {{/inArray}}
+    {{#inArray actions 'create'}}
+    case 'CREATE_{{constantCase name}}':
+      return {
+        ...state,
+        [payload.id]: payload
+      }
+    {{/inArray}}
+    {{#inArray actions 'update'}}
+    case 'UPDATE_{{constantCase name}}':
+      return {
+        ...state,
+        [payload.id]: Object.assign({}, state[payload.id], payload)
+      }
+    {{/inArray}}
+    {{#inArray actions 'delete'}}
+    case 'DELETE_{{constantCase name}}': {
+      const newState = { ...state }
+      delete newState[payload.id]
+      return newState
+    }
+    {{/inArray}}
+    default:
+      return state
+  }
+}

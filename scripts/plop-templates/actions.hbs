@@ -1,0 +1,7 @@
+import { actionCreator } from '~/store/actions/common'
+
+export default {
+{{#each actions}}
+  {{this}}{{properCase ../name}}{{#eq this 'set'}}Map{{/eq}}: actionCreator('{{constantCase ../name}}{{#eq this 'set'}}_MAP{{/eq}}'),
+{{/each}}
+}
