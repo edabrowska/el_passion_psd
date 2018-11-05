@@ -179,6 +179,33 @@ yarn generate:action
 
 This generator will add a single action and a single action handler to existing actions/reducer files.
 
+## Components
+
+You can generate components using:
+ 
+```bash
+yarn generate:component
+```
+
+It will create:
+* component file (you can choose between function and class)
+* sass file
+* storybook file (optional, recommended)
+
+Again - Generator uses standard naming conventions that we've agreed upon (including BEM). 
+(If you mess with the conventions, be prepared to have your merge request rejected.)
+
+## Default components
+
+### ImageTag
+
+Component create `img` tag with hashed image path and expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png` (for  `*.svg` not needed).
+
+### Link
+
+Is's a standard NextLink but with tag `<a>` (better for SEO)
+
+
 ## Styles
 
 - Files grouped by [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
@@ -199,16 +226,6 @@ Just use `background-image: '/static/image.png'`
 We recommend to create your styles using BEM structure.
 - (What is BEM?)[http://getbem.com/introduction/]
 - [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by classnames that glues class with --modifiers.
-
-## Default components
-
-### ImageTag
-
-Component create `img` tag with hashed image path and expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png` (for  `*.svg` not needed).
-
-### Link
-
-Is's a standard NextLink but with tag `<a>` (better for SEO)
 
 ## Deployment
 

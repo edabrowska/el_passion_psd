@@ -15,7 +15,8 @@
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
     "storybook": "start-storybook -p 6006",
     "generate:reducer": "plop --plopfile=scripts/plopfile.js reducer",
-    "generate:action": "plop --plopfile=scripts/plopfile.js action"
+    "generate:action": "plop --plopfile=scripts/plopfile.js action",
+    "generate:component": "plop --plopfile=scripts/plopfile.js component"
   },
   "config": {
     "commitizen": {
