@@ -9,6 +9,6 @@ export const manageFakeData = {
 export const manageApiData = {
   get: () => apiAjaxer('/some/data'),
   create: (data) => apiAjaxer('/some/data', 'POST', data),
-  update: ({ id, data }) => apiAjaxer(`/some/data/${data.id}`, 'PUT', data),
+  update: ({ id, data }) => apiAjaxer(`/some/data/${id}`, 'PUT', data),
   delete: ({ id }) => apiAjaxer(`/some/data/${id}`, 'DELETE')
 }

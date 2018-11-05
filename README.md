@@ -71,7 +71,7 @@ Finally you will have:
   ```
 For better project structure give a name with prefix `manage` for api objects with functions.
 
-###Add action for service
+#### Add action for service
 
 (*Note:* you should generate these autamatically! See: [Redux](#redux))
 
@@ -89,7 +89,7 @@ For better project structure give one name for actions, reducer and redux-store 
     set: actionCreator('SET_POSTS'),
   }
   ```
-###Create reducer to listen for the action
+### Create reducer to listen for the action
 
 (*Note:* you should generate these autamatically! See: [Redux](#redux))
   

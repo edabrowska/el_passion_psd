@@ -1,0 +1,12 @@
+import fetchAndDispatch from '~/services/common'
+import { manage{{properCase name}} } from '~/api'
+import {{camelCase name}}Actions from '~/store/actions/{{camelCase name}}'
+
+export const handle{{properCase name}} = {
+  {{#each operations}}
+  {{this}}: fetchAndDispatch(
+    manage{{properCase ../name}}.{{this}},
+    {{camelCase ../name}}Actions.{{#eq this 'get'}}set{{/eq}}{{#unlessEq this 'get'}}{{this}}{{/unlessEq}}{{properCase ../name}}{{#eq this 'get'}}Map{{/eq}}
+  ),
+  {{/each}}
+}

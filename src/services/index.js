@@ -15,11 +15,11 @@ export const handleApiData = {
     manageApiData.create,
     mainActions.createData
   ),
-  update: (data) => fetchAndDispatch(
+  update: fetchAndDispatch(
     manageApiData.update,
     mainActions.updateData
   ),
-  delete: (data) => fetchAndDispatch(
+  delete: fetchAndDispatch(
     manageApiData.delete,
     mainActions.deleteData
   ),
