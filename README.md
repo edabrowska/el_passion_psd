@@ -262,3 +262,45 @@ Any secret config like password, api keys should be placed in .env file in proje
 Any public config like external api url, server config should be placed in `/config/{environment}`.
 
 Specified variables can be accessed like ... `process.env.SOME_VARIABLE`
+
+# Static text content and internationalization (i18n)
+
+I18next is used for placing static text within pages. Use this mechanism regardless of whether you think your
+app will be translated into more than one language.  
+
+Put text/locale on pages like this: 
+
+```jsx harmony
+import { translate } from 'react-i18next'
+
+@translate(['common', 'errors']) //namespaces = locale files, 1st one will be default 
+class MeinComponent extends React.Component {
+  render () {
+    const { t } = this.props //translate prop provided by translate hoc
+
+    return <div>
+      <p>
+        Text from common namespace (default): <b>{t('button.ok')}</b>.
+        Text from errors namespace: <b>{t('errors:you_dont_exist')}</b>.
+      </p>
+    </div>
+  }
+}
+```
+
+Locale strings are placed in locale/filename_aka_namespace.yml
+
+### More on i18next
+
+Be aware that i18next is quite powerful. **Do not reinvent the wheel!** Use what i18next provides.
+Ex. if you expect to support more than one language, do not simply concatenate strings with parameters,
+as the resulting translation may have different word order in different languages. Instead use *interpolation* features
+built into i18next instead (or the `Trans` component).
+ 
+Besides *interpolation*, i18next does a great job with *pluralization* and other advanced locale stuff for you.
+
+*Note on missing locales:* Do not copy English locale to other language packages. I18next will fall back English
+in case of missing locale key for other language, and **will report it**. However, if you put an English "placeholder"
+in a language locale file, the locale key will not be formally missing, and **will not be reported!**
+
+Learn shit before you use it: [i18next for react](https://react.i18next.com/) & [i18next](https://www.i18next.com/).

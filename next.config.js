@@ -63,7 +63,7 @@ const nextConfig = {
       },
       {
         test: /\.ya?ml$/,
-        use: 'js-yaml-loader',
+        loader: ['bundle-loader', 'json-loader', 'yaml-loader'],
       },
     )
 
