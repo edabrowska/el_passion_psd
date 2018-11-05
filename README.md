@@ -189,8 +189,11 @@ yarn generate:component
 
 It will create:
 * component file (you can choose between function and class)
+* test file containing a basic display test and a snapshot test
 * sass file
 * storybook file (optional, recommended)
+
+Afterwards the script will run all tests, and generate snapshot.
 
 Again - Generator uses standard naming conventions that we've agreed upon (including BEM). 
 (If you mess with the conventions, be prepared to have your merge request rejected.)

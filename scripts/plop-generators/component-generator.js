@@ -34,8 +34,13 @@ module.exports = {
       },
       {
         type: 'add',
+        path: '../__tests__/{{properCase name}}.test.js',
+        templateFile: 'plop-templates/component-test.hbs'
+      },
+      {
+        type: 'add',
         path: '../styles/components/{{kebabCase name}}.sass',
-        template: `.{{kebabCase name}}\n  `
+        template: '.{{kebabCase name}}\n  '
       },
       {
         type: 'modify',
@@ -57,7 +62,7 @@ module.exports = {
       steps.push({
         type: 'add',
         path: '../stories/{{properCase name}}_component.stories.js',
-        templateFile: `plop-templates/component-storybook.hbs`
+        templateFile: 'plop-templates/component-storybook.hbs'
       })
     }
 
