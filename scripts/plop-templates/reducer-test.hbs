@@ -1,0 +1,20 @@
+import {{camelCase name}}Reducer from '~/store/reducers/{{camelCase name}}'
+import { {{camelCase name}}Actions } from '~/store/actions/{{camelCase name}}'
+import { initialState } from '../../jest-config/initialState'
+
+describe('{{properCase name}} reducer', () => {
+  let state, payload, updatedState
+
+  beforeEach(() => {
+    state = initialState.{{camelCase name}}
+  })
+
+  it('initializes state', () => {
+    expect({{camelCase name}}Reducer(state, {})).toEqual(state)
+  })
+
+  it('developer writes tests', () => {
+    expect('Ooops, the developer was a lazy donkey!').toEqual('')
+  })
+
+})

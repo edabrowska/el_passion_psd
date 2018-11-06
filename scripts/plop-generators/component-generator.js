@@ -34,7 +34,7 @@ module.exports = {
       },
       {
         type: 'add',
-        path: '../__tests__/{{properCase name}}.test.js',
+        path: '../__tests__/components/{{properCase name}}.test.js',
         templateFile: 'plop-templates/component-test.hbs'
       },
       {

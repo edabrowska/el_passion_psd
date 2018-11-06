@@ -35,6 +35,18 @@ module.exports = {
       separator: ''
     },
     {
+      type: 'append',
+      path: '../jest-config/initialState.js',
+      pattern: /export default \{\n/,
+      templateFile: 'plop-templates/reducer-initial-state.hbs',
+      separator: ''
+    },
+    {
+      type: 'add',
+      path: '../__tests__/reducers/{{camelCase name}}.test.js',
+      templateFile: 'plop-templates/reducer-test.hbs'
+    },
+    {
       type: 'add',
       path: '../src/store/reducers/{{camelCase name}}.js',
       templateFile: 'plop-templates/reducer.hbs'
