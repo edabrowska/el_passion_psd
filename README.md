@@ -43,141 +43,157 @@ import MyComponent from '~/components/MyComponent'
 import styles from '+/style.sass'
 ```
 
-## Fetching data
+#App data handling layers
+
+For separation of concern the app business logic comprises of the following layers:
+
+1. **services** - to do various business logic (especially ajax and redux dispatch)
+1. **api** - to connect to backends (ajax)
+1. **actions** - to communicate with redux store (redux)
+1. **reducers** - redux store functions to operate on data before saving to store (redux)
+1. **selectors** - simple functions to fetch stuff from store
+1. **components** - view - react components, that update on store change (using @connect)
+
+**Note:** 1. - 5. are business logic layers that build upon Redux. Redux is 3. - 4. 
+Should you build just a basic landing page, you won't need that advanced structure.
+In such case you can get rid of all the layers except for components and (most likely) api.
+To get rid of Redux: remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`.
+Otherwise - If you don't know redux, now would be the time to google it & and get a gist of it.
+
+Besides those, there are a couple of other entities:
+* **helpers** - general utilities
+* **higher order components (HOC)** - react component wrappers for DRYness
+
+## Fetching data - API layer
 
 To fetch data use `ajaxer` or `apiAjaxer` functions placed in `src/api/common`. See example in `src/api/index`.
 
 If you want fetch data and add it to redux store use Services.
 To prefetch data with SSR use `services` parameter in HOC `src/hoc/withLayout`. See example in `pages/index.js`.
 
-## Services
+## Services - connecting ajax with redux
 
-### Why you should use services ?
+A service uses API to fetch data from backend (with `ajaxer` or `apiAjaxer` function) and dispatches a redux
+action when data arrives.
 
-Service is a function that fetches (with `ajaxer` or `apiAjaxer` function) and dispatches action when received data. 
-Finally you will have:
-- nice project structure without any chaos
-- one fetch does one action
-- one action does one reducer
-- one import in component
+Simplest service only fetches data and dispatches action. So it can be a oneliner:
 
-### How to create a service?
-
-1. Create in `src/api/index.js` a const with called ajaxer function in format like:
-  ```javascript
-  export const managePosts = {
-    get: () => apiAjaxer('/posts'),
-  }
-  ```
-For better project structure give a name with prefix `manage` for api objects with functions.
-
-#### Add action for service
-
-(*Note:* you should generate these autamatically! See: [Redux](#redux))
-
-1. Create in `src/store/actions` a file with name what describe group for actions. This actions will call reducer to modify data in redux-store object.  
-For better project structure give one name for actions, reducer and redux-store state key (`src/store/actions/posts.js` - `state.posts`).
-
-1. Add import to created file
-  ```javascript
-  import { actionCreator } from '~/store/actions/common'
-  ```
-
-1. Create an object with export default:
-  ```javascript
-  export default {
-    set: actionCreator('SET_POSTS'),
-  }
-  ```
-### Create reducer to listen for the action
-
-(*Note:* you should generate these autamatically! See: [Redux](#redux))
-  
-1. Create in a file `src/store/reducers` with same file name as the actions (`src/store/reducers/posts.js`)
-
-1. Add your reducer function with case when type is like `actionCreator` function parameter:
-  ```javascript
-  export default (state = {}, action) => {
-    const { payload, type } = action
-    switch (type) {
-
-      case 'SET_POSTS':
-        return payload
-
-      default:
-        return state
-    }
-  }
-  ```
-
-1. Add your reducer to redux-store:
-  ```javascript
-  import postsReducer from '~/store/reducers/posts'
-
-  export default combineReducers({
-    posts: postsReducer,
-  })
-  ```
-
-1. Add file with same name to `src/services` (`src/services/posts`)
-
-1. Import created ajaxer, actions objects & fetchAndDispatch function
-
-1. And finally create you service object:
-  ```javascript
-  import fetchAndDispatch from '~/services/common'
-  import { managePosts } from '~/api'
-  import postsActions from '~/store/actions/posts'
-
-  export const handlePosts = {
-    get: fetchAndDispatch(managePosts.get, postsActions.set)
-  }
-  ```
-For better project structure give a name with prefix `handle` for service objects.
-
-
-Now you can use service in `services` parameter in `withLayout` HOC for SSR prefetch.  
-For client side - where you have redux function `dispatch`:
 ```javascript
-componentDidMount () {
-  handlePosts.get(null, this.props.dispatch)
+export const handleDogs = {
+  get: fetchAndDispatch(manageDogs.get, dogActions.setDogMap)
 }
 ```
+A service may fetch only - with no dispatching - if for some reason we don't want to update redux after fetch. 
+Likewise - there can be no fetch - for example when all we wan't to do is some browser side-effects 
+and then save data to redux (ex. log-out user: remove user cookie and dispatch action to unset currentUser from redux).
 
-## Redux
+For better project structure service name should be prefixed with `handle-`.
 
-Is pre-configured. All actions, reducers & selectors are in `src/store`.
+### What belongs in a service?
+   
+* api calls
+* handliing api response
+* dispatching actions with data from response
+* client side operations like setting cookies, local storage I/O etc.
 
-If you'd rather not have it - just remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`
+Some rules of thumb:
+* when you create a component method that does something beyond the component concerns, consider 
+  whether that logic might belong in a service (especially if it involves dispatching an action!)
+* parsing raw data from backend response belongs in API and NOT service, same goes with any "low-level" & generic 
+  operations
 
-### Generate reducers & actions from CLI
 
-There's a plop generator that can create standard actions and reducers for you. Use yarn script to run it:
+### Creating a service
+
+Services live in the `src/services/` directory. They are grouped in files named after the entity they handle 
+(ie. User, Post, Task, Board, etc.).
+
+To create a service run plop generator:
+
+```bash
+yarn generate:service
+```
+
+It will: 
+1. Ask for service name
+1. Propose to include typical methods: GET, CREATE, UPDATE, DELETE
+1. Ask whether you want to generate all the other layers corresponding to the service: actions, reducers, api methods
+
+It's highly recommended to create modules using generators, as they use standard naming and structure conventions 
+that we've agreed upon. (If you don't comply with the conventions, be prepared to have your merge request rejected.)
+
+Generated service operations will be grouped in an object and exported. They will be basic
+"fetchAndDispatch" services (take a look at `src/services/common.js` where `fetchAndDispatch` function is implemented)
+
+_Note:_ Services assume the existence of corresponding actions and api methods.
+If they don't exist (and you don't generate them) the service will crash for the lack of dependencies. 
+
+## API methods
+
+API methods are just what you'd expect: ajax connectors to the backend (or any other remotes).
+
+Responsibilities:
+* Defining API endpoints
+* Handling requests
+* Serializing response data (ex. jsonApi)
+* Communicating errors to the outside (ie. services)
+* Some generic errors can be handled here (but need to be communicated outside)
+
+(by communicating errors we mean returning a rejected promise)
+
+API methods are generated alongside services and shouldn't be omitted
+(hardly any service will make sense without backend connection!).
+
+## Redux: actions and reducers
+
+_Actions_ are like events. They just have a **name** and carry some **data** (a.k.a. payload).
+They live in `src/store/actions` and are quite boring.
+
+_Reducers_ listen for actions. They transform the payload and put it in the redux store.
+Once the redux store is updated by a reducer components that connect to the store will update (if neccessary).
+Reducers live in `src/store/reducers`.
+
+Both reducers and actions should be named in accordance to the service that uses them.
+That's why it's easy to generate it all together with the service generator.
+
+But if you just need the reducer and the actions you can generate these separately:
 
 ```bash
 yarn generate:reducer
 ```
-A short wizzard will start. Prompting you - among others - for the reducer name.
+
+A short wizard will start. Prompting you - among others - for the reducer name.
  
 The generator will:
 * Create a reducer file
 * Append it to redux store at `src/store/reducers/index.js`
 * Create actions file
 * Add any of the CRUD actions you specified both to the reducer function and to the actions file.
+  
+Again: for better project structure we use one name for services, actions, 
+reducer, and redux store key (`src/store/actions/posts.js` - `state.posts`).
 
-It's highly recommended to create reducers and actions using this generator, as it uses standard naming conventions
-that we've agreed upon. (If you don't comply with the naming conventions that the generator uses,
-be prepared to have your merge request rejected.)
+#### Adding single actions to redux
 
-#### Generate single action
-
-You can also generate an action using:
+You can add a single custom action to existing actions/reducer pair using:
 
 ```bash
 yarn generate:action
 ```
 
-This generator will add a single action and a single action handler to existing actions/reducer files.
+This will:
+1. Ask for action name.
+1. Ask for reducer/actions file name (both files must exist).
+1. Insert action into actions file.
+1. Insert reducer case listening to given action.
+
+Try to make action names meaningful.
+
+## Selectors
+
+Selectors are functions that retrieve particular fields from redux. You can find them in
+`src/store/selectors.js`. They should be used in `@connect` to get data from store
+in a uniform way. Selector always must be passed the `store` parameter (available in @connect). 
 
 ## Components
 
@@ -285,6 +301,8 @@ Run `yarn lint` for a linting report. Linter will also be run before commit.
 [Storybook](https://storybook.js.org/) is a UI development environment, which also can serve as styleguide.
 
 Run `yarn storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:6006/)
+Generating components with the plop generator will add a Storybook page automatically for you
+(so that you can start developing your component right away, without the app even running.)
 
 ## Committing
 
