@@ -1,0 +1,37 @@
+/* sass-lint:disable */
+
+@font-face {
+	font-family: "icofont";
+	src: url("../static/icons/icofont.eot?7c0c46c0f777093e15c48034735b158a?#iefix") format("embedded-opentype"),
+url("../static/icons/icofont.woff2?7c0c46c0f777093e15c48034735b158a") format("woff2"),
+url("../static/icons/icofont.woff?7c0c46c0f777093e15c48034735b158a") format("woff"),
+url("../static/icons/icofont.ttf?7c0c46c0f777093e15c48034735b158a") format("truetype"),
+url("../static/icons/icofont.svg?7c0c46c0f777093e15c48034735b158a#icofont") format("svg");
+}
+
+[class^="i-"], [class*=" i-"] {
+  font-family: 'icofont' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.i-cog:before {
+	content: "\f101";
+}
+.i-personalize:before {
+	content: "\f102";
+}
+.i-search:before {
+	content: "\f103";
+}
+.i-tag:before {
+	content: "\f104";
+}

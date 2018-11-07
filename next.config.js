@@ -54,9 +54,9 @@ const nextConfig = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: '../../../static/',
+              publicPath: '../../../',
               emitFile: false,
-              name: '[name].[ext]?[sha512:hash:base64:7]',
+              name: '[path][name].[ext]?[sha512:hash:base64:7]',
             }
           }
         ]

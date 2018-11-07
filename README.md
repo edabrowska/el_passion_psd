@@ -230,6 +230,40 @@ We recommend to create your styles using BEM structure.
 - (What is BEM?)[http://getbem.com/introduction/]
 - [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by classnames that glues class with --modifiers.
 
+## Icons
+
+Icons are shipped as webfonts generated from svgs by the script: 
+
+```bash
+yarn icofont
+```
+
+It takes all SVGs in the `/icons/` directory, builds webfont files, and puts them in the `/static/icons/` directory.
+Finally, a "@font-face" file is generated: `styles/base/icofont.scss`. It includes all the icons
+found in `/icons/` dir.
+
+### Adding an icon
+
+1. Put the SVG in `/icons/` directory (the name of the file will be the icon class with an `.i-` prefix)
+1. Run the script: `yarn icofont`
+1. Celebrate
+
+### Icon good practices
+
+Rules for the designer (make sure he or she realizes those):
+* Icons should be made out of SVGs of uniform size (ie. height).
+* The size of the SVGs should correspond to the grid size for the icon.
+* Symbols in the SVG should conform to that grid and leave 2-3 grid units padding (depending on the shape).
+* Symbols should be centered in the SVG but it's more important for them to conform to the grid.
+
+(conform to the grid == lay exactly at the grid points, snap to grid at every possible point)
+
+Rules for the developer:
+* For pixel-perfect icons use font size that is equal to `SVG grid height * n`.
+* Remember: font-size corresponds to the SVG size (not the size of symbol within).
+* Icons tend not to be horizontally pixel-perfect in 50% of cases (depending on browser);
+  to mitigate this you can use `margin-left: .5px`, but remember to debug across all browsers.
+
 ## Deployment
 
 - `yarn start` - if you want to use node server
