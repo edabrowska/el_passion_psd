@@ -1,7 +1,7 @@
 const reducerGeneratorActions = require('./reducer-generator').actions
 
 module.exports = {
-  description: 'Generate me a reducer, por favor.',
+  description: 'Generate me a service, por favor.',
 
   prompts: [
     {

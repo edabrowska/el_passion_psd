@@ -17,6 +17,7 @@
     "storybook": "start-storybook -p 6006",
     "generate": "plop --plopfile=scripts/plopfile.js",
     "generate:reducer": "plop --plopfile=scripts/plopfile.js reducer",
+    "generate:service": "plop --plopfile=scripts/plopfile.js service",
     "generate:action": "plop --plopfile=scripts/plopfile.js action",
     "generate:component": "plop --plopfile=scripts/plopfile.js component && jest --coverage"
   },
