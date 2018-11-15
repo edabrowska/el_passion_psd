@@ -1,7 +1,7 @@
 {
   "extends": [
     "standard",
-    "standard-react",
+    "standard-react"
   ],
   "rules": {
     "camelcase": 0,
@@ -13,7 +13,7 @@
       {
         "code": 120,
         "ignoreTrailingComments": true,
-        "ignoreUrls": true,
+        "ignoreUrls": true
       }
     ],
     "no-console": 2,
@@ -32,21 +32,26 @@
     "react/jsx-tag-spacing": [
       "error",
       {
-        "beforeSelfClosing": "always",
+        "beforeSelfClosing": "always"
       }
     ],
     "react/jsx-key": 2,
-    "react/sort-comp": 2,
+    "react/sort-comp": 2
   },
   "globals": {
     "NODE_ENV": true,
     "VERSION": true,
-    "__": true,
+    "__": true
   },
   "env": {
     "browser": true,
     "node": true,
-    "jest": true,
+    "jest": true
   },
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  }
 }
