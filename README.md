@@ -13,7 +13,7 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Minification](http://cssnano.co/) via [PostCSS](http://postcss.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 - [Redux](https://redux.js.org/)
-- Plop code generators for: a) reducers; b) services (coming soon) 
+- Plop code generators for: a) reducers; b) services (coming soon)
 - Testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [Eslint](https://eslint.org/)
 - [Sass lint](https://github.com/sasstools/sass-lint)
@@ -21,6 +21,44 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Automatic changelog](https://github.com/leonardoanalista/corp-semantic-release)
 - [Storybook](https://storybook.js.org/)
 - [Sentry's Raven.js Library](https://www.npmjs.com/package/raven-js)
+
+## Legend
+
+- [Features](#features)
+- [Quick start](#quick-start)
+- [Linking modules](#linking-modules)
+- [Fetching data - API layer](#fetching-data-api-layer)
+- [Services - connecting ajax with redux](#services-connecting-ajax-with-redux)
+- []()
+  - [What belongs in a service?](#what-belongs-in-a-service)
+  - [Creating a service](#creating-a-service)
+- [API methods](#api-methods)
+- [Redux: actions and reducers](#redux-actions-and-reducers)
+  - [Adding single actions to redux](#adding-single-actions-to-redux)
+- [Selectors](#selectors)
+- [Components](#selectors)
+- [Default components](#default-components)
+  - [ImageTag](#imagetag)
+  - [Link](#link)
+- [Styles](#styles)
+  - [Links with hash](#links-with-hash)
+  - [Links without hash](#links-without-hash)
+  - [BEM](#bem)
+- [Icons](#icons)
+  - [Adding an icon](#adding-an-icon)
+  - [Icon good practices](#icon-good-practices)
+- [Deployment](#deployment)
+- [Testing](#testing)
+- [Linting](#linting)
+- [Storybook](#storybook)
+- [Committing](#committing)
+- [Changelog](#changelog)
+- [Bundle analysis](#bundle-analysis)
+- [Error tracking](#error-tracking)
+- [Per environment config](#per-environment-config)
+- [Static text content and internationalization (i18n)](#static-text-content-and-internationalization-i18n)
+  - [More on i18next](#more-on-i18next)
+
 
 ## Quick start
 
@@ -54,7 +92,7 @@ For separation of concern the app business logic comprises of the following laye
 1. **selectors** - simple functions to fetch stuff from store
 1. **components** - view - react components, that update on store change (using @connect)
 
-**Note:** 1. - 5. are business logic layers that build upon Redux. Redux is 3. - 4. 
+**Note:** 1. - 5. are business logic layers that build upon Redux. Redux is 3. - 4.
 Should you build just a basic landing page, you won't need that advanced structure.
 In such case you can get rid of all the layers except for components and (most likely) api.
 To get rid of Redux: remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`.
@@ -83,29 +121,29 @@ export const handleDogs = {
   get: fetchAndDispatch(manageDogs.get, dogActions.setDogMap)
 }
 ```
-A service may fetch only - with no dispatching - if for some reason we don't want to update redux after fetch. 
-Likewise - there can be no fetch - for example when all we wan't to do is some browser side-effects 
+A service may fetch only - with no dispatching - if for some reason we don't want to update redux after fetch.
+Likewise - there can be no fetch - for example when all we wan't to do is some browser side-effects
 and then save data to redux (ex. log-out user: remove user cookie and dispatch action to unset currentUser from redux).
 
 For better project structure service name should be prefixed with `handle-`.
 
 ### What belongs in a service?
-   
+
 * api calls
 * handliing api response
 * dispatching actions with data from response
 * client side operations like setting cookies, local storage I/O etc.
 
 Some rules of thumb:
-* when you create a component method that does something beyond the component concerns, consider 
+* when you create a component method that does something beyond the component concerns, consider
   whether that logic might belong in a service (especially if it involves dispatching an action!)
-* parsing raw data from backend response belongs in API and NOT service, same goes with any "low-level" & generic 
+* parsing raw data from backend response belongs in API and NOT service, same goes with any "low-level" & generic
   operations
 
 
 ### Creating a service
 
-Services live in the `src/services/` directory. They are grouped in files named after the entity they handle 
+Services live in the `src/services/` directory. They are grouped in files named after the entity they handle
 (ie. User, Post, Task, Board, etc.).
 
 To create a service run plop generator:
@@ -114,19 +152,19 @@ To create a service run plop generator:
 yarn generate:service
 ```
 
-It will: 
+It will:
 1. Ask for service name
 1. Propose to include typical methods: GET, CREATE, UPDATE, DELETE
 1. Ask whether you want to generate all the other layers corresponding to the service: actions, reducers, api methods
 
-It's highly recommended to create modules using generators, as they use standard naming and structure conventions 
+It's highly recommended to create modules using generators, as they use standard naming and structure conventions
 that we've agreed upon. (If you don't comply with the conventions, be prepared to have your merge request rejected.)
 
 Generated service operations will be grouped in an object and exported. They will be basic
 "fetchAndDispatch" services (take a look at `src/services/common.js` where `fetchAndDispatch` function is implemented)
 
 _Note:_ Services assume the existence of corresponding actions and api methods.
-If they don't exist (and you don't generate them) the service will crash for the lack of dependencies. 
+If they don't exist (and you don't generate them) the service will crash for the lack of dependencies.
 
 ## API methods
 
@@ -163,14 +201,14 @@ yarn generate:reducer
 ```
 
 A short wizard will start. Prompting you - among others - for the reducer name.
- 
+
 The generator will:
 * Create a reducer file
 * Append it to redux store at `src/store/reducers/index.js`
 * Create actions file
 * Add any of the CRUD actions you specified both to the reducer function and to the actions file.
-  
-Again: for better project structure we use one name for services, actions, 
+
+Again: for better project structure we use one name for services, actions,
 reducer, and redux store key (`src/store/actions/posts.js` - `state.posts`).
 
 #### Adding single actions to redux
@@ -193,12 +231,12 @@ Try to make action names meaningful.
 
 Selectors are functions that retrieve particular fields from redux. You can find them in
 `src/store/selectors.js`. They should be used in `@connect` to get data from store
-in a uniform way. Selector always must be passed the `store` parameter (available in @connect). 
+in a uniform way. Selector always must be passed the `store` parameter (available in @connect).
 
 ## Components
 
 You can generate components using:
- 
+
 ```bash
 yarn generate:component
 ```
@@ -211,7 +249,7 @@ It will create:
 
 Afterwards the script will run all tests, and generate snapshot.
 
-Again - Generator uses standard naming conventions that we've agreed upon (including BEM). 
+Again - Generator uses standard naming conventions that we've agreed upon (including BEM).
 (If you mess with the conventions, be prepared to have your merge request rejected.)
 
 ## Default components
@@ -248,7 +286,7 @@ We recommend to create your styles using BEM structure.
 
 ## Icons
 
-Icons are shipped as webfonts generated from svgs by the script: 
+Icons are shipped as webfonts generated from svgs by the script:
 
 ```bash
 yarn icofont
@@ -338,14 +376,14 @@ Specified variables can be accessed like ... `process.env.SOME_VARIABLE`
 # Static text content and internationalization (i18n)
 
 I18next is used for placing static text within pages. Use this mechanism regardless of whether you think your
-app will be translated into more than one language.  
+app will be translated into more than one language.
 
-Put text/locale on pages like this: 
+Put text/locale on pages like this:
 
 ```jsx harmony
 import { translate } from 'react-i18next'
 
-@translate(['common', 'errors']) //namespaces = locale files, 1st one will be default 
+@translate(['common', 'errors']) //namespaces = locale files, 1st one will be default
 class MeinComponent extends React.Component {
   render () {
     const { t } = this.props //translate prop provided by translate hoc
@@ -368,7 +406,7 @@ Be aware that i18next is quite powerful. **Do not reinvent the wheel!** Use what
 Ex. if you expect to support more than one language, do not simply concatenate strings with parameters,
 as the resulting translation may have different word order in different languages. Instead use *interpolation* features
 built into i18next instead (or the `Trans` component).
- 
+
 Besides *interpolation*, i18next does a great job with *pluralization* and other advanced locale stuff for you.
 
 *Note on missing locales:* Do not copy English locale to other language packages. I18next will fall back English
