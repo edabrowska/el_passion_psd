@@ -13,7 +13,10 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Minification](http://cssnano.co/) via [PostCSS](http://postcss.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
 - [Redux](https://redux.js.org/)
-- Plop code generators for: a) reducers; b) services (coming soon)
+- Plop code generators for:
+  - compoents
+  - reducers
+  - services
 - Testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [Eslint](https://eslint.org/)
 - [Sass lint](https://github.com/sasstools/sass-lint)
@@ -24,9 +27,9 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 
 ## Legend
 
-- [Features](#features)
 - [Quick start](#quick-start)
 - [Linking modules](#linking-modules)
+  - [App data handling layers](#app-data-handling-layers)
 - [Fetching data - API layer](#fetching-data-api-layer)
 - [Services - connecting ajax with redux](#services-connecting-ajax-with-redux)
 - []()
@@ -81,7 +84,7 @@ import MyComponent from '~/components/MyComponent'
 import styles from '+/style.sass'
 ```
 
-#App data handling layers
+# App data handling layers
 
 For separation of concern the app business logic comprises of the following layers:
 
@@ -92,11 +95,23 @@ For separation of concern the app business logic comprises of the following laye
 1. **selectors** - simple functions to fetch stuff from store
 1. **components** - view - react components, that update on store change (using @connect)
 
-**Note:** 1. - 5. are business logic layers that build upon Redux. Redux is 3. - 4.
-Should you build just a basic landing page, you won't need that advanced structure.
+**Note:**
+
+```
+
+1–5 are business logic layers that build upon Redux.
+
+3–4 is Redux.
+
+If you build just a basic landing page, you won't need that advanced structure.
+
 In such case you can get rid of all the layers except for components and (most likely) api.
+
 To get rid of Redux: remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`.
+
 Otherwise - If you don't know redux, now would be the time to google it & and get a gist of it.
+
+```
 
 Besides those, there are a couple of other entities:
 * **helpers** - general utilities
@@ -106,8 +121,9 @@ Besides those, there are a couple of other entities:
 
 To fetch data use `ajaxer` or `apiAjaxer` functions placed in `src/api/common`. See example in `src/api/index`.
 
-If you want fetch data and add it to redux store use Services.
-To prefetch data with SSR use `services` parameter in HOC `src/hoc/withLayout`. See example in `pages/index.js`.
+If you want fetch data and add it to redux store – use [Services](#services-connecting-ajax-with-redux).
+
+To prefetch data with SSR – use `services` parameter in HOC `src/hoc/withLayout`. See example in `pages/index.js`.
 
 ## Services - connecting ajax with redux
 
@@ -127,21 +143,21 @@ and then save data to redux (ex. log-out user: remove user cookie and dispatch a
 
 For better project structure service name should be prefixed with `handle-`.
 
-### What belongs in a service?
+## What belongs in a service?
 
-* api calls
-* handliing api response
+* API calls
+* handling API response
 * dispatching actions with data from response
 * client side operations like setting cookies, local storage I/O etc.
 
-Some rules of thumb:
+### Some [rules of thumb](https://www.collinsdictionary.com/dictionary/english/rule-of-thumb):
 * when you create a component method that does something beyond the component concerns, consider
   whether that logic might belong in a service (especially if it involves dispatching an action!)
 * parsing raw data from backend response belongs in API and NOT service, same goes with any "low-level" & generic
   operations
 
 
-### Creating a service
+## Creating a service
 
 Services live in the `src/services/` directory. They are grouped in files named after the entity they handle
 (ie. User, Post, Task, Board, etc.).
@@ -157,20 +173,24 @@ It will:
 1. Propose to include typical methods: GET, CREATE, UPDATE, DELETE
 1. Ask whether you want to generate all the other layers corresponding to the service: actions, reducers, api methods
 
-It's highly recommended to create modules using generators, as they use standard naming and structure conventions
-that we've agreed upon. (If you don't comply with the conventions, be prepared to have your merge request rejected.)
+```
+It's highly recommended to create modules using generators, as they use standard naming and structure conventions that we've agreed upon. (If you don't comply with the conventions, be prepared to have your merge request rejected.)
+```
 
 Generated service operations will be grouped in an object and exported. They will be basic
-"fetchAndDispatch" services (take a look at `src/services/common.js` where `fetchAndDispatch` function is implemented)
+`fetchAndDispatch` services (take a look at `src/services/common.js` where `fetchAndDispatch` function is implemented)
 
-_Note:_ Services assume the existence of corresponding actions and api methods.
+**Note:**
+```
+Services assume the existence of corresponding actions and api methods.
 If they don't exist (and you don't generate them) the service will crash for the lack of dependencies.
+```
 
 ## API methods
 
 API methods are just what you'd expect: ajax connectors to the backend (or any other remotes).
 
-Responsibilities:
+**Responsibilities**
 * Defining API endpoints
 * Handling requests
 * Serializing response data (ex. jsonApi)
@@ -202,7 +222,7 @@ yarn generate:reducer
 
 A short wizard will start. Prompting you - among others - for the reducer name.
 
-The generator will:
+**The generator will**:
 * Create a reducer file
 * Append it to redux store at `src/store/reducers/index.js`
 * Create actions file
@@ -241,7 +261,7 @@ You can generate components using:
 yarn generate:component
 ```
 
-It will create:
+**It will create**:
 * component file (you can choose between function and class)
 * test file containing a basic display test and a snapshot test
 * sass file
@@ -256,7 +276,7 @@ Again - Generator uses standard naming conventions that we've agreed upon (inclu
 
 ### ImageTag
 
-Component create `img` tag with hashed image path and expect that any raster image will have a corresponding `@2x`version, e.g. `image.png` & `image@2x.png` (for  `*.svg` not needed).
+Component create `img` tag with hashed image path and expect that any raster image will have a corresponding `@2x` version, e.g. `image.png` & `image@2x.png` (for  `*.svg` not needed).
 
 ### Link
 
@@ -281,12 +301,12 @@ Just use `background-image: '/static/image.png'`
 ### BEM
 
 We recommend to create your styles using BEM structure.
-- (What is BEM?)[http://getbem.com/introduction/]
-- [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by classnames that glues class with --modifiers.
+- [What is BEM?](http://getbem.com/introduction/)
+- [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by [classnames](https://github.com/JedWatson/classnames) that glues class with --modifiers.
 
 ## Icons
 
-Icons are shipped as webfonts generated from svgs by the script:
+Icons are shipped as webfonts generated from SVGs by the script:
 
 ```bash
 yarn icofont
@@ -300,19 +320,19 @@ found in `/icons/` dir.
 
 1. Put the SVG in `/icons/` directory (the name of the file will be the icon class with an `.i-` prefix)
 1. Run the script: `yarn icofont`
-1. Celebrate
+1. Celebrate 🥳
 
 ### Icon good practices
 
-Rules for the designer (make sure he or she realizes those):
+#### Rules for the designer (make sure he or she realizes those):
 * Icons should be made out of SVGs of uniform size (ie. height).
 * The size of the SVGs should correspond to the grid size for the icon.
-* Symbols in the SVG should conform to that grid and leave 2-3 grid units padding (depending on the shape).
+* Symbols in the SVG should conform to that grid and leave `2-3` grid units padding (depending on the shape).
 * Symbols should be centered in the SVG but it's more important for them to conform to the grid.
 
 (conform to the grid == lay exactly at the grid points, snap to grid at every possible point)
 
-Rules for the developer:
+#### Rules for the developer:
 * For pixel-perfect icons use font size that is equal to `SVG grid height * n`.
 * Remember: font-size corresponds to the SVG size (not the size of symbol within).
 * Icons tend not to be horizontally pixel-perfect in 50% of cases (depending on browser);
@@ -338,7 +358,8 @@ Run `yarn lint` for a linting report. Linter will also be run before commit.
 
 [Storybook](https://storybook.js.org/) is a UI development environment, which also can serve as styleguide.
 
-Run `yarn storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:6006/)
+Run `yarn storybook` to start the development mode - the Storybook will be available at [localhost:9001](http://localhost:6006/).
+
 Generating components with the plop generator will add a Storybook page automatically for you
 (so that you can start developing your component right away, without the app even running.)
 
@@ -350,7 +371,7 @@ Each commit triggers `yarn lint`.
 
 ## Changelog
 
-To generate changelog, tag a new version, and push to code to remote, run `$ yarn release`.
+To generate changelog, tag a new version, and push to code to remote, run `yarn release`.
 
 ## Bundle analysis
 
@@ -378,7 +399,7 @@ Specified variables can be accessed like ... `process.env.SOME_VARIABLE`
 I18next is used for placing static text within pages. Use this mechanism regardless of whether you think your
 app will be translated into more than one language.
 
-Put text/locale on pages like this:
+**Put text/locale on pages like this**:
 
 ```jsx harmony
 import { translate } from 'react-i18next'
@@ -398,7 +419,7 @@ class MeinComponent extends React.Component {
 }
 ```
 
-Locale strings are placed in locale/filename_aka_namespace.yml
+Locale strings are placed in `locale/filename_aka_namespace.yml`
 
 ### More on i18next
 
