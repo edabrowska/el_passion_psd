@@ -7,7 +7,7 @@ export default ({ src, className, ...props }) => {
       {...props}
       className={className}
       src={source}
-      srcSet={isSVG(src) ? '' : `${source} 1x, ${getRasterImagePath(`${src}`)} 2x`}
+      srcSet={isSVG(src) ? '' : `${source} 1x, ${getRasterImagePath(`assets/${src}`)} 2x`}
     />
   )
 }
