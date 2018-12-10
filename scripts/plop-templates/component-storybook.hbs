@@ -4,7 +4,10 @@ import '+/main.sass'
 
 import {{properCase name}} from '~/components/{{properCase name}}'
 
+import sectionDecorator from './decorators/sectionDecorator'
+
 storiesOf('{{properCase name}}', module)
+  .addDecorator(sectionDecorator)
   .add('{{sentenceCase name}} - example.', () => (
     <{{properCase name}} />
   ))

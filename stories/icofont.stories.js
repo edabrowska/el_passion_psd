@@ -2,9 +2,12 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import '+/main.sass'
 
+import sectionDecorator from './decorators/sectionDecorator'
+
 storiesOf('Icons "i-"', module)
+  .addDecorator(sectionDecorator)
   .add('all "i-" icons list', () => (
-    <div style={{ margin: '20px' }}>
+    <div>
       <h3>Icons showcase</h3>
       <p>
         Stick to default 21px * n font-size. Icons are created to be pixel perfect at 21px (this size corresponds
