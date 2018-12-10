@@ -9,7 +9,12 @@ const fontName = 'icofont'
 const files = fs.readdirSync(FONTS_PATH)
 
 webfontsGenerator({
-  files: files.map(filename => path.resolve(FONTS_PATH, filename)),
+  files: files.reduce((filesArr, filename) => {
+    if (filename.includes('.svg')) {
+      filesArr.push(path.resolve(FONTS_PATH, filename))
+    }
+    return filesArr
+  }, []),
   dest: 'static/icons/',
   fontName,
   cssDest: 'styles/base/' + fontName + '.scss',
