@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header With Snapshot Testing Has logo 1`] = `
+exports[`Header Snapshot 1`] = `
 <header>
   <a
     href="/"
