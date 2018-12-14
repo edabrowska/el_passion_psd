@@ -1,14 +1,12 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import getConfig from 'next/config'
 import { Provider } from 'react-redux'
 
 import withReduxStore from '~/hoc/withReduxStore'
 
 import { getStaticFilePath } from '~/utils/helpers'
 
-const { publicRuntimeConfig } = getConfig()
-const Raven = publicRuntimeConfig.RAVEN_URL ? require('raven-js') : null
+const Raven = process.env.RAVEN_URL ? require('raven-js') : null
 
 @withReduxStore
 class MyApp extends App {
@@ -20,7 +18,7 @@ class MyApp extends App {
     }
 
     Raven && Raven
-      .config(publicRuntimeConfig.RAVEN_URL)
+      .config(process.env.RAVEN_URL)
       .install()
   }
 

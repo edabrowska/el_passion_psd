@@ -1,10 +1,6 @@
 import i18n from 'i18next'
 import XHR from 'i18next-xhr-backend'
 
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
-
 function loadLocales (url, options, callback, data) {
   try {
     let waitForLocale = require('~/locales/' + url + '.yml')
@@ -21,7 +17,7 @@ i18n
   .init({
     ns: ['common'],
     fallbackLng: 'en',
-    debug: publicRuntimeConfig.APPLICATION_ENV !== 'production',
+    debug: process.env.NODE_ENV !== 'production',
 
     backend: {
       loadPath: '{{lng}}/{{ns}}',

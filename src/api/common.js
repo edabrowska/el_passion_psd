@@ -1,9 +1,6 @@
 import fetch from 'isomorphic-fetch'
-import getConfig from 'next/config'
 
-const { publicRuntimeConfig } = getConfig()
-
-const withApiHost = (path) => `${publicRuntimeConfig.API_URL}${path}`
+const withApiHost = (path) => `${process.env.API_URL}${path}`
 
 const catchFailure = (res) => {
   if (res && res.status >= 400) {

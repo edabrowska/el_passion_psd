@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const withSass = require('@zeit/next-sass')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const dotenv = require('dotenv')
+const webpack = require('webpack')
 
 const applicationEnv = process.env.APPLICATION_ENV || 'development'
 
@@ -44,6 +45,12 @@ const nextConfig = {
             urlPattern: /^https?.*/
           }
         ]
+      }),
+      new webpack.DefinePlugin({
+        'process.env': JSON.stringify({
+          ...envConfig,
+          NODE_ENV: process.env.NODE_ENV
+        })
       })
     )
 
@@ -72,7 +79,6 @@ const nextConfig = {
   serverRuntimeConfig: { // Will only be available on the server side
     mySecret: process.env.SOME_SECRET_KEY
   },
-  publicRuntimeConfig: envConfig, // Will be available on both server and client
 }
 
 module.exports = withSass(withBundleAnalyzer(nextConfig))
