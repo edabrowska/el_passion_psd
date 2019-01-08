@@ -402,9 +402,9 @@ app will be translated into more than one language.
 **Put text/locale on pages like this**:
 
 ```jsx harmony
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 
-@translate(['common', 'errors']) //namespaces = locale files, 1st one will be default
+@withNamespaces(['common', 'errors']) //namespaces = locale files, 1st one will be default
 class MeinComponent extends React.Component {
   render () {
     const { t } = this.props //translate prop provided by translate hoc

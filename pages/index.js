@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { translate } from 'react-i18next'
+import { withNamespaces } from 'react-i18next'
 import bemCx from 'bem-modifiers'
 
 import withLayout from '~/hoc/withLayout'
@@ -17,7 +17,7 @@ export default
     fakeData: fakeDataSelector(state)
   })
 )
-@translate('common')
+@withNamespaces('common')
 class Index extends React.Component {
   render () {
     const { t } = this.props
