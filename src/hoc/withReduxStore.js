@@ -1,8 +1,8 @@
 import React from 'react'
 import { initializeStore } from '../store'
+import { NEXT_REDUX_STORE_KEY } from '~/utils/consts'
 
 const isServer = typeof window === 'undefined'
-const __NEXT_REDUX_STORE__ = '__NEXT_REDUX_STORE__'
 
 function getOrCreateStore (initialState) {
   // Always make a new store if server, otherwise state is shared between requests
@@ -11,10 +11,10 @@ function getOrCreateStore (initialState) {
   }
 
   // Create store if unavailable on the client and set it on the window object
-  if (!window[__NEXT_REDUX_STORE__]) {
-    window[__NEXT_REDUX_STORE__] = initializeStore(initialState)
+  if (!window[NEXT_REDUX_STORE_KEY]) {
+    window[NEXT_REDUX_STORE_KEY] = initializeStore(initialState)
   }
-  return window[__NEXT_REDUX_STORE__]
+  return window[NEXT_REDUX_STORE_KEY]
 }
 
 export default (App) => {

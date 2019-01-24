@@ -1,6 +1,8 @@
-const fetchAndDispatch = (fetcher, action) => (data, dispatch) => {
+import { getClientStore } from '~/store/helpers'
+
+const fetchAndDispatch = (fetcher, action) => (data, store = getClientStore()) => {
   return fetcher(data).then(res => {
-    action && dispatch(action(res))
+    action && store.dispatch(action(res))
     return res
   })
 }

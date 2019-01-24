@@ -17,7 +17,7 @@ export default (initial = {
       let error
       if (initial.services.length) {
         await Promise.all(initial.services.map(
-          service => service(query, store.dispatch)
+          service => service(query, store)
         )).catch(e => {
           error = e
         })

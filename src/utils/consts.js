@@ -1,0 +1,1 @@
+export const NEXT_REDUX_STORE_KEY = '__NEXT_REDUX_STORE__'
