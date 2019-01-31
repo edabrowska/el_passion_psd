@@ -7,4 +7,5 @@ module.exports = function (plop) {
   plop.setGenerator('service', require('./plop-generators/service-generator.js'));
   plop.setGenerator('action', require('./plop-generators/action-generator.js'));
   plop.setGenerator('component', require('./plop-generators/component-generator.js'));
+  plop.setGenerator('section', require('./plop-generators/section-generator.js'));
 };

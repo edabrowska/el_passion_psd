@@ -19,7 +19,8 @@
     "generate:reducer": "plop --plopfile=scripts/plopfile.js reducer",
     "generate:service": "plop --plopfile=scripts/plopfile.js service",
     "generate:action": "plop --plopfile=scripts/plopfile.js action",
-    "generate:component": "plop --plopfile=scripts/plopfile.js component && jest --coverage"
+    "generate:component": "plop --plopfile=scripts/plopfile.js component && jest --coverage",
+    "generate:section": "plop --plopfile=scripts/plopfile.js section && jest --coverage"
   },
   "config": {
     "commitizen": {

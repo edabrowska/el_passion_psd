@@ -45,14 +45,14 @@ module.exports = {
       {
         type: 'modify',
         path: '../styles/main.sass',
-        pattern: '// 5. Components\n// --',
-        template: '// 5. Components',
+        pattern: '// 6. Components\n// --',
+        template: '// 6. Components',
         separator: ''
       },
       {
         type: 'append',
         path: '../styles/main.sass',
-        pattern: '// 5. Components\n',
+        pattern: '// 6. Components\n',
         template: '@import components/{{kebabCase name}}\n',
         separator: ''
       }

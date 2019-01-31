@@ -1,0 +1,14 @@
+/* eslint-env jest */
+
+import React from 'react'
+import renderer from 'react-test-renderer'
+
+import {{properCase name}}Section from '~/sections/{{properCase name}}Section'
+
+describe('{{properCase name}}', () => {
+  it('Snapshot', () => {
+    const component = renderer.create(<{{properCase name}}Section />)
+    const tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+  })
+})
