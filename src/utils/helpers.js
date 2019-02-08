@@ -15,8 +15,13 @@ export const getScaledPath = (path, scale = 2) => path.replace(/\.([\w]*)$/, `@$
 
 export const getRasterImagePath = (path) => {
   const isHiDPI = hasWindow() && window.matchMedia && window.matchMedia(HDPI_MEDIA_QUERY).matches
-  if (!isSVG(path) && isHiDPI) {
-    path = getScaledPath(path)
+  const scaledPath = !isSVG(path) && isHiDPI ? getScaledPath(path) : path
+
+  let filePath
+  try {
+    filePath = getStaticFilePath(scaledPath)
+  } catch (error) {
+    filePath = getStaticFilePath(path)
   }
-  return getStaticFilePath(path)
+  return filePath
 }
