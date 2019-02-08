@@ -50,6 +50,7 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Icons](#icons)
   - [Adding an icon](#adding-an-icon)
   - [Icon good practices](#icon-good-practices)
+- [Inline SVG](#inline-svg)
 - [Deployment](#deployment)
 - [Testing](#testing)
 - [Linting](#linting)
@@ -337,6 +338,21 @@ found in `/icons/` dir.
 * Remember: font-size corresponds to the SVG size (not the size of symbol within).
 * Icons tend not to be horizontally pixel-perfect in 50% of cases (depending on browser);
   to mitigate this you can use `margin-left: .5px`, but remember to debug across all browsers.
+
+## Inline SVG
+
+How to use:
+
+Add your `file.svg` to `src/svg` and then -
+
+```javascript
+  import SomeSVG from '~/svg/some.svg
+
+  export default () =>
+    <div className='my-component'>
+      <SomeSVG />
+    </div>
+```
 
 ## Deployment
 
