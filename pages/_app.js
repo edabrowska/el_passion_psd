@@ -1,6 +1,7 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
+import '@babel/polyfill'
 
 import withReduxStore from '~/hoc/withReduxStore'
 

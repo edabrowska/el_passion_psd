@@ -1,5 +1,18 @@
 {
-  "presets": ["next/babel"],
+  "presets": [
+    [
+      "next/babel",
+      {
+        "@babel/preset-env": {
+          "targets": {
+            "chrome": "58",
+            "ie": "11"
+          },
+          "useBuiltIns": "entry"
+        }
+      }
+    ]
+  ],
   "plugins": [
     ["inline-react-svg"],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
