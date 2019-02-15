@@ -33,7 +33,7 @@
     ],
     "setupTestFrameworkScriptFile": "<rootDir>/jest-config/mocks/index.js",
     "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/jest-config/assetsTransformer.js",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|pdf)$": "<rootDir>/jest-config/assetsTransformer.js",
       "\\.(sass|scss|css|less)$": "<rootDir>/jest-config/assetsTransformer.js"
     },
     "collectCoverageFrom": [
