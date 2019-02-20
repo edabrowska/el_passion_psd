@@ -3,7 +3,7 @@
 	src: {{{src}}};
 }
 
-[class^="{{classPrefix}}-"], [class*=" {{classPrefix}}-"] {
+@mixin {{classPrefix}}-font-base {
   font-family: '{{fontName}}' !important;
   speak: none;
   font-style: normal;
@@ -17,7 +17,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+[class^="{{classPrefix}}-"], [class*=" {{classPrefix}}-"] {
+  @include {{classPrefix}}-font-base;
+}
+
 {{#each codepoints}}
+%{{../classPrefix}}-abstract-{{@key}},
 .{{../classPrefix}}-{{@key}}:before {
 	content: "\\{{this}}";
 }
