@@ -418,7 +418,11 @@ app will be translated into more than one language.
 **Put text/locale on pages like this**:
 
 ```jsx harmony
-import { withNamespaces } from 'react-i18next'
+import { withNamespaces } from '>/i18'
+
+// If this component would be a page you need to specify a namespaces
+// array in withLayout so next-i18next knows which namespaces to send server-side.
+// This array should include all namespaces used on a page - also those of nested components.
 
 @withNamespaces(['common', 'errors']) //namespaces = locale files, 1st one will be default
 class MeinComponent extends React.Component {
@@ -450,4 +454,5 @@ Besides *interpolation*, i18next does a great job with *pluralization* and other
 in case of missing locale key for other language, and **will report it**. However, if you put an English "placeholder"
 in a language locale file, the locale key will not be formally missing, and **will not be reported!**
 
-Learn shit before you use it: [i18next for react](https://react.i18next.com/) & [i18next](https://www.i18next.com/).
+Learn shit before you use it: [i18next for react](https://react.i18next.com/) &
+[i18next for next](https://github.com/isaachinman/next-i18next) & [i18next](https://www.i18next.com/).

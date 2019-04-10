@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withNamespaces } from 'react-i18next'
+import { withNamespaces } from '>/i18n'
 import bemCx from 'bem-modifiers'
 
 import withLayout from '~/hoc/withLayout'
@@ -34,7 +34,7 @@ class Index extends React.Component {
           <br />
           Use this regardless of whether you think you need internationalization.
           <br />
-          More info on i18next: google "i18next" and "react-i18next".
+          More info on i18next: google "i18next" and "next-i18next".
         </p>
         {this.props.fakeData.map(item => (
           <div key={item.id}>

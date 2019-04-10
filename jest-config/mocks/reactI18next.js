@@ -5,4 +5,4 @@ const react_i18next = {}
 const withNamespaces = () => Component => props => <Component t={() => ''} {...props} />
 react_i18next.withNamespaces = withNamespaces
 
-export default () => jest.mock('react-i18next', () => react_i18next)
+export default () => jest.mock('../../i18n', () => react_i18next)

@@ -20,6 +20,9 @@
       "paths": [{
         "rootPathSuffix": "src"
       }, {
+        "rootPathPrefix": ">",
+        "rootPathSuffix": "./"
+      }, {
         "rootPathPrefix": "+",
         "rootPathSuffix": "styles"
       }, {

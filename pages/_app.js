@@ -2,6 +2,7 @@ import App, { Container } from 'next/app'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
 import '@babel/polyfill'
+import { appWithTranslation } from '>/i18n'
 
 import withReduxStore from '~/hoc/withReduxStore'
 
@@ -39,4 +40,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)

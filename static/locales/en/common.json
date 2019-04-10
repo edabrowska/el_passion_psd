@@ -1,0 +1,13 @@
+{
+  "back": "Back",
+  "search": "Search",
+  "button": {
+    "accept": "Accept",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "back": "Back",
+    "create": "Create",
+    "import": "Import",
+    "remove": "Remove"
+  }
+}
