@@ -1,0 +1,25 @@
+import React from 'react'
+import gql from 'graphql-tag'
+import { Query } from 'react-apollo'
+
+import {{properCase name}}{{properCase renderComponentSuffix}} from '~/components/{{properCase name}}/{{properCase name}}{{properCase renderComponentSuffix}}'
+
+const EXAMPLE_QUERY = gql`
+  query nameYourQueries {
+    items {
+      id
+      name
+    }
+  }
+`
+
+export default () => (
+  <Query query={EXAMPLE_QUERY}>
+    {({ loading, error, data }) => {
+      if (loading) return 'Loading...'
+      if (error) return `Error! ${error.message}`
+
+      return <{{properCase name}}{{properCase renderComponentSuffix}} items={data.items} />
+    }}
+  </Query>
+)

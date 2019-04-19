@@ -1,0 +1,11 @@
+{
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "dev": {
+        "url": "https://plp0mopxq.sse.codesandbox.io/",
+        "introspect": true
+      }
+    }
+  }
+}

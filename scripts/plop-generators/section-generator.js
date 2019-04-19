@@ -18,17 +18,24 @@ module.exports = {
     },
   ],
 
-  actions: function ({ componentType, includeStorybook, ...params }) {
+  actions: function ({ componentType }) {
     const steps = [
       {
         type: 'add',
         path: '../src/sections/{{properCase name}}Section.js',
-        templateFile: `plop-templates/section-${componentType}.hbs`
+        templateFile: `plop-templates/component-${componentType}.hbs`,
+        data: {
+          nameSuffix: 'Section',
+          includeSuffixInClass: true
+        }
       },
       {
         type: 'add',
         path: '../__tests__/sections/{{properCase name}}Section.test.js',
-        templateFile: 'plop-templates/section-test.hbs'
+        templateFile: 'plop-templates/component-test.hbs',
+        data: {
+          nameSuffix: 'Section'
+        }
       },
       {
         type: 'add',

@@ -1,21 +1,18 @@
 /* eslint-env jest */
 
-import { mount } from 'enzyme'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import {{properCase name}} from '~/components/{{properCase name}}'
+import {{properCase name}}{{properCase nameSuffix}} from '~/components/{{properCase name}}/{{properCase name}}{{properCase nameSuffix}}'
 
-describe('{{properCase name}}', () => {
-  it('Renders correctly', () => {
-    const app = mount(<{{properCase name}} />)
-
-    expect(app.find('.{{kebabCase name}}').text()).toEqual('This is the {{properCase name}} component!')
-  })
-
+describe('{{properCase name}}{{properCase nameSuffix}}', () => {
+  {{#if skipSnapshot}}
+  // test cases here
+  {{else}}
   it('Snapshot', () => {
-    const component = renderer.create(<{{properCase name}} />)
+    const component = renderer.create(<{{properCase name}}{{properCase nameSuffix}} />)
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
   })
+  {{/if}}
 })

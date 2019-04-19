@@ -2,6 +2,7 @@
 out
 node_modules
 .DS_Store
+schema.graphql
 coverage
 
 .env

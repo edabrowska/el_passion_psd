@@ -1,24 +1,14 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { withNamespaces } from '>/i18n'
 import bemCx from 'bem-modifiers'
 
 import withLayout from '~/hoc/withLayout'
 
-import { handleFakeData } from '~/services'
-import { fakeDataSelector } from '~/store/selectors'
-
-export default
-@withLayout({
-  services: [handleFakeData.get],
-})
-@connect(
-  state => ({
-    fakeData: fakeDataSelector(state)
-  })
-)
+@withLayout({})
 @withNamespaces('common')
-class Index extends React.Component {
+export default class Index extends React.Component {
+  state = { breed: null }
+
   render () {
     const { t } = this.props
 
@@ -36,12 +26,6 @@ class Index extends React.Component {
           <br />
           More info on i18next: google "i18next" and "next-i18next".
         </p>
-        {this.props.fakeData.map(item => (
-          <div key={item.id}>
-            <h3>{item.title}</h3>
-            <p>{item.body}</p>
-          </div>
-        ))}
       </div>
     </div>
   }

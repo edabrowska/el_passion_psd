@@ -1,12 +1,24 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+{{#if renderViewComponent}}
 
-export default class {{properCase name}} extends React.Component {
+import {{properCase name}}View from '~/components/{{properCase name}}/{{properCase name}}View'
+{{/if}}
+
+export default class {{properCase name}}{{nameSuffix}} extends React.Component {
+  static propTypes = {
+    usePropTypes: PropTypes.object.isRequired
+  }
 
   render () {
     return (
-      <div className='{{kebabCase name}}'>
-        This is the {{properCase name}} component!
+      {{#if renderViewComponent}}
+      <{{properCase name}}View />
+      {{else}}
+      <div className='{{kebabCase name}}{{#if includeSuffixInClass}}-{{kebabCase nameSuffix}}{{/if}}'>
+        This is the {{properCase name}}{{#if includeSuffixInClass}}{{properCase nameSuffix}}{{/if}} component!
       </div>
+      {{/if}}
     )
   }
 }

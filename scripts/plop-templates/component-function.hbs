@@ -1,5 +1,14 @@
+import React from 'react'
+import PropTypes from 'prop-types'
 
-export default () =>
-  <div className='{{kebabCase name}}'>
-    This is the {{properCase name}} component!
+const {{properCase name}}{{properCase nameSuffix}} = () => (
+  <div className='{{kebabCase name}}{{#if includeSuffixInClass}}-{{kebabCase nameSuffix}}{{/if}}'>
+    This is the {{properCase name}}{{#if includeSuffixInClass}}{{properCase nameSuffix}}{{/if}} component!
   </div>
+)
+
+{{properCase name}}{{properCase nameSuffix}}.propTypes = {
+  usePropTypes: PropTypes.object.isRequired
+}
+
+export default {{properCase name}}{{properCase nameSuffix}}

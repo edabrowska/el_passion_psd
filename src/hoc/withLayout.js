@@ -1,45 +1,32 @@
 import React from 'react'
-import Error from 'next/error'
+import bemCx from 'bem-modifiers'
 import '+/main.sass'
 
 import Header from '~/components/Header'
 
 export default ({
-  services = [],
-  namespaces = [],
+  namespaces = ['landing'],
+  layoutType = []
   // you can pass your custom config & handle it in this HOC
 }) => (WrappedComponent) => {
   class withLayout extends React.Component {
 
-    static async getInitialProps ({ store, query }) {
-      let error
+    static async getInitialProps () {
       const namespacesRequired = ['common', ...namespaces]
 
-      if (services.length) {
-        await Promise.all(services.map(
-          service => service(query, store)
-        )).catch(e => {
-          error = e
-        })
-      }
-
       return {
-        error,
         namespacesRequired
       }
     }
 
     render () {
       return (
-        <>
-          {this.props.error ?
-            <Error statusCode={this.props.error.status} /> :
-            <div>
-              <Header />
-              <WrappedComponent {...this.props} />
-            </div>
-          }
-        </>
+        <div className={bemCx('layout', layoutType)}>
+          <Header layoutType={layoutType} />
+          <main>
+            <WrappedComponent {...this.props} layoutType={layoutType} />
+          </main>
+        </div>
       )
     }
   }

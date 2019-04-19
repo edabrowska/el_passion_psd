@@ -1,16 +1,14 @@
 import App, { Container } from 'next/app'
 import Head from 'next/head'
-import { Provider } from 'react-redux'
+import { ApolloProvider } from 'react-apollo'
 import '@babel/polyfill'
 import { appWithTranslation } from '>/i18n'
-
-import withReduxStore from '~/hoc/withReduxStore'
+import withApolloClient from '~/hoc/withApolloClient'
 
 import { getStaticFilePath } from '~/utils/helpers'
 
 const Raven = process.env.RAVEN_URL ? require('raven-js') : null
 
-@withReduxStore
 class MyApp extends App {
 
   componentDidMount () {
@@ -25,19 +23,19 @@ class MyApp extends App {
   }
 
   render () {
-    const { Component, pageProps, store } = this.props
+    const { Component, pageProps, apolloClient } = this.props
     return (
       <Container>
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1.0' />
           <link rel='shortcut icon' href={getStaticFilePath('favicon.ico')} />
         </Head>
-        <Provider store={store}>
+        <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />
-        </Provider>
+        </ApolloProvider>
       </Container>
     )
   }
 }
 
-export default appWithTranslation(MyApp)
+export default withApolloClient(appWithTranslation(MyApp))

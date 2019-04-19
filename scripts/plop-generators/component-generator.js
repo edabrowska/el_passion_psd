@@ -8,34 +8,49 @@ module.exports = {
       message: 'Component name please:'
     },
     {
-      type: 'list',
-      name: 'componentType',
-      message: 'What kind of component would you like to create?',
-      choices: [
-        'class',
-        'function'
-      ]
-    },
-    {
       type: 'confirm',
       name: 'includeStorybook',
       message: 'Would you like to create a Storybook showcase?',
       default: true
+    },
+    {
+      type: 'confirm',
+      name: 'includeContainer',
+      message: 'Would you like to create a container component?',
+      default: true
+    },
+    {
+      type: 'confirm',
+      name: 'includeGql',
+      message: 'Would you like to create a graphQL query wrapper component?',
+      default: true
+    },
+    {
+      type: 'confirm',
+      name: 'testContainer',
+      message: 'Would you like to add the container component test?',
+      default: true
     }
   ],
 
-  actions: function ({ componentType, includeStorybook }) {
+  actions: function ({ componentType, includeStorybook, includeGql, includeContainer, testContainer }) {
 
     const steps = [
       {
         type: 'add',
-        path: '../src/components/{{properCase name}}.js',
-        templateFile: `plop-templates/component-${componentType}.hbs`
+        path: '../src/components/{{properCase name}}/{{properCase name}}View.js',
+        templateFile: 'plop-templates/component-function.hbs',
+        data: {
+          nameSuffix: 'View'
+        }
       },
       {
         type: 'add',
-        path: '../__tests__/components/{{properCase name}}.test.js',
-        templateFile: 'plop-templates/component-test.hbs'
+        path: '../__tests__/components/{{properCase name}}/{{properCase name}}View.test.js',
+        templateFile: 'plop-templates/component-test.hbs',
+        data: {
+          nameSuffix: 'View'
+        }
       },
       {
         type: 'add',
@@ -58,11 +73,46 @@ module.exports = {
       }
     ]
 
+    if (includeGql) {
+      steps.push({
+        type: 'add',
+        path: '../src/components/{{properCase name}}/{{properCase name}}Gql.js',
+        templateFile: 'plop-templates/component-gql.hbs',
+        data: {
+          renderComponentSuffix: includeContainer ? 'Container' : 'View'
+        }
+      })
+    }
+
+    if (includeContainer) {
+      steps.push({
+        type: 'add',
+        path: '../src/components/{{properCase name}}/{{properCase name}}Container.js',
+        templateFile: 'plop-templates/component-class.hbs',
+        data: {
+          nameSuffix: 'Container',
+          renderViewComponent: true
+        }
+      })
+    }
+
     if (includeStorybook) {
       steps.push({
         type: 'add',
         path: '../stories/{{properCase name}}_component.stories.js',
         templateFile: 'plop-templates/component-storybook.hbs'
+      })
+    }
+
+    if (testContainer) {
+      steps.push({
+        type: 'add',
+        path: '../__tests__/components/{{properCase name}}/{{properCase name}}Container.test.js',
+        templateFile: 'plop-templates/component-test.hbs',
+        data: {
+          nameSuffix: 'Container',
+          skipSnapshot: true
+        }
       })
     }
 
