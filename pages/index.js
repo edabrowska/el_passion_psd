@@ -4,11 +4,11 @@ import bemCx from 'bem-modifiers'
 
 import withLayout from '~/hoc/withLayout'
 
-@withLayout({})
-@withNamespaces('common')
+@withLayout({
+  namespaces: ['landing']
+})
+@withNamespaces(['common', 'landing'])
 export default class Index extends React.Component {
-  state = { breed: null }
-
   render () {
     const { t } = this.props
 

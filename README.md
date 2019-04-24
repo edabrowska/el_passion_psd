@@ -1,4 +1,4 @@
-# spark ⚡️
+# spark ⚡
 
 Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps and static websites
 
@@ -12,11 +12,10 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Sass](https://sass-guidelin.es/#about-sass) support with autoprefixing & [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
 - [Minification](http://cssnano.co/) via [PostCSS](http://postcss.org/)
 - [Normalize.css](https://necolas.github.io/normalize.css/)
-- [Redux](https://redux.js.org/)
+- [Apollo GraphQL](https://www.apollographql.com/docs/react/)
 - Plop code generators for:
-  - compoents
-  - reducers
-  - services
+  - components
+  - sections (basically a component that has little logic and is just a page building block)
 - Testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [Eslint](https://eslint.org/)
 - [Sass lint](https://github.com/sasstools/sass-lint)
@@ -25,21 +24,11 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Storybook](https://storybook.js.org/)
 - [Sentry's Raven.js Library](https://www.npmjs.com/package/raven-js)
 
-## Legend
+## Contents
 
 - [Quick start](#quick-start)
 - [Linking modules](#linking-modules)
   - [App data handling layers](#app-data-handling-layers)
-- [Fetching data - API layer](#fetching-data-api-layer)
-- [Services - connecting ajax with redux](#services-connecting-ajax-with-redux)
-- []()
-  - [What belongs in a service?](#what-belongs-in-a-service)
-  - [Creating a service](#creating-a-service)
-- [API methods](#api-methods)
-- [Redux: actions and reducers](#redux-actions-and-reducers)
-  - [Adding single actions to redux](#adding-single-actions-to-redux)
-- [Selectors](#selectors)
-- [Components](#selectors)
 - [Default components](#default-components)
   - [ImageTag](#imagetag)
   - [Link](#link)
@@ -79,6 +68,7 @@ This project is using `babel-plugin-root-import` to enable absolute linking for 
 - `~` for `/components`
 - `+` for `/styles`
 - `-` for `/static`
+- `>` for `/` (project root)
 
 ```javascript
 import MyComponent from '~/components/MyComponent'
@@ -87,184 +77,44 @@ import styles from '+/style.sass'
 
 # App data handling layers
 
-For separation of concern the app business logic comprises of the following layers:
+For separation of concern the components are split into layers that are kept in a component directory:
 
-1. **services** - to do various business logic (especially ajax and redux dispatch)
-1. **api** - to connect to backends (ajax)
-1. **actions** - to communicate with redux store (redux)
-1. **reducers** - redux store functions to operate on data before saving to store (redux)
-1. **selectors** - simple functions to fetch stuff from store
-1. **components** - view - react components, that update on store change (using @connect)
+1. **view component** - component, that deals strictly with the presentation
+1. **container component** - business logic component; renders only a corresponding view component
+1. **gql component** - apollo connection component; renders error/loading logic and container component
 
-**Note:**
-
-```
-
-1–5 are business logic layers that build upon Redux.
-
-3–4 is Redux.
-
-If you build just a basic landing page, you won't need that advanced structure.
-
-In such case you can get rid of all the layers except for components and (most likely) api.
-
-To get rid of Redux: remove `src/store` & `src/hoc/withReduxStore.js`, update `withLayout.js` and `package.json`.
-
-Otherwise - If you don't know redux, now would be the time to google it & and get a gist of it.
+Example:
+```bash
++ RestaurantsList  #component directory
+|
+|- RestaurantsListContainer.js # deals with business logic like filters etc
+|- RestaurantsListGql.js # gql fetches and updates data
+\- RestaurantsListView.js # displays list and applies styles 
 
 ```
+
+Another type of components are sections. They are a page building blocks that involve a lot of displaying
+and little logic. They can be connected to data using gql queries (directly). 
 
 Besides those, there are a couple of other entities:
 * **helpers** - general utilities
+* **api** - remote communication that doesn't involve Apollo and GraphQL
 * **higher order components (HOC)** - react component wrappers for DRYness
 
-## Fetching data - API layer
-
-To fetch data use `ajaxer` or `apiAjaxer` functions placed in `src/api/common`. See example in `src/api/index`.
-
-If you want fetch data and add it to redux store – use [Services](#services-connecting-ajax-with-redux).
-
-To prefetch data with SSR – use `services` parameter in HOC `src/hoc/withLayout`. See example in `pages/index.js`.
-
-## Services - connecting ajax with redux
-
-A service uses API to fetch data from backend (with `ajaxer` or `apiAjaxer` function) and dispatches a redux
-action when data arrives.
-
-Simplest service only fetches data and dispatches action. So it can be a oneliner:
-
-```javascript
-export const handleDogs = {
-  get: fetchAndDispatch(manageDogs.get, dogActions.setDogMap)
-}
-```
-A service may fetch only - with no dispatching - if for some reason we don't want to update redux after fetch.
-Likewise - there can be no fetch - for example when all we wan't to do is some browser side-effects
-and then save data to redux (ex. log-out user: remove user cookie and dispatch action to unset currentUser from redux).
-
-For better project structure service name should be prefixed with `handle-`.
-
-## What belongs in a service?
-
-* API calls
-* handling API response
-* dispatching actions with data from response
-* client side operations like setting cookies, local storage I/O etc.
-
-### Some [rules of thumb](https://www.collinsdictionary.com/dictionary/english/rule-of-thumb):
-* when you create a component method that does something beyond the component concerns, consider
-  whether that logic might belong in a service (especially if it involves dispatching an action!)
-* parsing raw data from backend response belongs in API and NOT service, same goes with any "low-level" & generic
-  operations
-
-
-## Creating a service
-
-Services live in the `src/services/` directory. They are grouped in files named after the entity they handle
-(ie. User, Post, Task, Board, etc.).
-
-To create a service run plop generator:
-
-```bash
-yarn generate:service
-```
-
-It will:
-1. Ask for service name
-1. Propose to include typical methods: GET, CREATE, UPDATE, DELETE
-1. Ask whether you want to generate all the other layers corresponding to the service: actions, reducers, api methods
-
-```
-It's highly recommended to create modules using generators, as they use standard naming and structure conventions that we've agreed upon. (If you don't comply with the conventions, be prepared to have your merge request rejected.)
-```
-
-Generated service operations will be grouped in an object and exported. They will be basic
-`fetchAndDispatch` services (take a look at `src/services/common.js` where `fetchAndDispatch` function is implemented)
-
-**Note:**
-```
-Services assume the existence of corresponding actions and api methods.
-If they don't exist (and you don't generate them) the service will crash for the lack of dependencies.
-```
-
-## API methods
-
-API methods are just what you'd expect: ajax connectors to the backend (or any other remotes).
-
-**Responsibilities**
-* Defining API endpoints
-* Handling requests
-* Serializing response data (ex. jsonApi)
-* Communicating errors to the outside (ie. services)
-* Some generic errors can be handled here (but need to be communicated outside)
-
-(by communicating errors we mean returning a rejected promise)
-
-API methods are generated alongside services and shouldn't be omitted
-(hardly any service will make sense without backend connection!).
-
-## Redux: actions and reducers
-
-_Actions_ are like events. They just have a **name** and carry some **data** (a.k.a. payload).
-They live in `src/store/actions` and are quite boring.
-
-_Reducers_ listen for actions. They transform the payload and put it in the redux store.
-Once the redux store is updated by a reducer components that connect to the store will update (if neccessary).
-Reducers live in `src/store/reducers`.
-
-Both reducers and actions should be named in accordance to the service that uses them.
-That's why it's easy to generate it all together with the service generator.
-
-But if you just need the reducer and the actions you can generate these separately:
-
-```bash
-yarn generate:reducer
-```
-
-A short wizard will start. Prompting you - among others - for the reducer name.
-
-**The generator will**:
-* Create a reducer file
-* Append it to redux store at `src/store/reducers/index.js`
-* Create actions file
-* Add any of the CRUD actions you specified both to the reducer function and to the actions file.
-
-Again: for better project structure we use one name for services, actions,
-reducer, and redux store key (`src/store/actions/posts.js` - `state.posts`).
-
-#### Adding single actions to redux
-
-You can add a single custom action to existing actions/reducer pair using:
-
-```bash
-yarn generate:action
-```
-
-This will:
-1. Ask for action name.
-1. Ask for reducer/actions file name (both files must exist).
-1. Insert action into actions file.
-1. Insert reducer case listening to given action.
-
-Try to make action names meaningful.
-
-## Selectors
-
-Selectors are functions that retrieve particular fields from redux. You can find them in
-`src/store/selectors.js`. They should be used in `@connect` to get data from store
-in a uniform way. Selector always must be passed the `store` parameter (available in @connect).
-
-## Components
+## Generating Components
 
 You can generate components using:
 
 ```bash
-yarn generate:component
+yarn g:component
 ```
 
 **It will create**:
-* component file (you can choose between function and class)
-* test file containing a basic display test and a snapshot test
+* view component file
+* container component file (optional)
+* view test file containing a snapshot test
+* component test file containing no tests (optional, recommended if container component was created)
+* gql component file (optional)
 * sass file
 * storybook file (optional, recommended)
 
@@ -321,7 +171,7 @@ found in `/icons/` dir.
 
 1. Put the SVG in `/icons/` directory (the name of the file will be the icon class with an `.i-` prefix)
 1. Run the script: `yarn icofont`
-1. Celebrate 🥳
+1. Celebrate 🍾
 
 ### Icon good practices
 

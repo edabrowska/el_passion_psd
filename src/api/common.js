@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import fetch from 'isomorphic-unfetch'
 
 const withApiHost = (path) => `${process.env.API_URL}${path}`
 

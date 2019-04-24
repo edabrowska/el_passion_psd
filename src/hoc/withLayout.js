@@ -11,7 +11,7 @@ export default ({
 }) => (WrappedComponent) => {
   class withLayout extends React.Component {
 
-    static async getInitialProps () {
+    static getInitialProps () {
       const namespacesRequired = ['common', ...namespaces]
 
       return {
