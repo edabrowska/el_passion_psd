@@ -34,48 +34,40 @@ module.exports = {
   ],
 
   actions: function ({ componentType, includeStorybook, includeGql, includeContainer, testContainer }) {
+    const type = 'add'
 
     const steps = [
       {
-        type: 'add',
+        type,
         path: '../src/components/{{properCase name}}/{{properCase name}}View.js',
         templateFile: 'plop-templates/component-function.hbs',
         data: {
-          nameSuffix: 'View'
+          nameSuffix: 'View',
+          directory: 'components'
         }
       },
       {
-        type: 'add',
-        path: '../__tests__/components/{{properCase name}}/{{properCase name}}View.test.js',
-        templateFile: 'plop-templates/component-test.hbs',
+        type,
+        path: '../src/components/{{properCase name}}/{{properCase name}}.shards.js',
+        templateFile: 'plop-templates/component-shards.hbs',
         data: {
           nameSuffix: 'View'
         }
       },
       {
-        type: 'add',
-        path: '../styles/components/{{kebabCase name}}.sass',
-        template: '.{{kebabCase name}}\n  '
+        type,
+        path: '../__tests__/components/{{properCase name}}View.test.js',
+        templateFile: 'plop-templates/component-test.hbs',
+        data: {
+          nameSuffix: 'View',
+          directory: 'components'
+        }
       },
-      {
-        type: 'modify',
-        path: '../styles/main.sass',
-        pattern: '// 6. Components\n// --',
-        template: '// 6. Components',
-        separator: ''
-      },
-      {
-        type: 'append',
-        path: '../styles/main.sass',
-        pattern: '// 6. Components\n',
-        template: '@import components/{{kebabCase name}}\n',
-        separator: ''
-      }
     ]
 
     if (includeGql) {
       steps.push({
-        type: 'add',
+        type,
         path: '../src/components/{{properCase name}}/{{properCase name}}Gql.js',
         templateFile: 'plop-templates/component-gql.hbs',
         data: {
@@ -86,19 +78,20 @@ module.exports = {
 
     if (includeContainer) {
       steps.push({
-        type: 'add',
+        type,
         path: '../src/components/{{properCase name}}/{{properCase name}}Container.js',
         templateFile: 'plop-templates/component-class.hbs',
         data: {
           nameSuffix: 'Container',
-          renderViewComponent: true
+          renderViewComponent: true,
+          directory: 'components'
         }
       })
     }
 
     if (includeStorybook) {
       steps.push({
-        type: 'add',
+        type,
         path: '../stories/{{properCase name}}_component.stories.js',
         templateFile: 'plop-templates/component-storybook.hbs'
       })
@@ -106,12 +99,13 @@ module.exports = {
 
     if (testContainer) {
       steps.push({
-        type: 'add',
-        path: '../__tests__/components/{{properCase name}}/{{properCase name}}Container.test.js',
+        type,
+        path: '../__tests__/components/{{properCase name}}Container.test.js',
         templateFile: 'plop-templates/component-test.hbs',
         data: {
           nameSuffix: 'Container',
-          skipSnapshot: true
+          skipSnapshot: true,
+          directory: 'components'
         }
       })
     }

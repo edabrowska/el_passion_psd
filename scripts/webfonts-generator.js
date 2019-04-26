@@ -17,10 +17,10 @@ webfontsGenerator({
   }, []),
   dest: 'static/icons/',
   fontName,
-  cssDest: 'styles/base/' + fontName + '.scss',
-  cssTemplate: path.resolve(__dirname, 'webfont-generator-templates/scss.hbs'),
+  cssDest: 'src/styles/icofont.js',
+  cssTemplate: path.resolve(__dirname, 'webfont-generator-templates/styles.hbs'),
   cssFontsUrl: '../static/icons/',
-  types: ['woff2', 'woff', 'eot', 'ttf', 'svg'],
+  types: ['woff2', 'woff', 'eot', 'ttf'],
   templateOptions: {
     classPrefix
   },

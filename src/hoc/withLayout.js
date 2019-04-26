@@ -1,12 +1,12 @@
 import React from 'react'
-import bemCx from 'bem-modifiers'
-import '+/main.sass'
 
-import Header from '~/components/Header'
+import AppFooter from '~/components/AppFooter/AppFooterView'
+import AppHeader from '~/components/AppHeader/AppHeaderView'
+import { Layout, Main } from '~/hoc/withLayout.shards'
 
 export default ({
   namespaces = ['landing'],
-  layoutType = []
+  layoutType = ['holy-grail']
   // you can pass your custom config & handle it in this HOC
 }) => (WrappedComponent) => {
   class withLayout extends React.Component {
@@ -21,12 +21,13 @@ export default ({
 
     render () {
       return (
-        <div className={bemCx('layout', layoutType)}>
-          <Header layoutType={layoutType} />
-          <main>
+        <Layout>
+          <AppHeader layoutType={layoutType} />
+          <Main>
             <WrappedComponent {...this.props} layoutType={layoutType} />
-          </main>
-        </div>
+          </Main>
+          <AppFooter layoutType={layoutType} />
+        </Layout>
       )
     }
   }

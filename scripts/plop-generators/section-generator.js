@@ -19,42 +19,36 @@ module.exports = {
   ],
 
   actions: function ({ componentType }) {
+    const type = 'add'
     const steps = [
       {
-        type: 'add',
-        path: '../src/sections/{{properCase name}}Section.js',
+        type,
+        path: '../src/sections/{{properCase name}}/{{properCase name}}Section.js',
         templateFile: `plop-templates/component-${componentType}.hbs`,
         data: {
           nameSuffix: 'Section',
-          includeSuffixInClass: true
+          includeSuffixInClass: true,
+          directory: 'sections',
+          shardSuffix: 'Section',
         }
       },
       {
-        type: 'add',
+        type,
+        path: '../src/sections/{{properCase name}}/{{properCase name}}Section.shards.js',
+        templateFile: 'plop-templates/component-shards.hbs',
+        data: {
+          nameSuffix: 'Section',
+          shardSuffix: 'Section'
+        }
+      },
+      {
+        type,
         path: '../__tests__/sections/{{properCase name}}Section.test.js',
         templateFile: 'plop-templates/component-test.hbs',
         data: {
-          nameSuffix: 'Section'
+          nameSuffix: 'Section',
+          directory: 'sections'
         }
-      },
-      {
-        type: 'add',
-        path: '../styles/sections/{{kebabCase name}}-section.sass',
-        template: '.{{kebabCase name}}-section\n  '
-      },
-      {
-        type: 'modify',
-        path: '../styles/main.sass',
-        pattern: '// 5. Page sections\n// --',
-        template: '// 5. Page sections',
-        separator: ''
-      },
-      {
-        type: 'append',
-        path: '../styles/main.sass',
-        pattern: '// 5. Page sections\n',
-        template: '@import sections/{{kebabCase name}}-section\n',
-        separator: ''
       }
     ]
 

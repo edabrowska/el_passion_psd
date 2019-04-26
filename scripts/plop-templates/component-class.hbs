@@ -2,7 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 {{#if renderViewComponent}}
 
-import {{properCase name}}View from '~/components/{{properCase name}}/{{properCase name}}View'
+import {{properCase name}}View from '~/{{directory}}/{{properCase name}}/{{properCase name}}View'
+{{else}}
+import { Root } from '~/{{directory}}/{{properCase name}}/{{properCase name}}{{properCase shardSuffix}}.shards'
 {{/if}}
 
 export default class {{properCase name}}{{nameSuffix}} extends React.Component {
@@ -15,9 +17,9 @@ export default class {{properCase name}}{{nameSuffix}} extends React.Component {
       {{#if renderViewComponent}}
       <{{properCase name}}View />
       {{else}}
-      <div className='{{kebabCase name}}{{#if includeSuffixInClass}}-{{kebabCase nameSuffix}}{{/if}}'>
+      <Root>
         This is the {{properCase name}}{{#if includeSuffixInClass}}{{properCase nameSuffix}}{{/if}} component!
-      </div>
+      </Root>
       {{/if}}
     )
   }

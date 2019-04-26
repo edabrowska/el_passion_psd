@@ -1,3 +1,4 @@
+import { Global, css } from '@emotion/core'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import { ApolloProvider } from 'react-apollo'
@@ -6,6 +7,7 @@ import { appWithTranslation } from '>/i18n'
 import withApolloClient from '~/hoc/withApolloClient'
 
 import { getStaticFilePath } from '~/utils/helpers'
+import globalStyles from '~/styles/global'
 
 const Raven = process.env.RAVEN_URL ? require('raven-js') : null
 
@@ -26,6 +28,9 @@ class MyApp extends App {
     const { Component, pageProps, apolloClient } = this.props
     return (
       <Container>
+        <Global
+          styles={css`${globalStyles}`}
+        />
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1.0' />
           <link rel='shortcut icon' href={getStaticFilePath('favicon.ico')} />

@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Snapshot 1`] = `
-<header>
+exports[`AppHeaderView Snapshot 1`] = `
+<header
+  className="css-1tjy5rv-Root eqn74zg0"
+>
   <a
     href="/"
     onClick={[Function]}

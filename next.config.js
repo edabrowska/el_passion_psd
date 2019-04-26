@@ -3,7 +3,6 @@
 const fs = require('fs')
 const path = require('path')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const withSass = require('@zeit/next-sass')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
@@ -81,4 +80,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withSass(withBundleAnalyzer(nextConfig))
+module.exports = withBundleAnalyzer(nextConfig)

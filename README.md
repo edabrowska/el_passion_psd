@@ -9,16 +9,13 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - Service workers
 - Files hashing
 - Custom Node server
-- [Sass](https://sass-guidelin.es/#about-sass) support with autoprefixing & [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
-- [Minification](http://cssnano.co/) via [PostCSS](http://postcss.org/)
-- [Normalize.css](https://necolas.github.io/normalize.css/)
+- [emotion](https://emotion.sh/docs/introduction) support with emotion-normalize and icofont-generator
 - [Apollo GraphQL](https://www.apollographql.com/docs/react/)
 - Plop code generators for:
   - components
   - sections (basically a component that has little logic and is just a page building block)
 - Testing with [jest](https://facebook.github.io/jest/) & [enzyme](http://airbnb.io/enzyme/)
 - [Eslint](https://eslint.org/)
-- [Sass lint](https://github.com/sasstools/sass-lint)
 - [Commitizen](https://commitizen.github.io)
 - [Automatic changelog](https://github.com/leonardoanalista/corp-semantic-release)
 - [Storybook](https://storybook.js.org/)
@@ -26,31 +23,32 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 
 ## Contents
 
-- [Quick start](#quick-start)
-- [Linking modules](#linking-modules)
-  - [App data handling layers](#app-data-handling-layers)
-- [Default components](#default-components)
-  - [ImageTag](#imagetag)
-  - [Link](#link)
-- [Styles](#styles)
-  - [Links with hash](#links-with-hash)
-  - [Links without hash](#links-without-hash)
-  - [BEM](#bem)
-- [Icons](#icons)
-  - [Adding an icon](#adding-an-icon)
-  - [Icon good practices](#icon-good-practices)
-- [Inline SVG](#inline-svg)
-- [Deployment](#deployment)
-- [Testing](#testing)
-- [Linting](#linting)
-- [Storybook](#storybook)
-- [Committing](#committing)
-- [Changelog](#changelog)
-- [Bundle analysis](#bundle-analysis)
-- [Error tracking](#error-tracking)
-- [Per environment config](#per-environment-config)
-- [Static text content and internationalization (i18n)](#static-text-content-and-internationalization-i18n)
-  - [More on i18next](#more-on-i18next)
+  * [Quick start](#quick-start)
+  * [Linking modules](#linking-modules)
+    - [App data handling layers](#app-data-handling-layers)
+  * [Generating Components](#generating-components)
+  * [Default components](#default-components)
+    + [ImageTag](#imagetag)
+    + [Link](#link)
+  * [Shards & styles](#shards---styles)
+    + [Common & global styles](#common---global-styles)
+  * [Icons](#icons)
+    + [Adding an icon](#adding-an-icon)
+    + [Icon good practices](#icon-good-practices)
+      - [Rules for the designer (make sure he or she realizes those):](#rules-for-the-designer--make-sure-he-or-she-realizes-those--)
+      - [Rules for the developer:](#rules-for-the-developer-)
+  * [Inline SVG](#inline-svg)
+  * [Deployment](#deployment)
+  * [Testing](#testing)
+  * [Linting](#linting)
+  * [Storybook](#storybook)
+  * [Committing](#committing)
+  * [Changelog](#changelog)
+  * [Bundle analysis](#bundle-analysis)
+  * [Error tracking](#error-tracking)
+    - [Per environment config](#per-environment-config)
+    - [Static text content and internationalization (i18n)](#static-text-content-and-internationalization--i18n-)
+      + [More on i18next](#more-on-i18next)
 
 
 ## Quick start
@@ -66,19 +64,18 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 This project is using `babel-plugin-root-import` to enable absolute linking for modules, using prefixes:
 
 - `~` for `/components`
-- `+` for `/styles`
 - `-` for `/static`
 - `>` for `/` (project root)
 
 ```javascript
-import MyComponent from '~/components/MyComponent'
-import styles from '+/style.sass'
+import MyComponent from '~/components/MyComponent/MyComponentContainer'
 ```
 
-# App data handling layers
+# App data handling and component layers
 
 For separation of concern the components are split into layers that are kept in a component directory:
 
+1. **shards file** - emotion StyledComponents - building blocks of any view, included in view component
 1. **view component** - component, that deals strictly with the presentation
 1. **container component** - business logic component; renders only a corresponding view component
 1. **gql component** - apollo connection component; renders error/loading logic and container component
@@ -89,7 +86,7 @@ Example:
 |
 |- RestaurantsListContainer.js # deals with business logic like filters etc
 |- RestaurantsListGql.js # gql fetches and updates data
-\- RestaurantsListView.js # displays list and applies styles 
+\- RestaurantsListView.js # displays list markup
 
 ```
 
@@ -111,11 +108,11 @@ yarn g:component
 
 **It will create**:
 * view component file
+* shards file with emotion styled-component building blocks
 * container component file (optional)
 * view test file containing a snapshot test
 * component test file containing no tests (optional, recommended if container component was created)
 * gql component file (optional)
-* sass file
 * storybook file (optional, recommended)
 
 Afterwards the script will run all tests, and generate snapshot.
@@ -134,26 +131,18 @@ Component create `img` tag with hashed image path and expect that any raster ima
 Is's a standard NextLink but with tag `<a>` (better for SEO)
 
 
-## Styles
+## Shards & styles
 
-- Files grouped by [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern)
-- Included [Normalize.css](https://necolas.github.io/normalize.css/)
+We use emotion. Preferably the StyledComponents syntax. 
 
-### Links with hash
+Styled component building blocks are called _shards_.
+They live in each component directory in a `ComponentName.shards.js` file.
 
-In styles for style with url you can use `get-asset-url` or to get custom path from static folder `get-static-file-path` (see `styles/abstracts/functions.sass`):
-- `background-image: get-asset-url('image.png')`
-- `src: url(get-static-file-path('fonts/font.woff'))`
+### Common & global styles
 
-### Links without hash
+Global and common styles dwell in `~/styles/` (common shards too). 
 
-Just use `background-image: '/static/image.png'`
-
-### BEM
-
-We recommend to create your styles using BEM structure.
-- [What is BEM?](http://getbem.com/introduction/)
-- [bemCx](https://www.npmjs.com/package/bem-modifiers) - Simple utility inspired by [classnames](https://github.com/JedWatson/classnames) that glues class with --modifiers.
+Global styles such as font-face and normalize are included in `_app.js`.
 
 ## Icons
 
@@ -164,12 +153,23 @@ yarn icofont
 ```
 
 It takes all SVGs in the `/icons/` directory, builds webfont files, and puts them in the `/static/icons/` directory.
-Finally, a "@font-face" file is generated: `styles/base/icofont.scss`. It includes all the icons
-found in `/icons/` dir.
+Finally, a "@font-face" file is generated into `~/styles/icofont.js` along with icon components. 
+It includes all the icons found in `/icons/` dir. 
+Once generated, each icon can be included in your components like so: 
+
+```javascript
+import { IcoCog } from '~/styles/icofont'
+```
+
+And used:
+
+```javascript
+const SomeComponent = () => <div> something, and an Icon: <IcoCog /></div>
+```
 
 ### Adding an icon
 
-1. Put the SVG in `/icons/` directory (the name of the file will be the icon class with an `.i-` prefix)
+1. Put the SVG in `/icons/` directory. Use _ProperCase_ to name files as they will be used as names of the components.
 1. Run the script: `yarn icofont`
 1. Celebrate 🍾
 
@@ -289,7 +289,20 @@ class MeinComponent extends React.Component {
 }
 ```
 
-Locale strings are placed in `locale/filename_aka_namespace.yml`
+Locale strings are placed in `static/locale/filename_aka_namespace.json`
+
+### SSR
+
+Each page component should declare prefetched namespaces like so:
+
+```javascript
+@withLayout({
+  namespaces: ['landing']
+})
+```
+
+This will ensure that SSR will generate documents with rendered locale and deliver translated HTML to client.
+Otherwise user will experience flickering locale keys and web-crawlers might not see localized text at all. 
 
 ### More on i18next
 

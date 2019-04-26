@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import { Root } from '~/{{directory}}/{{properCase name}}/{{properCase name}}{{properCase shardSuffix}}.shards'
+
 const {{properCase name}}{{properCase nameSuffix}} = () => (
-  <div className='{{kebabCase name}}{{#if includeSuffixInClass}}-{{kebabCase nameSuffix}}{{/if}}'>
-    This is the {{properCase name}}{{#if includeSuffixInClass}}{{properCase nameSuffix}}{{/if}} component!
-  </div>
+  <Root>
+    This is the {{properCase name}} component!
+  </Root>
 )
 
 {{properCase name}}{{properCase nameSuffix}}.propTypes = {
