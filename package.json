@@ -71,6 +71,7 @@
     "i18next": "^13.1.0",
     "i18next-xhr-backend": "^1.5.1",
     "isomorphic-unfetch": "^3.0.0",
+    "jest-emotion": "^10.0.10",
     "json-loader": "^0.5.7",
     "mockdate": "^2.0.2",
     "next": "^8.1.0",

@@ -2,8 +2,11 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
+import serializer from 'jest-emotion'
 
 import AppHeaderView from '~/components/AppHeader/AppHeaderView'
+
+expect.addSnapshotSerializer(serializer)
 
 describe('AppHeaderView', () => {
   it('Snapshot', () => {

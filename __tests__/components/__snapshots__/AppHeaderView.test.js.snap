@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AppHeaderView Snapshot 1`] = `
+.emotion-0 {
+  grid-area: header;
+  padding: 20px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
 <header
-  className="css-1tjy5rv-Root eqn74zg0"
+  className="emotion-0 emotion-1"
 >
   <a
     href="/"

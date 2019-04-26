@@ -2,8 +2,11 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
+import serializer from 'jest-emotion'
 
 import {{properCase name}}{{properCase nameSuffix}} from '~/{{directory}}/{{properCase name}}/{{properCase name}}{{properCase nameSuffix}}'
+
+expect.addSnapshotSerializer(serializer)
 
 describe('{{properCase name}}{{properCase nameSuffix}}', () => {
   {{#if skipSnapshot}}
