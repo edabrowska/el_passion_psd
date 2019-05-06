@@ -21,37 +21,37 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 - [Storybook](https://storybook.js.org/)
 - [Sentry's Raven.js Library](https://www.npmjs.com/package/raven-js)
 
-## Contents
+# Contents
 
-  * [Quick start](#quick-start)
-  * [Linking modules](#linking-modules)
-    - [App data handling layers](#app-data-handling-layers)
+- [Quick start](#quick-start)
+- [Linking modules](#linking-modules)
+- [App data handling and component layers](#app-data-handling-and-component-layers)
   * [Generating Components](#generating-components)
   * [Default components](#default-components)
     + [ImageTag](#imagetag)
     + [Link](#link)
-  * [Shards & styles](#shards---styles)
-    + [Common & global styles](#common---global-styles)
-  * [Icons](#icons)
-    + [Adding an icon](#adding-an-icon)
-    + [Icon good practices](#icon-good-practices)
-      - [Rules for the designer (make sure he or she realizes those):](#rules-for-the-designer--make-sure-he-or-she-realizes-those--)
-      - [Rules for the developer:](#rules-for-the-developer-)
-  * [Inline SVG](#inline-svg)
-  * [Deployment](#deployment)
-  * [Testing](#testing)
-  * [Linting](#linting)
-  * [Storybook](#storybook)
-  * [Committing](#committing)
-  * [Changelog](#changelog)
-  * [Bundle analysis](#bundle-analysis)
-  * [Error tracking](#error-tracking)
-    - [Per environment config](#per-environment-config)
-    - [Static text content and internationalization (i18n)](#static-text-content-and-internationalization--i18n-)
-      + [More on i18next](#more-on-i18next)
+- [Shards & styles](#shards---styles)
+  * [Common & global styles](#common---global-styles)
+- [Icons](#icons)
+  * [Adding an icon](#adding-an-icon)
+  * [Icon good practices](#icon-good-practices)
+    + [Rules for the designer (make sure he or she realizes those):](#rules-for-the-designer--make-sure-he-or-she-realizes-those--)
+    + [Rules for the developer:](#rules-for-the-developer-)
+- [Inline SVG](#inline-svg)
+- [Deployment](#deployment)
+- [Testing](#testing)
+- [Linting](#linting)
+- [Storybook](#storybook)
+- [Committing](#committing)
+- [Changelog](#changelog)
+- [Bundle analysis](#bundle-analysis)
+- [Error tracking](#error-tracking)
+- [Per environment config](#per-environment-config)
+- [Static text content and internationalization (i18n)](#static-text-content-and-internationalization--i18n-)
+  * [SSR](#ssr)
+  * [More on i18next](#more-on-i18next)
 
-
-## Quick start
+# Quick start
 
 1. make sure you have [nodejs](https://nodejs.org/en/) and [yarn](https://yarnpkg.com/en/docs/install) installed
 1. `yarn`
@@ -59,7 +59,7 @@ Boilerplate based on [next.js](https://github.com/zeit/next.js/) for web apps an
 1. `PORT=8888 yarn start` - if you want to start dev server on different port
 1. Then visit [localhost:8000](http://localhost:8000/)
 
-## Linking modules
+# Linking modules
 
 This project is using `babel-plugin-root-import` to enable absolute linking for modules, using prefixes:
 
@@ -131,20 +131,20 @@ Component create `img` tag with hashed image path and expect that any raster ima
 Is's a standard NextLink but with tag `<a>` (better for SEO)
 
 
-## Shards & styles
+# Shards & styles
 
 We use emotion. Preferably the StyledComponents syntax. 
 
 Styled component building blocks are called _shards_.
 They live in each component directory in a `ComponentName.shards.js` file.
 
-### Common & global styles
+## Common & global styles
 
 Global and common styles dwell in `~/styles/` (common shards too). 
 
 Global styles such as font-face and normalize are included in `_app.js`.
 
-## Icons
+# Icons
 
 Icons are shipped as webfonts generated from SVGs by the script:
 
@@ -167,15 +167,15 @@ And used:
 const SomeComponent = () => <div> something, and an Icon: <IcoCog /></div>
 ```
 
-### Adding an icon
+## Adding an icon
 
 1. Put the SVG in `/icons/` directory. Use _ProperCase_ to name files as they will be used as names of the components.
 1. Run the script: `yarn icofont`
 1. Celebrate 🍾
 
-### Icon good practices
+## Icon good practices
 
-#### Rules for the designer (make sure he or she realizes those):
+### Rules for the designer (make sure he or she realizes those):
 * Icons should be made out of SVGs of uniform size (ie. height).
 * The size of the SVGs should correspond to the grid size for the icon.
 * Symbols in the SVG should conform to that grid and leave `2-3` grid units padding (depending on the shape).
@@ -183,13 +183,13 @@ const SomeComponent = () => <div> something, and an Icon: <IcoCog /></div>
 
 (conform to the grid == lay exactly at the grid points, snap to grid at every possible point)
 
-#### Rules for the developer:
+### Rules for the developer:
 * For pixel-perfect icons use font size that is equal to `SVG grid height * n`.
 * Remember: font-size corresponds to the SVG size (not the size of symbol within).
 * Icons tend not to be horizontally pixel-perfect in 50% of cases (depending on browser);
   to mitigate this you can use `margin-left: .5px`, but remember to debug across all browsers.
 
-## Inline SVG
+# Inline SVG
 
 How to use:
 
@@ -204,23 +204,23 @@ Add your `file.svg` to `src/svg` and then -
     </div>
 ```
 
-## Deployment
+# Deployment
 
 - `yarn start` - if you want to use node server
 - `yarn export` - for static export (you need to declare all exported pages in `exports-map.js`)
 
-## Testing
+# Testing
 
 You can add your test in `__tests__` folder. Snapshots created automatically after run.
 
 - `yarn t` to run tests in watch mode.
 - `yarn test-ci` for a single run with coverage reporting. Useful for CI.
 
-## Linting
+# Linting
 
 Run `yarn lint` for a linting report. Linter will also be run before commit.
 
-## Storybook
+# Storybook
 
 [Storybook](https://storybook.js.org/) is a UI development environment, which also can serve as styleguide.
 
@@ -229,23 +229,23 @@ Run `yarn storybook` to start the development mode - the Storybook will be avail
 Generating components with the plop generator will add a Storybook page automatically for you
 (so that you can start developing your component right away, without the app even running.)
 
-## Committing
+# Committing
 
 This repo uses [commitizen](https://commitizen.github.io), so instead of `git commit ...` use `yarn cm` or install commitizen globally and then use `git cz`.
 
 Each commit triggers `yarn lint`.
 
-## Changelog
+# Changelog
 
 To generate changelog, tag a new version, and push to code to remote, run `yarn release`.
 
-## Bundle analysis
+# Bundle analysis
 
 - `yarn analyze` - Build and analyze both server and browser
 - `yarn analyze:server` - Build and analyze the back end server bundle
 - `yarn analyze:browser` - Build and analyze the front end browser bundle
 
-## Error tracking
+# Error tracking
 
 [Raven.js](https://www.npmjs.com/package/raven-js) is the official browser JavaScript client for [Sentry](https://sentry.io). It automatically reports uncaught JavaScript exceptions triggered from a browser environment, and provides a rich API for reporting your own errors.
 
@@ -291,7 +291,7 @@ class MeinComponent extends React.Component {
 
 Locale strings are placed in `static/locale/filename_aka_namespace.json`
 
-### SSR
+## SSR
 
 Each page component should declare prefetched namespaces like so:
 
@@ -304,7 +304,7 @@ Each page component should declare prefetched namespaces like so:
 This will ensure that SSR will generate documents with rendered locale and deliver translated HTML to client.
 Otherwise user will experience flickering locale keys and web-crawlers might not see localized text at all. 
 
-### More on i18next
+## More on i18next
 
 Be aware that i18next is quite powerful. **Do not reinvent the wheel!** Use what i18next provides.
 Ex. if you expect to support more than one language, do not simply concatenate strings with parameters,
