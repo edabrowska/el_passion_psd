@@ -9,7 +9,7 @@ export const Root = styled.section`
 
 export const Section = styled.section`
   background: palegoldenrod;
-  
+
   .image { // nesting and using classes is not recommended (this is only a lazy example)
     background-image: url(${image});
     background-size: contain;

@@ -1,10 +1,11 @@
 const _white = '#FFF'
+const _daftGreen = '#0dd561'
 
 export const bgCard = _white
 export const bgRow = '#fafafa'
 
 export const primary = {
-  main: '#' + (0x1000000 + (Math.random()) * 0xffffff).toString(16).substr(1, 6), // random color because why not
+  main: _daftGreen,
   light: 'rgba(24, 165, 84, 0.1)',
   contrastText: _white,
 }
