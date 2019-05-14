@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 
 const { createServer } = require('http')
+const { parse } = require('url')
+const { join } = require('path')
 const express = require('express')
 const compression = require('compression')
 const next = require('next')
@@ -12,6 +14,19 @@ const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
+const requestListener = (req, res) => {
+  const parsedUrl = parse(req.url, true)
+  const { pathname } = parsedUrl
+
+  if (pathname === '/service-worker.js') {
+    const filePath = join(__dirname, '.next', pathname)
+
+    app.serveStatic(req, res, filePath)
+  } else {
+    handle(req, res, parsedUrl)
+  }
+}
+
 app.prepare()
   .then(() => {
     const e = express()
@@ -19,8 +34,7 @@ app.prepare()
 
     e.use(nextI18NextMiddleware(nextI18next))
     e.use(compression())
-
-    e.get('*', handle)
+    e.get('*', requestListener)
 
     server
       .listen(port, (err) => {

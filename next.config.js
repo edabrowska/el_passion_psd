@@ -3,9 +3,9 @@
 const fs = require('fs')
 const path = require('path')
 const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
+const withOffline = require('next-offline')
 
 const applicationEnv = process.env.APPLICATION_ENV || 'development'
 
@@ -34,17 +34,6 @@ const nextConfig = {
   exportPathMap: () => exportsMap,
   webpack: (config) => {
     config.plugins.push(
-      new SWPrecacheWebpackPlugin({
-        filename: 'static/service-worker.js',
-        verbose: true,
-        staticFileGlobsIgnorePatterns: [/\.next\//],
-        runtimeCaching: [
-          {
-            handler: 'networkFirst',
-            urlPattern: /^https?.*/
-          }
-        ]
-      }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({
           ...envConfig,
@@ -80,4 +69,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withBundleAnalyzer(nextConfig)
+module.exports = withBundleAnalyzer(withOffline(nextConfig))

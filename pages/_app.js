@@ -14,11 +14,6 @@ const Raven = process.env.RAVEN_URL ? require('raven-js') : null
 class MyApp extends App {
 
   componentDidMount () {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker
-        .register('/_next/static/service-worker.js')
-    }
-
     Raven && Raven
       .config(process.env.RAVEN_URL)
       .install()
@@ -34,6 +29,7 @@ class MyApp extends App {
         <Head>
           <meta name='viewport' content='width=device-width, initial-scale=1.0' />
           <link rel='shortcut icon' href={getStaticFilePath('favicon.ico')} />
+          <link rel='manifest' href='/static/manifest.json' />
         </Head>
         <ApolloProvider client={apolloClient}>
           <Component {...pageProps} />

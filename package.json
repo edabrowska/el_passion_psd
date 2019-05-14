@@ -76,12 +76,12 @@
     "mockdate": "^2.0.2",
     "next": "^8.1.0",
     "next-i18next": "^0.37.0",
+    "next-offline": "^3.4.0",
     "prop-types": "^15.7.2",
     "raven-js": "^3.27.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.4",
     "react-dom": "^16.5.2",
-    "sw-precache-webpack-plugin": "^0.11.5",
     "webfonts-generator": "^0.4.0",
     "webpack": "^4.20.2",
     "yaml-loader": "^0.5.0"
