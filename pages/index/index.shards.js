@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { primary } from '~/styles/colors'
 
 import image from '-/next.png'
 
@@ -18,5 +17,5 @@ export const Section = styled.section`
 `
 
 export const MainHeading = styled.h1`
-  color: ${primary.main};
+  color: ${({ theme }) => theme.colors.primary.main};
 `

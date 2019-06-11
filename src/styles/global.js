@@ -1,8 +1,8 @@
 import { css } from '@emotion/core'
 import normalize from 'emotion-normalize'
+import { fontSizes, lineHeight, fonts } from '~/styles/theme/commons'
+import { primary, text } from '~/styles/theme/colors'
 
-import { primary, text } from '~/styles/colors'
-import { fonts } from '~/styles/commons'
 import { icofontFace } from '~/styles/icofont'
 
 const base = css`
@@ -12,20 +12,20 @@ const base = css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   html {
     font-size: 62.5%; //== 10px (so that 1rem == 10px)
   }
-  
+
   body {
     color: ${text.primary};
-    font: normal 1.6rem / 1.5 ${fonts.main};
-  }
-  
+    font: normal ${fontSizes.text.normal} / ${lineHeight.normal} ${fonts.main};
+}
+
   a {
     color: ${primary.main};
     text-decoration: none;
-  
+
     &:hover,
     &:active,
     &:focus {
@@ -36,7 +36,7 @@ const base = css`
 `
 
 const layout = css`
-  
+
 `
 
 export default css`
