@@ -91,7 +91,7 @@ Example:
 ```
 
 Another type of components are sections. They are a page building blocks that involve a lot of displaying
-and little logic. They can be connected to data using gql queries (directly). 
+and little logic. They can be connected to data using gql queries (directly).
 
 Besides those, there are a couple of other entities:
 * **helpers** - general utilities
@@ -133,14 +133,14 @@ Is's a standard NextLink but with tag `<a>` (better for SEO)
 
 # Shards & styles
 
-We use emotion. Preferably the StyledComponents syntax. 
+We use emotion. Preferably the StyledComponents syntax.
 
 Styled component building blocks are called _shards_.
 They live in each component directory in a `ComponentName.shards.js` file.
 
 ## Common & global styles
 
-Global and common styles dwell in `~/styles/` (common shards too). 
+Global and common styles dwell in `~/styles/` (common shards too).
 
 Global styles such as font-face and normalize are included in `_app.js`.
 
@@ -153,9 +153,9 @@ yarn icofont
 ```
 
 It takes all SVGs in the `/icons/` directory, builds webfont files, and puts them in the `/static/icons/` directory.
-Finally, a "@font-face" file is generated into `~/styles/icofont.js` along with icon components. 
-It includes all the icons found in `/icons/` dir. 
-Once generated, each icon can be included in your components like so: 
+Finally, a "@font-face" file is generated into `~/styles/icofont.js` along with icon components.
+It includes all the icons found in `/icons/` dir.
+Once generated, each icon can be included in your components like so:
 
 ```javascript
 import { IcoCog } from '~/styles/icofont'
@@ -271,7 +271,7 @@ app will be translated into more than one language.
 import { withNamespaces } from '>/i18'
 
 // If this component would be a page you need to specify a namespaces
-// array in withLayout so next-i18next knows which namespaces to send server-side.
+// array in page's getInitialProps so next-i18next knows which namespaces to send server-side.
 // This array should include all namespaces used on a page - also those of nested components.
 
 @withNamespaces(['common', 'errors']) //namespaces = locale files, 1st one will be default
@@ -295,14 +295,18 @@ Locale strings are placed in `static/locale/filename_aka_namespace.json`
 
 Each page component should declare prefetched namespaces like so:
 
+(inside page class component (PageNameContainer.js))
 ```javascript
-@withLayout({
-  namespaces: ['landing']
-})
+getInitialProps () {
+  ...
+  return {
+    namespacesRequired: ['namespace1', 'namespace2'], // all namespaces used on a page - even those deep down the component tree
+  }
+}
 ```
 
 This will ensure that SSR will generate documents with rendered locale and deliver translated HTML to client.
-Otherwise user will experience flickering locale keys and web-crawlers might not see localized text at all. 
+Otherwise user will experience flickering locale keys and web-crawlers might not see localized text at all.
 
 ## More on i18next
 

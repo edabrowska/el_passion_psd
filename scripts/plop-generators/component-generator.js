@@ -36,6 +36,11 @@ module.exports = {
   actions: function ({ componentType, includeStorybook, includeGql, includeContainer, testContainer }) {
     const type = 'add'
 
+    let outermostComponent = includeContainer ? 'Container' : 'View'
+    if (includeGql) {
+      outermostComponent = 'Gql'
+    }
+
     const steps = [
       {
         type,
@@ -63,6 +68,14 @@ module.exports = {
           directory: 'components'
         }
       },
+      {
+        type,
+        path: '../src/components/{{properCase name}}/index.js',
+        templateFile: 'plop-templates/component-export.hbs',
+        data: {
+          nameSuffix: outermostComponent
+        }
+      }
     ]
 
     if (includeGql) {
@@ -80,7 +93,7 @@ module.exports = {
       steps.push({
         type,
         path: '../src/components/{{properCase name}}/{{properCase name}}Container.js',
-        templateFile: 'plop-templates/component-class.hbs',
+        templateFile: 'plop-templates/component-function.hbs',
         data: {
           nameSuffix: 'Container',
           renderViewComponent: true,

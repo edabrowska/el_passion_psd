@@ -21,8 +21,9 @@
     ]
   ],
   "plugins": [
-    ["inline-react-svg"],
+    ["@babel/plugin-proposal-export-default-from"],
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["inline-react-svg"],
     ["babel-plugin-root-import", {
       "paths": [{
         "rootPathSuffix": "src"

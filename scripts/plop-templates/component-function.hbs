@@ -1,12 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+{{#if renderViewComponent}}
+import {{properCase name}}View from '~/{{directory}}/{{properCase name}}/{{properCase name}}View'
+{{else}}
 import { Root } from '~/{{directory}}/{{properCase name}}/{{properCase name}}{{properCase shardSuffix}}.shards'
+{{/if}}
 
 const {{properCase name}}{{properCase nameSuffix}} = () => (
+  {{#if renderViewComponent}}
+  <{{properCase name}}View />
+  {{else}}
   <Root>
-    This is the {{properCase name}} component!
+    This is the {{properCase name}}{{properCase nameSuffix}} component!
   </Root>
+  {{/if}}
 )
 
 {{properCase name}}{{properCase nameSuffix}}.propTypes = {

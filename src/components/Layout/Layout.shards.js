@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 
-export const Layout = styled.div`
+export const Root = styled.div`
   display: grid;
   grid-template-areas: "header"
                        "content"
