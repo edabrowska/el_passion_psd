@@ -1,7 +1,11 @@
 {
+  "plugins": [
+    "testcafe"
+  ],
   "extends": [
     "standard",
-    "standard-react"
+    "standard-react",
+    "plugin:testcafe/recommended"
   ],
   "rules": {
     "camelcase": 0,

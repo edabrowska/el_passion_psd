@@ -10,6 +10,7 @@
     "release": "corp-semantic-release --pre-commit lint",
     "test": "NODE_ENV=test jest --no-cache --watch",
     "test-ci": "jest --coverage",
+    "e2e": "testcafe -e -u chrome __tests__/e2e/index.js",
     "analyze": "BUNDLE_ANALYZE=both next build",
     "analyze:server": "BUNDLE_ANALYZE=server next build",
     "analyze:browser": "BUNDLE_ANALYZE=browser next build",
@@ -35,6 +36,9 @@
     "collectCoverageFrom": [
       "pages/*.js",
       "src/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/e2e/"
     ]
   },
   "husky": {
@@ -107,11 +111,13 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.12.3",
     "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-testcafe": "^0.2.1",
     "handlebars-helpers": "^0.10.0",
     "husky": "^1.1.1",
     "jest": "^23.6.0",
     "plop": "^2.3.0",
     "react-test-renderer": "^16.5.2",
+    "testcafe": "^1.6.0",
     "validate-commit-msg": "^2.14.0"
   }
 }
