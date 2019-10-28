@@ -1,6 +1,7 @@
 {
   "plugins": [
-    "testcafe"
+    "testcafe",
+    "react-hooks"
   ],
   "extends": [
     "standard",
@@ -29,6 +30,7 @@
     "curly": 2,
     "eqeqeq": 2,
     "space-before-function-paren": 2,
+    "arrow-body-style": ["error", "as-needed"],
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
     "react/jsx-indent-props": 2,
@@ -40,7 +42,9 @@
       }
     ],
     "react/jsx-key": 2,
-    "react/sort-comp": 2
+    "react/sort-comp": 2,
+    "react-hooks/rules-of-hooks": 2,
+    "react-hooks/exhaustive-deps": 2
   },
   "globals": {
     "NODE_ENV": true,

@@ -15,11 +15,11 @@ webfontsGenerator({
     }
     return filesArr
   }, []),
-  dest: 'static/icons/',
+  dest: 'public/icons/',
   fontName,
   cssDest: 'src/styles/icofont.js',
   cssTemplate: path.resolve(__dirname, 'webfont-generator-templates/styles.hbs'),
-  cssFontsUrl: '../static/icons/',
+  cssFontsUrl: '../public/icons/',
   types: ['woff2', 'woff', 'eot', 'ttf'],
   templateOptions: {
     classPrefix

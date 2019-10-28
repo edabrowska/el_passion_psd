@@ -1,11 +1,10 @@
 import React from 'react'
 import initApollo from '~/utils/init-apollo'
 import Head from 'next/head'
-import { getDataFromTree } from 'react-apollo'
+import { getDataFromTree } from '@apollo/react-ssr'
 
-export default App => {
-  return class Apollo extends React.Component {
-    static displayName = 'withApollo(App)'
+export default App =>
+  class Apollo extends React.Component {
     static async getInitialProps (ctx) {
       const { Component, router } = ctx
 
@@ -26,7 +25,7 @@ export default App => {
               Component={Component}
               router={router}
               apolloClient={apollo}
-            />
+            />,
           )
         } catch (error) {
           // Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -45,9 +44,11 @@ export default App => {
 
       return {
         ...appProps,
-        apolloState
+        apolloState,
       }
     }
+
+    static displayName = 'withApollo(App)'
 
     constructor (props) {
       super(props)
@@ -58,4 +59,3 @@ export default App => {
       return <App {...this.props} apolloClient={this.apolloClient} />
     }
   }
-}

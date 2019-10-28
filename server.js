@@ -7,7 +7,7 @@ const express = require('express')
 const compression = require('compression')
 const next = require('next')
 const nextI18next = require('./i18n')
-const nextI18NextMiddleware = require('next-i18next/middleware')
+const nextI18NextMiddleware = require('next-i18next/middleware').default
 
 const port = parseInt(process.env.PORT, 10) || 8000
 const dev = process.env.NODE_ENV !== 'production'

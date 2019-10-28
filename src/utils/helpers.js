@@ -5,7 +5,7 @@ export const IS_PRODUCTION = process.env.NODE_ENV === 'production'
 export const getStaticFilePath = (path) => {
   let filePath
   try {
-    filePath = require(`../../static/${path}`)
+    filePath = require(`../../public/${path}`)
   } catch (error) {
     filePath = ''
   }

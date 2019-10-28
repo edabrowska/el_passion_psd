@@ -12,13 +12,7 @@
         }
       }
     ],
-    [
-      "@emotion/babel-preset-css-prop",
-      {
-        "autoLabel": true,
-        "labelFormat": "[local]"
-      }
-    ]
+    ["@emotion/babel-preset-css-prop"]
   ],
   "plugins": [
     ["@babel/plugin-proposal-export-default-from"],
@@ -35,7 +29,7 @@
         "rootPathSuffix": "styles"
       }, {
         "rootPathPrefix": "-",
-        "rootPathSuffix": "static"
+        "rootPathSuffix": "public"
       }]
     }]
   ]

@@ -6,10 +6,11 @@ const withBundleAnalyzer = require('@zeit/next-bundle-analyzer')
 const dotenv = require('dotenv')
 const webpack = require('webpack')
 const withOffline = require('next-offline')
+const withImages = require('next-images')
 
 const applicationEnv = process.env.APPLICATION_ENV || 'development'
 
-dotenv.load({ path: path.resolve(process.cwd(), '.env') })
+dotenv.config({ path: path.resolve(process.cwd(), '.env') })
 const envConfig = dotenv.parse(fs.readFileSync(`config/${applicationEnv}.env`))
 
 const exportsMap = require('./exports-map.js')
@@ -44,14 +45,16 @@ const nextConfig = {
 
     config.module.rules.push(
       {
-        test: /\.(jpe?g|png|svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webm)$/,
+        test: /\.(svg|gif|ico|eot|ttf|woff|woff2|mp4|pdf|webm)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
               publicPath: '../../../',
               emitFile: false,
-              name: '[path][name].[ext]?[sha512:hash:base64:7]',
+              name (file) {
+                return `${file.split('/public/')[1]}?[sha512:hash:base64:7]`
+              }
             }
           }
         ]
@@ -69,4 +72,4 @@ const nextConfig = {
   },
 }
 
-module.exports = withBundleAnalyzer(withOffline(nextConfig))
+module.exports = withBundleAnalyzer(withOffline(withImages(nextConfig)))

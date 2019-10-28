@@ -8,7 +8,7 @@ const breakpoints = {
 
 const generateMediaQueries = (breakpoints) => {
   const queries = {}
-  for (let breakpoint in breakpoints) {
+  for (const breakpoint in breakpoints) {
     const bp = breakpoints[breakpoint]
     queries[breakpoint] = `@media (min-width: ${bp}px)`
   }

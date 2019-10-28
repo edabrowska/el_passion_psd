@@ -1,13 +1,9 @@
-import { getStaticFilePath, getRasterImagePath, isSVG } from '~/utils/helpers'
+import { getRasterImagePath, isSVG } from '~/utils/helpers'
 
-export default ({ src, className, ...props }) => {
-  const source = getStaticFilePath(src)
-  return (
-    <img
-      {...props}
-      className={className}
-      src={source}
-      srcSet={isSVG(src) ? '' : `${source} 1x, ${getRasterImagePath(src)} 2x`}
-    />
-  )
-}
+export default ({ src, className, ...props }) =>
+  <img
+    {...props}
+    className={className}
+    src={src}
+    srcSet={isSVG(src) ? '' : `${src} 1x, ${getRasterImagePath(src)} 2x`}
+  />

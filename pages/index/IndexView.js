@@ -7,41 +7,40 @@ import {
   Image,
 } from './Index.shards'
 import React from 'react'
-import { withNamespaces } from '>/i18n'
+import { withTranslation } from '>/i18n'
 
 import Icon from '-/logo.svg'
+import img from '-/next.png'
+
 import Layout from '~/components/Layout'
 
 export const namespaces = ['landing', 'common']
 
-const Index = ({ t }) => {
-  return (
-    <Layout>
-      <Root>
-        <MainHeading>Main page</MainHeading>
-        <Image
-          src='next.png'
-        />
-        <Icon
-          style={{ width: 200 }} // you can, but don't :)
-        />
-        <Section>
-          <h2>Static content & i18n</h2>
-          <SomeDiv>background image example</SomeDiv>
-          <p>
+const Index = ({ t }) =>
+  <Layout>
+    <Root>
+      <MainHeading>Main page</MainHeading>
+      <Image
+        src={img}
+      />
+      <Icon
+        style={{ width: 200 }} // you can, but don't :)
+      />
+      <Section>
+        <h2>Static content & i18n</h2>
+        <SomeDiv>background image example</SomeDiv>
+        <p>
           Put static text on pages like this: <b>{t('common:button.ok')}</b>.
-            <br />
-          Static strings are placed in static/locale/namespace.json
-            <br />
+          <br />
+          Static strings are placed in public/locale/namespace.json
+          <br />
           Use this regardless of whether you think you need internationalization.
-            <br />
+          <br />
           More info on i18next: google "i18next" and "next-i18next". A <a>link</a>.
-          </p>
-          <IcoCog />
-        </Section>
-      </Root>
-    </Layout>
-  )
-}
+        </p>
+        <IcoCog />
+      </Section>
+    </Root>
+  </Layout>
 
-export default withNamespaces(namespaces)(Index)
+export default withTranslation(namespaces)(Index)
