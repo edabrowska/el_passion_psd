@@ -2,10 +2,10 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import styled from '@emotion/styled'
 import {
-  IcoCog,
-  IcoPersonalize,
-  IcoSearch,
-  IcoTag,
+  IcoClosedIssue,
+  IcoGithub,
+  IcoOpenIssue,
+  IcoStar,
 } from '~/styles/icofont'
 
 import sectionDecorator from './decorators/sectionDecorator'
@@ -33,20 +33,20 @@ storiesOf('Icons "i-"', module)
         a coloured svg in your project, use inline svg.
       </p>
       <Line>
-        <IcoCog />
-        <div>IcoCog</div>
+        <IcoClosedIssue />
+        <div>IcoClosedIssue</div>
       </Line>
       <Line>
-        <IcoPersonalize />
-        <div>IcoPersonalize</div>
+        <IcoGithub />
+        <div>IcoGithub</div>
       </Line>
       <Line>
-        <IcoSearch />
-        <div>IcoSearch</div>
+        <IcoOpenIssue />
+        <div>IcoOpenIssue</div>
       </Line>
       <Line>
-        <IcoTag />
-        <div>IcoTag</div>
+        <IcoStar />
+        <div>IcoStar</div>
       </Line>
     </div>
   ))

@@ -1,7 +1,5 @@
 import { css } from '@emotion/core'
 import normalize from 'emotion-normalize'
-import { fontSizes, lineHeight, fonts } from '~/styles/theme/commons'
-import { primary, text } from '~/styles/theme/colors'
 
 import { icofontFace } from '~/styles/icofont'
 
@@ -18,30 +16,18 @@ const base = css`
   }
 
   body {
-    color: ${text.primary};
-    font: normal ${fontSizes.text.normal} / ${lineHeight.normal} ${fonts.main};
-}
-
-  a {
-    color: ${primary.main};
-    text-decoration: none;
-
-    &:hover,
-    &:active,
-    &:focus {
-      color: ${primary.main};
-      text-decoration: underline;
-    }
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
   }
-`
 
-const layout = css`
-
+  p {
+    margin: 0;
+  }
 `
 
 export default css`
   ${normalize}
   ${base}
-  ${layout}
   ${icofontFace}
 `

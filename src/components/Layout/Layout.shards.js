@@ -1,14 +1,9 @@
 import styled from '@emotion/styled'
 
 export const Root = styled.div`
-  display: grid;
-  grid-template-areas: "header"
-                       "content"
-                       "footer";
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
-`
-
-export const Main = styled.main`
-  grid-area: content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('background.jpg');
 `

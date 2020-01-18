@@ -31,25 +31,25 @@ const icoBase = css`
   -moz-osx-font-smoothing: grayscale;
 `
 
-export const IcoCog = styled.span`
+export const IcoClosedIssue = styled.span`
   ${icoBase}
   &:before {
     content: "\f101";
   }
 `
-export const IcoPersonalize = styled.span`
+export const IcoGithub = styled.span`
   ${icoBase}
   &:before {
     content: "\f102";
   }
 `
-export const IcoSearch = styled.span`
+export const IcoOpenIssue = styled.span`
   ${icoBase}
   &:before {
     content: "\f103";
   }
 `
-export const IcoTag = styled.span`
+export const IcoStar = styled.span`
   ${icoBase}
   &:before {
     content: "\f104";
