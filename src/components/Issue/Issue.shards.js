@@ -18,7 +18,11 @@ export const IssueRoot = styled.div`
   line-height: 50px;
   letter-spacing: .07px;
   color: ${({ theme }) => theme.colors.text.primary};
-  margin: 5px 0;
+  margin: 6px 0;
+
+    &:last-of-type {
+      margin-bottom: 10px;
+    }
 `
 
 export const StyledImageTag = styled(ImageTag)`

@@ -1,11 +1,11 @@
 import React from 'react'
 
-import { Root } from '~/components/Layout/Layout.shards'
+import { LayoutRoot } from '~/components/Layout/Layout.shards'
 
 export default ({
   children
 }) => (
-  <Root>
+  <LayoutRoot>
     {children}
-  </Root>
+  </LayoutRoot>
 )
